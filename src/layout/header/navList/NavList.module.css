@@ -1,0 +1,12 @@
+.navList {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: transparent;
+}
+
+.navList > li {
+    font-family: var(--font-headers);
+    letter-spacing: var(--ls-header);
+    font-size: 1.3rem;
+}
