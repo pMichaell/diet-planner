@@ -9,13 +9,6 @@
     border-bottom: 1px solid hsl(var(--clr-creamy-green));
 }
 
-/*@supports (backdrop-filter: blur(1.5rem)) {
-    .header {
-        background-color: hsl(var(--clr-white) / 0.05);
-        backdrop-filter: blur(1.5rem);
-    }
-}*/
-
 .title {
     color: hsl(var(--clr-creamy-green));
     font-size: var(--fs-800);

@@ -2,9 +2,11 @@ import classes from "./Header.module.css";
 import { ReactComponent as Apple } from "../../../assets/apple.svg";
 import clsx from "clsx";
 import HamburgerMenu from "../hamburgerMenu/HamburgerMenu";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import useWindowDimensions from "../../../hooks/use-window-dimensions";
 import NavList from "../navList/NavList";
+import { Fragment, useState } from "react";
+import DropdownNav from "../dropdownNav/DropdownNav";
 
 export const headerVariants = {
   initial: {
@@ -20,25 +22,31 @@ export const headerVariants = {
 };
 
 const Header = () => {
-  const { width } = useWindowDimensions();
-  const isResponsive = width <= 560;
+  const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
+
+  const changeDropDownState = () => {
+    setDropdownVisible((prevState) => !prevState);
+  };
 
   return (
-    <motion.header
-      className={classes.header}
-      variants={headerVariants}
-      initial={"initial"}
-      animate={"animate"}
-    >
-      <Apple className={classes.logo} />
-      <motion.h2
-        className={clsx("uppercase", classes.title)}
+    <div>
+      <motion.header
+        className={classes.header}
         variants={headerVariants}
+        initial={"initial"}
+        animate={"animate"}
       >
-        Diet Planner
-      </motion.h2>
-      <HamburgerMenu onClick={() => {}} />
-    </motion.header>
+        <Apple className={classes.logo} />
+        <motion.h2
+          className={clsx("uppercase", classes.title)}
+          variants={headerVariants}
+        >
+          Diet Planner
+        </motion.h2>
+        <HamburgerMenu onClick={changeDropDownState} />
+      </motion.header>
+      <AnimatePresence>{dropdownVisible && <DropdownNav />}</AnimatePresence>
+    </div>
   );
 };
 

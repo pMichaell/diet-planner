@@ -124,3 +124,8 @@ Utility classes
     max-width: 60rem;
     height: 100%;
 }
+
+.fillParent {
+    width: 100%;
+    height: 100%;
+}
