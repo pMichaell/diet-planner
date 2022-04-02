@@ -31,7 +31,10 @@ const Header = () => {
       animate={"animate"}
     >
       <Apple className={classes.logo} />
-      <motion.h2 className={clsx("uppercase")} variants={headerVariants}>
+      <motion.h2
+        className={clsx("uppercase", classes.title)}
+        variants={headerVariants}
+      >
         Diet Planner
       </motion.h2>
       <HamburgerMenu onClick={() => {}} />

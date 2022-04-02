@@ -1,6 +1,17 @@
 :root {
-    --font-headers: 'Yantramanav', sans-serif;
+    /* colors */
+    --clr-white: 0 0% 100%;
+    --clr-creamy-green: 163 75% 80%;
+
+    --font-headlines: 'Eczar', serif;
+    --font-body: 'Gentium Basic', serif;
     --ls-header: 1px;
+    --fs-xl: 3rem;
+    --fs-800: 2rem;
+    --fs-700: 1.75rem;
+    --fs-600: 1.5rem;
+    --fs-500: 1.25rem;
+    --fs-400: 1rem;
 }
 
 /* Box sizing rules */
@@ -24,6 +35,13 @@ dd {
     margin: 0;
 }
 
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-headlines);
+}
+
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
 ul[role='list'],
 ol[role='list'] {
@@ -41,7 +59,7 @@ html:focus-within {
 
 /* Set core body defaults */
 body {
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-family: var(--font-body);
     color: white;
     background: black;
     min-height: 100vh;
