@@ -1,35 +1,43 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import classes from "./DropdownNav.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const dropdownVariants = {
-  initial: { height: 0, opacity: 0 },
+  initial: { height: 0, opacity: 0.5 },
   animate: {
-    height: "50vh",
+    height: "30vmax",
     opacity: 1,
     transition: {
       when: "beforeChildren",
-      staggerChildren: 0.5,
+      staggerChildren: 0.2,
     },
   },
   exit: {
-    height: 0,
     opacity: 0,
+    transition: {
+      when: "afterChildren",
+    },
   },
 };
 
 const itemVariants = {
-  initial: (i) => ({
-    opacity: 0,
+  initial: (i: number) => ({
     x: i % 2 === 0 ? "100vw" : "-100vw",
+    opacity: 0,
   }),
   animate: {
-    opacity: 1,
     x: 0,
+    opacity: 1,
   },
+  exit: (i: number) => ({
+    x: i % 2 === 0 ? "100vw" : "-100vw",
+    opacity: 0,
+  }),
 };
 
 const DropdownNav = () => {
+  const navigate = useNavigate();
+
   return (
     <motion.nav
       className={classes.nav}
@@ -38,9 +46,17 @@ const DropdownNav = () => {
       animate={"animate"}
       exit={"exit"}
     >
-      <Link to={"/my-account"}>My Account</Link>
-      <Link to={"/my plans"}>My Plans</Link>
-      <Link to={"/planner"}>New Plan</Link>
+      <AnimatePresence>
+        <motion.div variants={itemVariants} custom={0} key={0}>
+          <Link to={"/my-account"}>My Account</Link>
+        </motion.div>
+        <motion.div variants={itemVariants} custom={1} key={1}>
+          <Link to={"/my plans"}>My Plans</Link>
+        </motion.div>
+        <motion.div variants={itemVariants} custom={2} key={2}>
+          <Link to={"/planner"}>New Plan</Link>
+        </motion.div>
+      </AnimatePresence>
     </motion.nav>
   );
 };

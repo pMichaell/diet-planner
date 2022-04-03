@@ -6,14 +6,7 @@ function App() {
   //TODO add responsive typography with clamp
   return (
     <Layout>
-      <div className={classes.testDiv}>
-        <div>XD</div>
-        <div>XD</div>
-        <div>XD</div>
-        <div>XD</div>
-        <div>XD</div>
-        <div>XD</div>
-      </div>
+      <div className={classes.testDiv}></div>
     </Layout>
   );
 }

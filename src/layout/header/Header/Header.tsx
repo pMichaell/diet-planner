@@ -45,7 +45,9 @@ const Header = () => {
         </motion.h2>
         <HamburgerMenu onClick={changeDropDownState} />
       </motion.header>
-      <AnimatePresence>{dropdownVisible && <DropdownNav />}</AnimatePresence>
+      <AnimatePresence exitBeforeEnter>
+        {dropdownVisible && <DropdownNav />}
+      </AnimatePresence>
     </div>
   );
 };
