@@ -5,18 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 const dropdownVariants = {
   initial: { height: 0, opacity: 0.5 },
   animate: {
-    height: "30vmax",
+    height: "50vmin",
     opacity: 1,
     transition: {
-      when: "beforeChildren",
       staggerChildren: 0.2,
     },
   },
   exit: {
     opacity: 0,
-    transition: {
-      when: "afterChildren",
-    },
   },
 };
 
