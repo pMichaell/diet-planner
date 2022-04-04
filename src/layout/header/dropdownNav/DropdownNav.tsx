@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import classes from "./DropdownNav.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Books, IconContext, ListChecks, User } from "phosphor-react";
+import { useEffect } from "react";
 
 const dropdownVariants = {
   initial: { height: 0, opacity: 0.5 },
@@ -43,6 +44,10 @@ const itemVariants = {
 
 const DropdownNav = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isLoggedIn = false;
+
+  useEffect(() => {});
 
   return (
     <IconContext.Provider
@@ -97,7 +102,9 @@ const DropdownNav = () => {
             whileHover={"whileHover"}
           >
             <User />
-            <Link to={"/my-account"}>My Account</Link>
+            <Link to={`${isLoggedIn ? "account" : "login"}`}>
+              {isLoggedIn ? "My Account" : "Login"}
+            </Link>
           </motion.div>
         </AnimatePresence>
       </motion.nav>
