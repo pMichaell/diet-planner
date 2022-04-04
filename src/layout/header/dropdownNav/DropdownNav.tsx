@@ -8,9 +8,6 @@ const dropdownVariants = {
   animate: {
     height: "50vmin",
     opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
   },
   exit: {
     opacity: 0,
@@ -20,15 +17,21 @@ const dropdownVariants = {
 const itemVariants = {
   initial: (i: number) => ({
     x: i % 2 === 0 ? "100vw" : "-100vw",
-    opacity: 0,
+    opacity: 0.5,
   }),
-  animate: {
+  animate: (i: number) => ({
     x: 0,
     opacity: 1,
-  },
+    transition: {
+      delay: i * 0.15,
+    },
+  }),
   exit: (i: number) => ({
     x: i % 2 === 0 ? "100vw" : "-100vw",
     opacity: 0,
+    transition: {
+      delay: i * 0.15,
+    },
   }),
   whileHover: {
     scale: 1.1,
@@ -59,30 +62,39 @@ const DropdownNav = () => {
         <AnimatePresence>
           <motion.div
             variants={itemVariants}
-            whileHover={"whileHover"}
-            whileTap={"whileTap"}
-            custom={0}
+            custom={1}
             key={0}
+            initial={"initial"}
+            animate={"animate"}
+            exit={"exit"}
+            whileTap={"whileTap"}
+            whileHover={"whileHover"}
           >
             <User />
             <Link to={"/my-account"}>My Account</Link>
           </motion.div>
           <motion.div
             variants={itemVariants}
-            whileHover={"whileHover"}
-            whileTap={"whileTap"}
-            custom={1}
+            custom={2}
             key={1}
+            initial={"initial"}
+            animate={"animate"}
+            exit={"exit"}
+            whileTap={"whileTap"}
+            whileHover={"whileHover"}
           >
             <Books />
             <Link to={"/my plans"}>My Plans</Link>
           </motion.div>
           <motion.div
             variants={itemVariants}
-            whileHover={"whileHover"}
-            whileTap={"whileTap"}
-            custom={2}
+            custom={3}
             key={2}
+            initial={"initial"}
+            animate={"animate"}
+            exit={"exit"}
+            whileTap={"whileTap"}
+            whileHover={"whileHover"}
           >
             <ListChecks />
             <Link to={"/planner"}>New Plan</Link>

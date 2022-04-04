@@ -7,6 +7,7 @@ import useWindowDimensions from "../../../hooks/use-window-dimensions";
 import NavList from "../navList/NavList";
 import { Fragment, useState } from "react";
 import DropdownNav from "../dropdownNav/DropdownNav";
+import { List } from "phosphor-react";
 
 export const headerVariants = {
   initial: {
@@ -43,11 +44,14 @@ const Header = () => {
         >
           Diet Planner
         </motion.h2>
-        <HamburgerMenu onClick={changeDropDownState} />
+        <List
+          color={"hsla(163 75% 80%)"}
+          size={"2.5em"}
+          weight={"bold"}
+          onClick={changeDropDownState}
+        />
       </motion.header>
-      <AnimatePresence exitBeforeEnter>
-        {dropdownVisible && <DropdownNav />}
-      </AnimatePresence>
+      <AnimatePresence>{dropdownVisible && <DropdownNav />}</AnimatePresence>
     </div>
   );
 };
