@@ -22,3 +22,10 @@
     aspect-ratio: 1;
     fill: hsl(var(--clr-creamy-green));
 }
+
+.navIcon {
+    height: 2.5em;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+}

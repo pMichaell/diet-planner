@@ -1,13 +1,10 @@
 import classes from "./Header.module.css";
 import { ReactComponent as Apple } from "../../../assets/apple.svg";
 import clsx from "clsx";
-import HamburgerMenu from "../hamburgerMenu/HamburgerMenu";
 import { AnimatePresence, motion } from "framer-motion";
-import useWindowDimensions from "../../../hooks/use-window-dimensions";
-import NavList from "../navList/NavList";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import DropdownNav from "../dropdownNav/DropdownNav";
-import { List } from "phosphor-react";
+import { List, X } from "phosphor-react";
 
 export const headerVariants = {
   initial: {
@@ -19,6 +16,21 @@ export const headerVariants = {
       type: "spring",
       stiffness: 200,
     },
+  },
+};
+
+const navIconVariants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      ease: "easeIn",
+    },
+  },
+  exit: {
+    opacity: 0,
   },
 };
 
@@ -44,12 +56,37 @@ const Header = () => {
         >
           Diet Planner
         </motion.h2>
-        <List
-          color={"hsla(163 75% 80%)"}
-          size={"2.5em"}
-          weight={"bold"}
-          onClick={changeDropDownState}
-        />
+        {!dropdownVisible ? (
+          <AnimatePresence>
+            <motion.div
+              className={classes.navIcon}
+              variants={navIconVariants}
+              animate={"animate"}
+              initial={"initial"}
+            >
+              <List
+                color={"hsla(163 75% 80%)"}
+                size={"2.5em"}
+                weight={"bold"}
+                onClick={changeDropDownState}
+              />
+            </motion.div>
+          </AnimatePresence>
+        ) : (
+          <motion.div
+            className={classes.navIcon}
+            variants={navIconVariants}
+            animate={"animate"}
+            initial={"initial"}
+          >
+            <X
+              color={"hsla(163 75% 80%)"}
+              size={"2.5em"}
+              weight={"bold"}
+              onClick={changeDropDownState}
+            />
+          </motion.div>
+        )}
       </motion.header>
       <AnimatePresence>{dropdownVisible && <DropdownNav />}</AnimatePresence>
     </div>

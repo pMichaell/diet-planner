@@ -63,19 +63,6 @@ const DropdownNav = () => {
           <motion.div
             variants={itemVariants}
             custom={1}
-            key={0}
-            initial={"initial"}
-            animate={"animate"}
-            exit={"exit"}
-            whileTap={"whileTap"}
-            whileHover={"whileHover"}
-          >
-            <User />
-            <Link to={"/my-account"}>My Account</Link>
-          </motion.div>
-          <motion.div
-            variants={itemVariants}
-            custom={2}
             key={1}
             initial={"initial"}
             animate={"animate"}
@@ -88,7 +75,7 @@ const DropdownNav = () => {
           </motion.div>
           <motion.div
             variants={itemVariants}
-            custom={3}
+            custom={2}
             key={2}
             initial={"initial"}
             animate={"animate"}
@@ -98,6 +85,19 @@ const DropdownNav = () => {
           >
             <ListChecks />
             <Link to={"/planner"}>New Plan</Link>
+          </motion.div>
+          <motion.div
+            variants={itemVariants}
+            custom={3}
+            key={0}
+            initial={"initial"}
+            animate={"animate"}
+            exit={"exit"}
+            whileTap={"whileTap"}
+            whileHover={"whileHover"}
+          >
+            <User />
+            <Link to={"/my-account"}>My Account</Link>
           </motion.div>
         </AnimatePresence>
       </motion.nav>
