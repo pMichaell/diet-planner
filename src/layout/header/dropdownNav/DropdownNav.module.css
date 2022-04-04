@@ -11,11 +11,15 @@
 .nav a {
     display: block;
     font-size: var(--fs-800);
-    color: hsl(var(--clr-creamy-green) / .9)
+    color: hsl(var(--clr-creamy-green) / .9);
 }
 
-nav div {
-
+.nav div {
+    cursor: pointer;
+    width: clamp(13rem, 50%, 16rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 @supports (backdrop-filter: blur(1.5rem)) {
@@ -26,3 +30,6 @@ nav div {
 }
 
 
+@media (min-width: 560px) {
+
+}
