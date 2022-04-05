@@ -6,8 +6,8 @@ import AnimatedPage from "../../components/AnimatedPage";
 const LoginPage = () => {
   return (
     <AnimatedPage className={clsx("fillParent", classes.loginPage)}>
-      <input />
-      <input />
+      <motion.input type={"text"} />
+      <motion.input type={"password"} />
     </AnimatedPage>
   );
 };

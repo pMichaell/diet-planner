@@ -5,7 +5,11 @@
 
     --font-headlines: 'Eczar', serif;
     --font-body: 'Gentium Basic', serif;
+
+    /* letter spacings */
     --ls-header: 1px;
+
+    /* font sizes */
     --fs-xl: 3rem;
     --fs-800: 2rem;
     --fs-700: 1.75rem;
@@ -87,11 +91,16 @@ select {
 }
 
 button {
-    font-family: inherit;
     border: 0;
     padding: 0;
     background: none;
-    color: white;
+}
+
+input {
+    border: 0;
+    padding: 0;
+    background: none;
+    outline: none;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
