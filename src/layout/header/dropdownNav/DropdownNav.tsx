@@ -43,8 +43,6 @@ const itemVariants = {
 };
 
 const DropdownNav = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const isLoggedIn = false;
 
   useEffect(() => {});
@@ -76,7 +74,7 @@ const DropdownNav = () => {
             whileHover={"whileHover"}
           >
             <Books />
-            <Link to={"/my plans"}>My Plans</Link>
+            <Link to={"/my-plans"}>My Plans</Link>
           </motion.div>
           <motion.div
             variants={itemVariants}

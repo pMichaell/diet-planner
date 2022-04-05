@@ -2,9 +2,10 @@ import classes from "./Header.module.css";
 import { ReactComponent as Apple } from "../../../assets/apple.svg";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DropdownNav from "../dropdownNav/DropdownNav";
 import { List, X } from "phosphor-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const headerVariants = {
   initial: {
@@ -36,20 +37,26 @@ const navIconVariants = {
 
 const Header = () => {
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setDropdownVisible(false);
+  }, [location]);
 
   const changeDropDownState = () => {
     setDropdownVisible((prevState) => !prevState);
   };
 
   return (
-    <div>
+    <div className={classes.headerDiv}>
       <motion.header
         className={classes.header}
         variants={headerVariants}
         initial={"initial"}
         animate={"animate"}
       >
-        <Apple className={classes.logo} />
+        <Apple className={classes.logo} onClick={() => navigate("/")} />
         <motion.h2
           className={clsx("uppercase", classes.title)}
           variants={headerVariants}

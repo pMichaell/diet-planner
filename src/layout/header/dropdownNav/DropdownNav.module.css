@@ -6,6 +6,7 @@
     overflow: hidden;
     gap: 1em;
     justify-content: center;
+    z-index: 10;
 }
 
 .nav a {
