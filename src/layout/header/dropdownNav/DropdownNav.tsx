@@ -3,6 +3,7 @@ import classes from "./DropdownNav.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Books, IconContext, ListChecks, User } from "phosphor-react";
 import { useEffect } from "react";
+import { verticalListItemsVariants } from "../../../framerVariants";
 
 const dropdownVariants = {
   initial: { height: 0, opacity: 0.5 },
@@ -12,33 +13,6 @@ const dropdownVariants = {
   },
   exit: {
     opacity: 0,
-  },
-};
-
-const itemVariants = {
-  initial: (i: number) => ({
-    x: i % 2 === 0 ? "100vw" : "-100vw",
-    opacity: 0.5,
-  }),
-  animate: (i: number) => ({
-    x: 0,
-    opacity: 1,
-    transition: {
-      delay: i * 0.15,
-    },
-  }),
-  exit: (i: number) => ({
-    x: i % 2 === 0 ? "100vw" : "-100vw",
-    opacity: 0,
-    transition: {
-      delay: i * 0.15,
-    },
-  }),
-  whileHover: {
-    scale: 1.1,
-  },
-  whileTap: {
-    scale: 0.9,
   },
 };
 
@@ -64,7 +38,7 @@ const DropdownNav = () => {
       >
         <AnimatePresence>
           <motion.div
-            variants={itemVariants}
+            variants={verticalListItemsVariants}
             custom={1}
             key={1}
             initial={"initial"}
@@ -77,7 +51,7 @@ const DropdownNav = () => {
             <Link to={"/my-plans"}>My Plans</Link>
           </motion.div>
           <motion.div
-            variants={itemVariants}
+            variants={verticalListItemsVariants}
             custom={2}
             key={2}
             initial={"initial"}
@@ -90,7 +64,7 @@ const DropdownNav = () => {
             <Link to={"/planner"}>New Plan</Link>
           </motion.div>
           <motion.div
-            variants={itemVariants}
+            variants={verticalListItemsVariants}
             custom={3}
             key={0}
             initial={"initial"}
