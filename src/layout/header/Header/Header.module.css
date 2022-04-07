@@ -10,6 +10,7 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid hsl(var(--clr-creamy-green));
+    font-family: var(--font-headlines);
 }
 
 .title {

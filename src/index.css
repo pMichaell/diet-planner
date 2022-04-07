@@ -4,9 +4,15 @@
     --clr-creamy-green: 163 75% 80%;
     --clr-fluffy-purple: 311 64% 85%;
 
-    /* fomts */
-    --font-headlines: 'Eczar', serif;
-    --font-body: 'Gentium Basic', serif;
+    /* fomt-families */
+    --font-headlines: 'Oswald', sans-serif;;
+    --font-body: 'Montserrat', sans-serif;;
+
+    /* font weights */
+    --oswald-regular: 400;
+    --oswald-light: 200;
+    --montserat-extra-light: 200;
+
 
     /* letter spacings */
     --ls-header: 1px;
@@ -18,6 +24,7 @@
     --fs-600: 1.5rem;
     --fs-500: 1.25rem;
     --fs-400: 1rem;
+
 }
 
 /* Box sizing rules */
@@ -41,12 +48,6 @@ dd {
     margin: 0;
 }
 
-h1,
-h2,
-h3,
-h4 {
-    font-family: var(--font-headlines);
-}
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
 ul[role='list'],
@@ -73,8 +74,13 @@ body {
     line-height: 1.5;
 }
 
+
 a {
     text-decoration: none;
+}
+
+p {
+    font-family: var(--font-body);
 }
 
 /* Make images easier to work with */

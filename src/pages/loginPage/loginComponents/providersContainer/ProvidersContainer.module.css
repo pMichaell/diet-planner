@@ -1,0 +1,30 @@
+.providerButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 1em;
+    border-radius: 20px;
+    height: 3em;
+    width: 85%;
+    letter-spacing: var(--ls-header);
+    background: black;
+}
+
+.googleButton {
+
+}
+
+.gitHubButton {
+    background: black;
+}
+
+.providerButton > * {
+    color: white;
+}
+
+.fbButton {
+
+}
+
+
+

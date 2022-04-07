@@ -12,25 +12,20 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
     background: transparent;
     border: 2px solid hsl(var(--clr-creamy-green));
     border-radius: 20px;
 }
 
-/*@supports (backdrop-filter: blur(1.5rem)) {
+@supports (backdrop-filter: blur(1.5rem)) {
     .loginContainer {
         background-color: hsl(var(--clr-white) / 0.05);
         backdrop-filter: blur(1.5rem);
     }
-}*/
-
-.providerButton {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-inline: 0.5em;
-    outline: 1px solid red;
 }
+
+
 
 .orDiv {
     display: flex;
@@ -38,6 +33,7 @@
     justify-content: center;
     padding-inline: 2em;
     gap: 1em;
+    width: 100%;
 }
 
 .orDiv > hr {

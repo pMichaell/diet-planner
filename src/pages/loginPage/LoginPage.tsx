@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import classes from "./LoginPage.module.css";
 import clsx from "clsx";
 import AnimatedPage from "../../components/AnimatedPage";
-import ProvidersContainer from "./loginComponents/ProvidersContainer";
+import ProvidersContainer from "./loginComponents/providersContainer/ProvidersContainer";
 import LoginBreak from "./loginComponents/LoginBreak";
 import CredentialsContainer from "./loginComponents/CredentialsContainer";
 
