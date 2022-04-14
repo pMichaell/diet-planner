@@ -1,7 +1,7 @@
 import classes from "../LoginPage.module.css";
 import { Fragment } from "react";
 import { motion } from "framer-motion";
-import PasswordInput from "../animatedInput/PasswordInput";
+import PasswordInput from "./passwordInput/PasswordInput";
 
 const CredentialsContainer = () => {
   return (

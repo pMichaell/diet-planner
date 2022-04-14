@@ -2,11 +2,9 @@ import { motion, useAnimation } from "framer-motion";
 import classes from "./PasswordInput.module.css";
 import { useEffect, useState } from "react";
 import { Check } from "phosphor-react";
+import { checkMarkGreen } from "../../../../utils/CssColors";
 
 const minLength = 6;
-const color = `hsl(${getComputedStyle(
-  document.documentElement
-).getPropertyValue("--clr-checkmark-green")})`;
 
 const PasswordInput = () => {
   const [value, setValue] = useState<string>("");
@@ -21,7 +19,6 @@ const PasswordInput = () => {
         velocity: 4,
       },
     });
-    console.log(color);
   }, [value.length]);
 
   return (
@@ -43,7 +40,7 @@ const PasswordInput = () => {
           animate={controls}
           className={classes.animatedSpan}
         >
-          <Check size={"2.5rem"} color={color} />
+          <Check size={"2.5rem"} color={checkMarkGreen} />
         </motion.span>
       )}
     </div>

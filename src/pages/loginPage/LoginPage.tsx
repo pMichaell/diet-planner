@@ -5,6 +5,7 @@ import AnimatedPage from "../../components/AnimatedPage";
 import ProvidersContainer from "./loginComponents/providersContainer/ProvidersContainer";
 import LoginBreak from "./loginComponents/LoginBreak";
 import CredentialsContainer from "./loginComponents/CredentialsContainer";
+import LoginContainer from "./loginComponents/loginContainer/LoginContainer";
 
 const loginVariants = {
   initial: {
@@ -34,7 +35,7 @@ const LoginPage = () => {
       >
         <ProvidersContainer />
         <LoginBreak />
-        <CredentialsContainer />
+        <LoginContainer />
       </motion.div>
     </AnimatedPage>
   );

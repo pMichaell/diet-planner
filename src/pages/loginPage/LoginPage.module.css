@@ -7,12 +7,10 @@
 
 .loginContainer {
     width: 85%;
-    height: 85%;
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    height: max(500px, 80%);
+    padding-inline: 1em;
+    display: grid;
+    grid-template-rows: 1fr repeat(3, minmax(60px, 0.1fr)) 0.1fr 0.5fr 1fr;
     background: transparent;
     border: 2px solid hsl(var(--clr-creamy-green));
     border-radius: 20px;
