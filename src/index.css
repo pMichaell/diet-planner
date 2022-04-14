@@ -3,6 +3,7 @@
     --clr-white: 0 0% 100%;
     --clr-creamy-green: 163 75% 80%;
     --clr-fluffy-purple: 311 64% 85%;
+    --clr-checkmark-green: 90 100% 44%;
 
     /* fomt-families */
     --font-headlines: 'Oswald', sans-serif;;
@@ -24,7 +25,7 @@
     --fs-600: 1.5rem;
     --fs-500: 1.25rem;
     --fs-400: 1rem;
-
+    --fs-300: 0.75rem;
 }
 
 /* Box sizing rules */

@@ -2,29 +2,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-inline: 1em;
-    border-radius: 20px;
-    height: 3em;
+    padding-inline: clamp(1em,5vw, 5em);
+    border-radius: 30px;
+    height: 3.5em;
     width: 85%;
     letter-spacing: var(--ls-header);
-    background: black;
-}
-
-.googleButton {
-
-}
-
-.gitHubButton {
-    background: black;
+    cursor: pointer;
+    border: 2px solid;
+    background-color: black;
 }
 
 .providerButton > * {
     color: white;
 }
 
-.fbButton {
-
+.providerButton > h4 {
+    font-size: var(--fs-400);
 }
-
-
-
