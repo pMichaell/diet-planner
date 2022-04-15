@@ -7,13 +7,28 @@
 
 .loginContainer {
     width: 85%;
-    height: max(500px, 80%);
+    height: max(545px, 90%);
     padding-inline: 1em;
-    display: grid;
-    grid-template-rows: 1fr repeat(3, minmax(60px, 0.1fr)) 0.1fr 0.5fr 1fr;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 2px solid hsl(var(--clr-creamy-green));
     border-radius: 20px;
+}
+
+.loginSection {
+    height: 90%;
+    display: grid;
+    flex: 1
+}
+
+@media (min-height: 700px) {
+    .loginSection {
+        grid-template-rows: 0.7fr 50px 1fr;
+    }
 }
 
 @supports (backdrop-filter: blur(1.5rem)) {
@@ -22,7 +37,6 @@
         backdrop-filter: blur(1.5rem);
     }
 }
-
 
 
 .orDiv {
@@ -39,6 +53,16 @@
     border-top: 1px solid var(--clr-creamy-green);
     display: inline-block;
     flex: 1;
+}
+
+
+
+.helpParagraph {
+    text-align: center;
+}
+
+.helpParagraph > span {
+    text-decoration: underline;
 }
 
 

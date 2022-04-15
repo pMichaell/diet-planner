@@ -26,16 +26,26 @@ const loginVariants = {
 const LoginPage = () => {
   return (
     <AnimatedPage className={clsx("fillParent", classes.loginPage)}>
-      <motion.div
-        className={classes.loginContainer}
-        variants={loginVariants}
-        initial={"initial"}
-        animate={"animate"}
-        exit={"exit"}
-      >
-        <ProvidersContainer />
-        <LoginBreak />
-        <LoginContainer />
+      <motion.div className={classes.loginContainer}>
+        <motion.section
+          className={classes.loginSection}
+          variants={loginVariants}
+          initial={"initial"}
+          animate={"animate"}
+          exit={"exit"}
+        >
+          <ProvidersContainer />
+          <LoginBreak />
+          <LoginContainer />
+        </motion.section>
+        <section className={classes.helpSection}>
+          <p className={classes.helpParagraph}>
+            Forgot Your Password? <span>Click here</span>
+          </p>
+          <p className={classes.helpParagraph}>
+            Not a member yet? <span>Sign Up</span>
+          </p>
+        </section>
       </motion.div>
     </AnimatedPage>
   );

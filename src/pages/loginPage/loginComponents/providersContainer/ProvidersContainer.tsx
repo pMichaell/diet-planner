@@ -10,7 +10,7 @@ type ProvidersProps = {
 
 const ProvidersContainer = ({ className }: ProvidersProps) => {
   return (
-    <Fragment>
+    <div className={classes.providersContainer}>
       <motion.button
         className={classes.providerButton}
         whileHover={{ scale: 1.1 }}
@@ -20,16 +20,22 @@ const ProvidersContainer = ({ className }: ProvidersProps) => {
         <h4>Sign in with Google</h4>
       </motion.button>
       <motion.button
-        className={clsx(classes.providerButton, classes.gitHubButton)}
+        className={classes.providerButton}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
       >
         <GithubLogo size={"2em"} />
         <h4>Sign in with Github</h4>
       </motion.button>
-      <motion.button className={classes.providerButton}>
+      <motion.button
+        className={classes.providerButton}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+      >
         <FacebookLogo size={"2em"} />
         <h4>Sign in with Facebook</h4>
       </motion.button>
-    </Fragment>
+    </div>
   );
 };
 
