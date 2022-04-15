@@ -24,3 +24,31 @@ export const verticalListItemsVariants = {
     scale: 0.9,
   },
 };
+
+export const userValidationVariants = {
+  initial: {
+    opacity: 0,
+    rotateY: -180,
+  },
+  animate: {
+    opacity: 1,
+    rotateY: 0,
+    transition: {
+      type: "tween",
+      duration: 0.5,
+    },
+  },
+  exit: {
+    opacity: 0,
+    rotateY: 180,
+  },
+};
+
+export const hoverNPress = {
+  hover: {
+    scale: 1.1,
+  },
+  press: {
+    scale: 0.9,
+  },
+};

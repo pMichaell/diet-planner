@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import classes from "./LoginPage.module.css";
 import clsx from "clsx";
 import AnimatedPage from "../../components/AnimatedPage";
@@ -6,6 +6,9 @@ import ProvidersContainer from "./loginComponents/providersContainer/ProvidersCo
 import LoginBreak from "./loginComponents/LoginBreak";
 import CredentialsContainer from "./loginComponents/CredentialsContainer";
 import LoginContainer from "./loginComponents/loginContainer/LoginContainer";
+import { useState } from "react";
+import RegisterContainer from "./loginComponents/registerContainer/RegisterContainer";
+import { hoverNPress } from "../../framerVariants";
 
 const loginVariants = {
   initial: {
@@ -24,6 +27,8 @@ const loginVariants = {
 };
 
 const LoginPage = () => {
+  const [isLogin, setIsLogin] = useState(true);
+
   return (
     <AnimatedPage className={clsx("fillParent", classes.loginPage)}>
       <motion.div className={classes.loginContainer}>
@@ -36,14 +41,20 @@ const LoginPage = () => {
         >
           <ProvidersContainer />
           <LoginBreak />
-          <LoginContainer />
+          <AnimatePresence>
+            {isLogin ? <LoginContainer /> : <RegisterContainer />}
+          </AnimatePresence>
         </motion.section>
         <section className={classes.helpSection}>
           <p className={classes.helpParagraph}>
-            Forgot Your Password? <span>Click here</span>
+            Forgot Your Password?
+            <span>Click here</span>
           </p>
           <p className={classes.helpParagraph}>
-            Not a member yet? <span>Sign Up</span>
+            {isLogin ? "Not a member yet?" : "Already a member?"}
+            <motion.span onClick={() => setIsLogin((prevState) => !prevState)}>
+              {isLogin ? "Sign Up" : "Log In"}
+            </motion.span>
           </p>
         </section>
       </motion.div>

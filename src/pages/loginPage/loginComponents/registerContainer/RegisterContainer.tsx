@@ -1,13 +1,13 @@
-import classes from "./LoginContainer.module.css";
 import { motion } from "framer-motion";
-import PasswordInput from "../passwordInput/PasswordInput";
+import classes from "./RegisterContainer.module.css";
 import EmailInput from "../emailInput/EmailInput";
+import PasswordInput from "../passwordInput/PasswordInput";
 import { userValidationVariants } from "../../../../framerVariants";
 
-const LoginContainer = () => {
+const RegisterContainer = () => {
   return (
     <motion.section
-      className={classes.loginSection}
+      className={classes.registerSection}
       variants={userValidationVariants}
       initial={"initial"}
       animate={"animate"}
@@ -21,15 +21,19 @@ const LoginContainer = () => {
         <motion.h4>Password</motion.h4>
         <PasswordInput />
       </div>
+      <div>
+        <motion.h4>Repeat Password</motion.h4>
+        <PasswordInput />
+      </div>
       <motion.button
-        className={classes.logInButton}
+        className={classes.registerButton}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        <h4>Log In</h4>
+        <h4>Register</h4>
       </motion.button>
     </motion.section>
   );
 };
 
-export default LoginContainer;
+export default RegisterContainer;

@@ -1,0 +1,25 @@
+.registerSection {
+    display: grid;
+    grid-auto-rows: 1fr;
+    grid-auto-columns: 100%;
+    place-items: center;
+    height: 100%;
+}
+
+.registerSection > div {
+    display: grid;
+    width: 100%;
+    padding-inline: max(0.5em, 2vw);
+}
+
+.registerSection > div > h4 {
+    padding-left: 20px;
+}
+
+.registerButton {
+    width: 50%;
+    border: 2px solid white;
+    color: white;
+    height: 3rem;
+    border-radius: 30px;
+}
