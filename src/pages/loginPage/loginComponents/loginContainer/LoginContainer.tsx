@@ -6,7 +6,7 @@ import { userValidationVariants } from "../../../../framerVariants";
 
 const LoginContainer = () => {
   return (
-    <motion.section
+    <motion.form
       className={classes.loginSection}
       variants={userValidationVariants}
       initial={"initial"}
@@ -28,7 +28,7 @@ const LoginContainer = () => {
       >
         <h4>Log In</h4>
       </motion.button>
-    </motion.section>
+    </motion.form>
   );
 };
 
