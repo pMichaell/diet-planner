@@ -4,11 +4,9 @@ import clsx from "clsx";
 import AnimatedPage from "../../components/AnimatedPage";
 import ProvidersContainer from "./loginComponents/providersContainer/ProvidersContainer";
 import LoginBreak from "./loginComponents/LoginBreak";
-import CredentialsContainer from "./loginComponents/CredentialsContainer";
 import LoginContainer from "./loginComponents/loginContainer/LoginContainer";
 import { useState } from "react";
 import RegisterContainer from "./loginComponents/registerContainer/RegisterContainer";
-import { hoverNPress } from "../../framerVariants";
 
 const loginVariants = {
   initial: {

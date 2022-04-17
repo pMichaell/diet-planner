@@ -1,9 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import classes from "./DropdownNav.module.css";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Books, IconContext, ListChecks, User } from "phosphor-react";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Books, IconContext, ListChecks, SignOut, User } from "phosphor-react";
 import { verticalListItemsVariants } from "../../../framerVariants";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../../firebase/Firebase";
+import { signOut } from "firebase/auth";
 
 const dropdownVariants = {
   initial: { height: 0, opacity: 0.5 },
@@ -17,15 +19,13 @@ const dropdownVariants = {
 };
 
 const DropdownNav = () => {
-  const isLoggedIn = false;
-
-  useEffect(() => {});
+  const [user] = useAuthState(auth);
 
   return (
     <IconContext.Provider
       value={{
         color: "hsla(163 75% 80%)",
-        size: "2rem",
+        size: "32px",
         weight: "light",
       }}
     >
@@ -40,7 +40,7 @@ const DropdownNav = () => {
           <motion.div
             variants={verticalListItemsVariants}
             custom={1}
-            key={1}
+            key={0}
             initial={"initial"}
             animate={"animate"}
             exit={"exit"}
@@ -53,7 +53,7 @@ const DropdownNav = () => {
           <motion.div
             variants={verticalListItemsVariants}
             custom={2}
-            key={2}
+            key={1}
             initial={"initial"}
             animate={"animate"}
             exit={"exit"}
@@ -66,7 +66,7 @@ const DropdownNav = () => {
           <motion.div
             variants={verticalListItemsVariants}
             custom={3}
-            key={0}
+            key={2}
             initial={"initial"}
             animate={"animate"}
             exit={"exit"}
@@ -74,10 +74,25 @@ const DropdownNav = () => {
             whileHover={"whileHover"}
           >
             <User />
-            <Link to={`${isLoggedIn ? "account" : "login"}`}>
-              {isLoggedIn ? "My Account" : "Login"}
+            <Link to={`${user ? "account" : "login"}`}>
+              {user ? "My Account" : "Login"}
             </Link>
           </motion.div>
+          {user && (
+            <motion.div
+              variants={verticalListItemsVariants}
+              custom={4}
+              key={3}
+              initial={"initial"}
+              animate={"animate"}
+              exit={"exit"}
+              whileTap={"whileTap"}
+              whileHover={"whileHover"}
+            >
+              <SignOut />
+              <button onClick={() => signOut(auth)}>Log out</button>
+            </motion.div>
+          )}
         </AnimatePresence>
       </motion.nav>
     </IconContext.Provider>

@@ -6,7 +6,11 @@ import { checkMarkGreen } from "../../../../utils/CssColors";
 
 const minLength = 6;
 
-const PasswordInput = () => {
+const PasswordInput = ({
+  getPasswordInput,
+}: {
+  getPasswordInput: (input: string) => void;
+}) => {
   const [value, setValue] = useState<string>("");
   const charactersRemaining = minLength - value?.length;
   const controls = useAnimation();
@@ -22,11 +26,12 @@ const PasswordInput = () => {
   }, [value.length]);
 
   return (
-    <div className={classes.passwordContainer}>
+    <motion.div className={classes.passwordContainer}>
       <input
         type="password"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        onBlur={() => getPasswordInput(value)}
         className={classes.passwordInput}
       />
 
@@ -43,7 +48,7 @@ const PasswordInput = () => {
           <Check size={"2.5rem"} color={checkMarkGreen} />
         </motion.span>
       )}
-    </div>
+    </motion.div>
   );
 };
 

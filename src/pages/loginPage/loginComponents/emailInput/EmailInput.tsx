@@ -4,7 +4,11 @@ import { motion, useAnimation } from "framer-motion";
 import { Check, X } from "phosphor-react";
 import { checkMarkGreen, creamyGreen } from "../../../../utils/CssColors";
 
-const EmailInput = () => {
+const EmailInput = ({
+  getEmailInput,
+}: {
+  getEmailInput: (input: string) => void;
+}) => {
   const [value, setValue] = useState<string>("");
   const emailCorrect = value.includes("@") && value.includes(".");
   const controls = useAnimation();
@@ -25,12 +29,13 @@ const EmailInput = () => {
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        onBlur={() => getEmailInput(value)}
         className={classes.emailInput}
       />
 
       {!emailCorrect ? (
         <motion.span animate={controls} className={classes.animatedSpan}>
-          <X size={"2.5rem"} color={creamyGreen} />
+          <X size={"2.5rem"} color={"white"} />
         </motion.span>
       ) : (
         <motion.span animate={controls} className={classes.animatedSpan}>

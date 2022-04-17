@@ -3,8 +3,27 @@ import { motion } from "framer-motion";
 import PasswordInput from "../passwordInput/PasswordInput";
 import EmailInput from "../emailInput/EmailInput";
 import { userValidationVariants } from "../../../../framerVariants";
+import { auth } from "../../../../firebase/Firebase";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useState } from "react";
 
 const LoginContainer = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  console.log(error);
+
+  const getEmailInput = (input: string) => {
+    setEmail(input);
+  };
+
+  const getPasswordInput = (input: string) => {
+    setPassword(input);
+  };
+
   return (
     <motion.form
       className={classes.loginSection}
@@ -12,14 +31,18 @@ const LoginContainer = () => {
       initial={"initial"}
       animate={"animate"}
       exit={"exit"}
+      onSubmit={(event) => {
+        event.preventDefault();
+        signInWithEmailAndPassword(email, password);
+      }}
     >
       <div>
         <motion.h4>Email</motion.h4>
-        <EmailInput />
+        <EmailInput getEmailInput={getEmailInput} />
       </div>
       <div>
         <motion.h4>Password</motion.h4>
-        <PasswordInput />
+        <PasswordInput getPasswordInput={getPasswordInput} />
       </div>
       <motion.button
         className={classes.logInButton}

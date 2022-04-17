@@ -4,6 +4,7 @@
     grid-auto-rows: 3rem;
     border: 2px solid white;
     border-radius: 30px;
+    transition: border 500ms ease-in-out;
 }
 
 .emailInput {
@@ -20,4 +21,8 @@
     display: grid;
     place-items: center;
     font-size: var(--fs-700);
+}
+
+.wrong {
+    border: 2px solid red;
 }

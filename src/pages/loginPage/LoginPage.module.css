@@ -1,13 +1,14 @@
 .loginPage {
     display: grid;
     place-items: center;
-    overflow: hidden;
     max-width: 40rem;
+    padding: 0.5em;
 }
 
 .loginContainer {
+    flex: 1;
+    overflow: auto;
     width: 85%;
-    height: max(545px, 90%);
     padding-inline: 1em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -68,3 +69,8 @@
 }
 
 
+@media (min-height: 600px) {
+    .loginContainer {
+        height: 85%;
+    }
+}

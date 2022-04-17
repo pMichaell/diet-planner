@@ -7,10 +7,11 @@
     gap: 1em;
     justify-content: center;
     z-index: 10;
+    background-color: hsl(var(--clr-creamy-green) / .15);
 }
 
-.nav a {
-    display: block;
+.nav a,
+.nav button{
     font-size: var(--fs-800);
     color: hsl(var(--clr-creamy-green) / .9);
 }
@@ -30,7 +31,3 @@
     }
 }
 
-
-@media (min-width: 560px) {
-
-}
