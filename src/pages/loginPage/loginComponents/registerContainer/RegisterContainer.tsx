@@ -4,16 +4,23 @@ import EmailInput from "../emailInput/EmailInput";
 import PasswordInput from "../passwordInput/PasswordInput";
 import { userValidationVariants } from "../../../../framerVariants";
 import { FormEvent, useContext, useState } from "react";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../../../firebase/Firebase";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  signOut,
+} from "firebase/auth";
 import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
+import { Spinner } from "phosphor-react";
+import { useSearchParams } from "react-router-dom";
+import ModalContext from "../../../../contexts/modalContext/ModalContext";
 
 const RegisterContainer = () => {
   const { email, password, secondPassword, setPasswordCorrupted } =
     useContext(LoginPageContext);
-
-  const [createUserWithEmailAndPassword, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { openModal } = useContext(ModalContext);
 
   const onFormSubmission = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -22,7 +29,19 @@ const RegisterContainer = () => {
       return;
     }
 
-    await createUserWithEmailAndPassword(email, password);
+    setIsLoading(true);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        setSearchParams({});
+        sendEmailVerification(user);
+        signOut(auth).then(() => {
+          openModal?.();
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -51,7 +70,21 @@ const RegisterContainer = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        <h4>Register</h4>
+        {!isLoading ? (
+          <h4>Register</h4>
+        ) : (
+          <Spinner size={24}>
+            <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              dur="5s"
+              from="0 0 0"
+              to="360 0 0"
+              repeatCount="indefinite"
+            ></animateTransform>
+          </Spinner>
+        )}
       </motion.button>
     </motion.form>
   );

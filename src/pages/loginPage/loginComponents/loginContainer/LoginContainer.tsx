@@ -15,15 +15,14 @@ const LoginContainer = () => {
   const { email, password } = useContext(LoginPageContext);
   const [loginError, setLoginError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
 
   const onFormSubmission = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("userLoggedIn", userCredential.user.email);
+      .then(() => {
+        navigate("/");
       })
       .catch(() => {
         displayLoginError();

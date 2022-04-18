@@ -1,5 +1,5 @@
 import classes from "./HomePage.module.css";
-import AnimatedPage from "../../components/AnimatedPage";
+import AnimatedPage from "../../components/animatedPage/AnimatedPage";
 
 const HomePage = () => {
   return (

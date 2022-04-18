@@ -1,13 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
 import classes from "./LoginPage.module.css";
 import clsx from "clsx";
-import AnimatedPage from "../../components/AnimatedPage";
+import AnimatedPage from "../../components/animatedPage/AnimatedPage";
 import ProvidersContainer from "./loginComponents/providersContainer/ProvidersContainer";
 import LoginBreak from "./loginComponents/LoginBreak";
 import LoginContainer from "./loginComponents/loginContainer/LoginContainer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RegisterContainer from "./loginComponents/registerContainer/RegisterContainer";
 import LoginPageContextProvider from "../../contexts/loginPageContext/LoginPageContextProvider";
+import { useParams, useSearchParams } from "react-router-dom";
 
 const loginVariants = {
   initial: {
@@ -27,6 +28,23 @@ const loginVariants = {
 
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get("register")) {
+      setIsLogin(false);
+      return;
+    }
+    setIsLogin(true);
+  }, [searchParams]);
+
+  const onLoginModeSwitch = () => {
+    if (searchParams.get("register")) {
+      setSearchParams({});
+      return;
+    }
+    setSearchParams({ register: "true" });
+  };
 
   return (
     <AnimatedPage className={clsx("fillParent", classes.loginPage)}>
@@ -53,7 +71,7 @@ const LoginPage = () => {
           </p>
           <p className={classes.helpParagraph}>
             {isLogin ? "Not a member yet?" : "Already a member?"}
-            <motion.span onClick={() => setIsLogin((prevState) => !prevState)}>
+            <motion.span onClick={onLoginModeSwitch}>
               {isLogin ? "Sign Up" : "Log In"}
             </motion.span>
           </p>
