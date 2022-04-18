@@ -3,44 +3,32 @@ import { motion } from "framer-motion";
 import PasswordInput from "../passwordInput/PasswordInput";
 import EmailInput from "../emailInput/EmailInput";
 import { userValidationVariants } from "../../../../framerVariants";
-import { auth } from "../../../../firebase/Firebase";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { FormEvent, useContext, useState } from "react";
 import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
 import clsx from "clsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Spinner } from "phosphor-react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../../firebase/Firebase";
 
 const LoginContainer = () => {
   const { email, password } = useContext(LoginPageContext);
   const [loginError, setLoginError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
-
   const onFormSubmission = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    signInWithEmailAndPassword(email, password);
-
-    setTimeout(() => {
-      console.log(loading);
-      console.log(error);
-      console.log(user);
-    }, 3000);
-
-    setTimeout(() => {
-      if (!loading && user) {
-        console.log("user logged in");
-        return;
-      }
-      if (!loading && error) {
-        console.log(error);
+    setIsLoading(true);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log("userLoggedIn", userCredential.user.email);
+      })
+      .catch(() => {
         displayLoginError();
-        return;
-      }
-    }, 1000);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const displayLoginError = () => {
@@ -72,7 +60,7 @@ const LoginContainer = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        {!loading ? (
+        {!isLoading ? (
           <h4>Log In</h4>
         ) : (
           <Spinner size={24}>
