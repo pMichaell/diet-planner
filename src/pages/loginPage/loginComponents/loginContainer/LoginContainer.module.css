@@ -25,6 +25,15 @@
     transition: border 500ms ease-in-out;
 }
 
+.logInButton > h4 {
+    transition: color 1000ms ease-in-out;
+}
+
+
 .loginError {
-    border-color: red;
+    border-color: hsl(var(--clr-wrong-red) / .85);
+}
+
+.loginError > h4 {
+    color: hsl(var(--clr-wrong-red) / .85)
 }

@@ -49,7 +49,7 @@ const PasswordInput = ({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onBlur={() => {
-          getPasswordValue(value);
+          getPasswordValue(value.trim());
           console.log(value);
         }}
         onFocus={() => setPasswordCorrupted?.(false)}
