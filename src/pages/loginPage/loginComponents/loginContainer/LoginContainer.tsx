@@ -14,8 +14,6 @@ const LoginContainer = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  console.log(error);
-
   const getEmailInput = (input: string) => {
     setEmail(input);
   };
@@ -31,9 +29,9 @@ const LoginContainer = () => {
       initial={"initial"}
       animate={"animate"}
       exit={"exit"}
-      onSubmit={(event) => {
+      onSubmit={async (event) => {
         event.preventDefault();
-        signInWithEmailAndPassword(email, password);
+        await signInWithEmailAndPassword(email, password);
       }}
     >
       <div>

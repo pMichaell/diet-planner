@@ -3,13 +3,16 @@ import classes from "./PasswordInput.module.css";
 import { useEffect, useState } from "react";
 import { Check } from "phosphor-react";
 import { checkMarkGreen } from "../../../../utils/CssColors";
+import clsx from "clsx";
 
 const minLength = 6;
 
 const PasswordInput = ({
   getPasswordInput,
+  passwordCorrupted = false,
 }: {
   getPasswordInput: (input: string) => void;
+  passwordCorrupted?: boolean;
 }) => {
   const [value, setValue] = useState<string>("");
   const charactersRemaining = minLength - value?.length;
@@ -26,7 +29,12 @@ const PasswordInput = ({
   }, [value.length]);
 
   return (
-    <motion.div className={classes.passwordContainer}>
+    <motion.div
+      className={clsx(
+        classes.passwordContainer,
+        passwordCorrupted && classes.wrong
+      )}
+    >
       <input
         type="password"
         value={value}

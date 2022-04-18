@@ -35,11 +35,11 @@ const EmailInput = ({
 
       {!emailCorrect ? (
         <motion.span animate={controls} className={classes.animatedSpan}>
-          <X size={"2.5rem"} color={"white"} />
+          <X size={"40px"} color={"white"} />
         </motion.span>
       ) : (
         <motion.span animate={controls} className={classes.animatedSpan}>
-          <Check size={"2.5rem"} color={checkMarkGreen} />
+          <Check size={"40px"} color={checkMarkGreen} />
         </motion.span>
       )}
     </div>
