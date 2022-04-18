@@ -7,6 +7,7 @@ import LoginBreak from "./loginComponents/LoginBreak";
 import LoginContainer from "./loginComponents/loginContainer/LoginContainer";
 import { useState } from "react";
 import RegisterContainer from "./loginComponents/registerContainer/RegisterContainer";
+import LoginPageContextProvider from "../../contexts/loginPageContext/LoginPageContextProvider";
 
 const loginVariants = {
   initial: {
@@ -39,9 +40,11 @@ const LoginPage = () => {
         >
           <ProvidersContainer />
           <LoginBreak />
-          <AnimatePresence>
-            {isLogin ? <LoginContainer /> : <RegisterContainer />}
-          </AnimatePresence>
+          <LoginPageContextProvider>
+            <AnimatePresence>
+              {isLogin ? <LoginContainer /> : <RegisterContainer />}
+            </AnimatePresence>
+          </LoginPageContextProvider>
         </motion.section>
         <section className={classes.helpSection}>
           <p className={classes.helpParagraph}>

@@ -3,37 +3,26 @@ import classes from "./RegisterContainer.module.css";
 import EmailInput from "../emailInput/EmailInput";
 import PasswordInput from "../passwordInput/PasswordInput";
 import { userValidationVariants } from "../../../../framerVariants";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../../../firebase/Firebase";
+import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
 
 const RegisterContainer = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [secondPassword, setSecondPassword] = useState("");
-  const [passwordCorrupted, setPasswordCorrupted] = useState(false);
+  const { email, password, secondPassword, setPasswordCorrupted } =
+    useContext(LoginPageContext);
 
-  const [createUserWithEmailAndPassword, user, loading, error] =
+  const [createUserWithEmailAndPassword, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
-  const getEmailInput = (input: string) => {
-    setEmail(input);
-  };
-
-  const getPasswordInput = (input: string) => {
-    setPassword(input);
-  };
-
-  const getSecondPasswordInput = (input: string) => {
-    setSecondPassword(input);
-  };
-
-  const onFormSubmission = (event: FormEvent<HTMLFormElement>) => {
+  const onFormSubmission = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (password !== secondPassword) {
-      setPasswordCorrupted(true);
+      setPasswordCorrupted?.(true);
       return;
     }
+
+    await createUserWithEmailAndPassword(email, password);
   };
 
   return (
@@ -47,21 +36,15 @@ const RegisterContainer = () => {
     >
       <div>
         <motion.h4>Email</motion.h4>
-        <EmailInput getEmailInput={getEmailInput} />
+        <EmailInput />
       </div>
       <div>
         <motion.h4>Password</motion.h4>
-        <PasswordInput
-          getPasswordInput={getPasswordInput}
-          passwordCorrupted={passwordCorrupted}
-        />
+        <PasswordInput />
       </div>
       <div>
         <motion.h4>Repeat Password</motion.h4>
-        <PasswordInput
-          getPasswordInput={getSecondPasswordInput}
-          passwordCorrupted={passwordCorrupted}
-        />
+        <PasswordInput isSecondPassword />
       </div>
       <motion.button
         className={classes.registerButton}

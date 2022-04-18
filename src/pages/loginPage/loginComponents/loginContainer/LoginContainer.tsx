@@ -5,21 +5,29 @@ import EmailInput from "../emailInput/EmailInput";
 import { userValidationVariants } from "../../../../framerVariants";
 import { auth } from "../../../../firebase/Firebase";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { useState } from "react";
+import { FormEvent, useContext, useState } from "react";
+import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
+import clsx from "clsx";
 
 const LoginContainer = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { email, password } = useContext(LoginPageContext);
+  const [loginError, setLoginError] = useState(false);
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  const getEmailInput = (input: string) => {
-    setEmail(input);
+  const onFormSubmission = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await signInWithEmailAndPassword(email, password);
+    await displayLoginError();
+    console.log(loginError);
   };
 
-  const getPasswordInput = (input: string) => {
-    setPassword(input);
+  const displayLoginError = async () => {
+    setLoginError(true);
+    setTimeout(() => {
+      setLoginError(false);
+    }, 1000);
   };
 
   return (
@@ -29,21 +37,18 @@ const LoginContainer = () => {
       initial={"initial"}
       animate={"animate"}
       exit={"exit"}
-      onSubmit={async (event) => {
-        event.preventDefault();
-        await signInWithEmailAndPassword(email, password);
-      }}
+      onSubmit={onFormSubmission}
     >
       <div>
         <motion.h4>Email</motion.h4>
-        <EmailInput getEmailInput={getEmailInput} />
+        <EmailInput />
       </div>
       <div>
         <motion.h4>Password</motion.h4>
-        <PasswordInput getPasswordInput={getPasswordInput} />
+        <PasswordInput />
       </div>
       <motion.button
-        className={classes.logInButton}
+        className={clsx(classes.logInButton, loginError && classes.loginError)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >

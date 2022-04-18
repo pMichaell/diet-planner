@@ -1,5 +1,5 @@
 import LoginPageContext, { LoginContext } from "./LoginPageContext";
-import { ReactNode, useReducer } from "react";
+import { ReactNode, useEffect, useReducer } from "react";
 
 type ACTIONTYPE =
   | { type: "setEmail"; payload: string }

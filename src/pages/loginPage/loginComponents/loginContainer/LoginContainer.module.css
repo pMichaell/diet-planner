@@ -22,4 +22,9 @@
     color: white;
     height: 3rem;
     border-radius: 30px;
+    transition: border 500ms ease-in-out;
+}
+
+.loginError {
+    border-color: red;
 }

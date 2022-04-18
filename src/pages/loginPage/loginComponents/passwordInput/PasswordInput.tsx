@@ -1,22 +1,27 @@
 import { motion, useAnimation } from "framer-motion";
 import classes from "./PasswordInput.module.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Check } from "phosphor-react";
 import { checkMarkGreen } from "../../../../utils/CssColors";
 import clsx from "clsx";
+import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
 
 const minLength = 6;
 
 const PasswordInput = ({
-  getPasswordInput,
-  passwordCorrupted = false,
+  isSecondPassword = false,
 }: {
-  getPasswordInput: (input: string) => void;
-  passwordCorrupted?: boolean;
+  isSecondPassword?: boolean;
 }) => {
   const [value, setValue] = useState<string>("");
   const charactersRemaining = minLength - value?.length;
   const controls = useAnimation();
+  const {
+    setPassword,
+    setSecondPassword,
+    passwordCorrupted,
+    setPasswordCorrupted,
+  } = useContext(LoginPageContext);
 
   useEffect(() => {
     controls.start({
@@ -27,6 +32,10 @@ const PasswordInput = ({
       },
     });
   }, [value.length]);
+
+  const getPasswordValue = (value: string) => {
+    !isSecondPassword ? setPassword?.(value) : setSecondPassword?.(value);
+  };
 
   return (
     <motion.div
@@ -39,8 +48,15 @@ const PasswordInput = ({
         type="password"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        onBlur={() => getPasswordInput(value)}
-        className={classes.passwordInput}
+        onBlur={() => {
+          getPasswordValue(value);
+          console.log(value);
+        }}
+        onFocus={() => setPasswordCorrupted?.(false)}
+        className={clsx(
+          classes.passwordInput,
+          passwordCorrupted && classes.wrong
+        )}
       />
 
       {charactersRemaining > 0 ? (
@@ -53,7 +69,7 @@ const PasswordInput = ({
           animate={controls}
           className={classes.animatedSpan}
         >
-          <Check size={"2.5rem"} color={checkMarkGreen} />
+          <Check size={"40px"} color={checkMarkGreen} />
         </motion.span>
       )}
     </motion.div>

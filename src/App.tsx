@@ -7,14 +7,9 @@ import AccountPage from "./pages/accountPage/AccountPage";
 import LoginPage from "./pages/loginPage/LoginPage";
 import { AnimatePresence } from "framer-motion";
 import RequireAuth from "./components/RequireAuth";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./firebase/Firebase";
 
 function App() {
   const location = useLocation();
-  const [user, loading, error] = useAuthState(auth);
-
-  console.log(user?.email);
 
   return (
     <Layout>

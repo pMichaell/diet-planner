@@ -1,17 +1,15 @@
 import classes from "./EmailInput.module.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { Check, X } from "phosphor-react";
 import { checkMarkGreen, creamyGreen } from "../../../../utils/CssColors";
+import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
 
-const EmailInput = ({
-  getEmailInput,
-}: {
-  getEmailInput: (input: string) => void;
-}) => {
+const EmailInput = () => {
   const [value, setValue] = useState<string>("");
   const emailCorrect = value.includes("@") && value.includes(".");
   const controls = useAnimation();
+  const { setEmail } = useContext(LoginPageContext);
 
   useEffect(() => {
     controls.start({
@@ -21,7 +19,6 @@ const EmailInput = ({
         velocity: 4,
       },
     });
-    console.log(emailCorrect);
   }, [value.length]);
 
   return (
@@ -29,7 +26,10 @@ const EmailInput = ({
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        onBlur={() => getEmailInput(value)}
+        onBlur={() => {
+          setEmail?.(value);
+          console.log(value);
+        }}
         className={classes.emailInput}
       />
 
