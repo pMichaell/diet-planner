@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../../../../firebase/Firebase";
 import { useNavigate } from "react-router-dom";
+import { createUser } from "../../../../firebase/FirestoreFunctions";
 
 const ProvidersContainer = () => {
   const navigate = useNavigate();
@@ -21,8 +22,9 @@ const ProvidersContainer = () => {
         ? new GithubAuthProvider()
         : new FacebookAuthProvider();
     signInWithPopup(auth, provider)
-      .then(() => {
+      .then(async (result) => {
         navigate("/");
+        await createUser(result.user);
       })
       .catch((error) => {
         console.log(error);

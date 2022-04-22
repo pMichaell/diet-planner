@@ -14,6 +14,7 @@ import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageCon
 import { Spinner } from "phosphor-react";
 import { useSearchParams } from "react-router-dom";
 import ModalContext from "../../../../contexts/modalContext/ModalContext";
+import { createUser } from "../../../../firebase/FirestoreFunctions";
 
 const RegisterContainer = () => {
   const { email, password, secondPassword, setPasswordCorrupted } =
@@ -31,12 +32,12 @@ const RegisterContainer = () => {
 
     setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
+      .then(async ({ user }) => {
         setSearchParams({});
-        sendEmailVerification(user);
-        signOut(auth).then(() => {
-          openModal?.();
-        });
+        signOut(auth).then(() => {});
+        openModal?.();
+        await sendEmailVerification(user);
+        await createUser(user);
       })
       .catch((error) => {
         console.log(error);
