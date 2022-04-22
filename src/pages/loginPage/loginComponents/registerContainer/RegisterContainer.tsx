@@ -21,7 +21,7 @@ const RegisterContainer = () => {
     useContext(LoginPageContext);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const { openModal } = useContext(ModalContext);
+  const { openModal, setModalText } = useContext(ModalContext);
 
   const onFormSubmission = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,11 +31,12 @@ const RegisterContainer = () => {
     }
 
     setIsLoading(true);
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, "1134@gmail.com", "123456")
       .then(async ({ user }) => {
         setSearchParams({});
         signOut(auth).then(() => {});
         openModal?.();
+        setModalText?.("Account created succesfully");
         await sendEmailVerification(user);
         await createUser(user);
       })

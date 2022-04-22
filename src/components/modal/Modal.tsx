@@ -1,6 +1,8 @@
 import classes from "./Modal.module.css";
 import Backdrop from "../backdrop/Backdrop";
 import { motion } from "framer-motion";
+import ModalContext from "../../contexts/modalContext/ModalContext";
+import { useContext } from "react";
 
 const modalVariants = {
   initial: {
@@ -21,15 +23,11 @@ const modalVariants = {
   },
 };
 
-const Modal = ({
-  handleClose,
-  displayText,
-}: {
-  handleClose: () => void;
-  displayText: string;
-}) => {
+const Modal = () => {
+  const { closeModal, modalText } = useContext(ModalContext);
+
   return (
-    <Backdrop onClick={handleClose}>
+    <Backdrop onClick={closeModal}>
       <motion.div
         onClick={(e) => e.stopPropagation()}
         className={"modal"}
@@ -37,7 +35,10 @@ const Modal = ({
         initial={"initial"}
         animate={"animate"}
         exit={"exit"}
-      ></motion.div>
+      >
+        <p>{modalText}</p>
+        <button onClick={closeModal}>Close</button>
+      </motion.div>
     </Backdrop>
   );
 };

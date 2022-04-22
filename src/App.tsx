@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Layout from "./layout/layout/Layout";
 import { Route, Routes, useLocation } from "react-router-dom";
 import HomePage from "./pages/homePage/HomePage";
@@ -14,17 +14,18 @@ import ModalContext from "./contexts/modalContext/ModalContext";
 
 function App() {
   const location = useLocation();
-  const [user, loading, error] = useAuthState(auth);
-  const { modalOpen, closeModal } = useContext(ModalContext);
+  const { modalOpen } = useContext(ModalContext);
 
-  console.log(user);
+  console.log(process.env.REACT_APP_API_KEY);
+
+  useEffect(() => {
+    console.log(modalOpen);
+  }, [modalOpen]);
 
   return (
     <Layout>
       <AnimatePresence initial={false}>
-        {modalOpen && (
-          <Modal handleClose={() => closeModal} displayText={"Test"} />
-        )}
+        {modalOpen && <Modal />}
         <Routes location={location} key={location.pathname}>
           <Route path={"/"} element={<HomePage />} />
           <Route

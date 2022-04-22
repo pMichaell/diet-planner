@@ -6,7 +6,7 @@ const Backdrop = ({
   onClick,
 }: {
   children: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 }) => {
   return (
     <motion.div

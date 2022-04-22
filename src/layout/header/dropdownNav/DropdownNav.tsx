@@ -85,7 +85,7 @@ const DropdownNav = () => {
               key={3}
               initial={"initial"}
               animate={"animate"}
-              exit={"exit"}
+              exit={{ opacity: 0, transition: { delay: 0.5 } }}
               whileTap={"whileTap"}
               whileHover={"whileHover"}
             >

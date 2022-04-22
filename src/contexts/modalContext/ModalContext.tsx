@@ -5,6 +5,8 @@ export type ModalContextType = {
   modalOpen: boolean;
   openModal?: () => void;
   closeModal?: () => void;
+  modalText?: string;
+  setModalText?: (text: string) => void;
 };
 
 const defaultValue: ModalContextType = {
