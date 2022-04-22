@@ -71,7 +71,7 @@ const LoginContainer = () => {
               from="0 0 0"
               to="360 0 0"
               repeatCount="indefinite"
-            ></animateTransform>
+            />
           </Spinner>
         )}
       </motion.button>

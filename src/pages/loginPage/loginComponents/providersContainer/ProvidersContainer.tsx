@@ -2,18 +2,32 @@ import classes from "./ProvidersContainer.module.css";
 import { motion } from "framer-motion";
 import { FacebookLogo, GithubLogo, GoogleLogo } from "phosphor-react";
 import {
-  useSignInWithFacebook,
-  useSignInWithGithub,
-  useSignInWithGoogle,
-} from "react-firebase-hooks/auth";
+  FacebookAuthProvider,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../../../../firebase/Firebase";
+import { useNavigate } from "react-router-dom";
 
 const ProvidersContainer = () => {
-  const [signInWithFacebook] = useSignInWithFacebook(auth);
+  const navigate = useNavigate();
 
-  const [signInWithGithub] = useSignInWithGithub(auth);
-
-  const [signInWithGoogle] = useSignInWithGoogle(auth);
+  const signInWithProvider = (providerName: string) => {
+    const provider =
+      providerName === "google"
+        ? new GoogleAuthProvider()
+        : providerName === "github"
+        ? new GithubAuthProvider()
+        : new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className={classes.providersContainer}>
@@ -21,7 +35,7 @@ const ProvidersContainer = () => {
         className={classes.providerButton}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        onClick={() => signInWithGoogle()}
+        onClick={() => signInWithProvider("google")}
       >
         <GoogleLogo size={"2em"} />
         <h4>Sign in with Google</h4>
@@ -30,7 +44,7 @@ const ProvidersContainer = () => {
         className={classes.providerButton}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        onClick={() => signInWithGithub()}
+        onClick={() => signInWithProvider("github")}
       >
         <GithubLogo size={"2em"} />
         <h4>Sign in with Github</h4>
@@ -39,7 +53,7 @@ const ProvidersContainer = () => {
         className={classes.providerButton}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        onClick={() => signInWithFacebook()}
+        onClick={() => signInWithProvider("facebook")}
       >
         <FacebookLogo size={"2em"} />
         <h4>Sign in with Facebook</h4>
