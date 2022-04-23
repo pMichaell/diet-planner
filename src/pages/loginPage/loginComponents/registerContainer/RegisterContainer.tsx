@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import classes from "./RegisterContainer.module.css";
 import EmailInput from "../emailInput/EmailInput";
 import PasswordInput from "../passwordInput/PasswordInput";
@@ -23,7 +23,7 @@ const RegisterContainer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const { openModal, setModalText } = useContext(ModalContext);
-  const [registerError, setRegisterError] = useState(false);
+  const controls = useAnimation();
 
   const onFormSubmission = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -48,11 +48,15 @@ const RegisterContainer = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const displayRegisterError = () => {
-    setRegisterError(true);
-    setTimeout(() => {
-      setRegisterError(false);
-    }, 2000);
+  const displayRegisterError = async () => {
+    await controls.start({
+      x: [null, 20, -30, 30, 0],
+      transition: {
+        type: "spring",
+        duration: 0.4,
+        bounce: 1,
+      },
+    });
   };
 
   return (
@@ -77,12 +81,10 @@ const RegisterContainer = () => {
         <PasswordInput isSecondPassword />
       </div>
       <motion.button
-        className={clsx(
-          classes.registerButton,
-          registerError && classes.registerError
-        )}
+        className={classes.registerButton}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
+        animate={controls}
       >
         {!isLoading ? (
           <h4>Register</h4>

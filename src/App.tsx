@@ -16,16 +16,11 @@ function App() {
   const location = useLocation();
   const { modalOpen, openModal, setModalText } = useContext(ModalContext);
 
-  console.log(process.env.REACT_APP_API_KEY);
-
-  useEffect(() => {
-    setModalText?.("Complete your registration by confirming email!");
-    openModal?.();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Layout>
-      <AnimatePresence initial={false}>
+      <AnimatePresence initial={false} exitBeforeEnter>
         {modalOpen && <Modal />}
         <Routes location={location} key={location.pathname}>
           <Route path={"/"} element={<HomePage />} />

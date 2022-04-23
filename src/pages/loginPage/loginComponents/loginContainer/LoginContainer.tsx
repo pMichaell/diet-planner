@@ -1,21 +1,21 @@
 import classes from "./LoginContainer.module.css";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import PasswordInput from "../passwordInput/PasswordInput";
 import EmailInput from "../emailInput/EmailInput";
 import { userValidationVariants } from "../../../../framerVariants";
 import { FormEvent, useContext, useState } from "react";
 import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
 import clsx from "clsx";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Spinner } from "phosphor-react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../../firebase/Firebase";
 
 const LoginContainer = () => {
   const { email, password } = useContext(LoginPageContext);
-  const [loginError, setLoginError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const controls = useAnimation();
 
   const onFormSubmission = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,11 +30,15 @@ const LoginContainer = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const displayLoginError = () => {
-    setLoginError(true);
-    setTimeout(() => {
-      setLoginError(false);
-    }, 2000);
+  const displayLoginError = async () => {
+    await controls.start({
+      x: [null, 20, -30, 30, 0],
+      transition: {
+        type: "spring",
+        duration: 0.4,
+        bounce: 1,
+      },
+    });
   };
 
   return (
@@ -55,9 +59,10 @@ const LoginContainer = () => {
         <PasswordInput />
       </div>
       <motion.button
-        className={clsx(classes.logInButton, loginError && classes.loginError)}
+        className={clsx(classes.logInButton)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
+        animate={controls}
       >
         {!isLoading ? (
           <h4>Log In</h4>

@@ -22,11 +22,11 @@
     color: white;
     height: 3rem;
     border-radius: 30px;
-    transition: border 1000ms ease-in-out;
+    transition: border 300ms ease;
 }
 
 .registerButton > h4 {
-    transition: color 1000ms ease-in-out;
+    transition: color 300ms ease;
 }
 
 
@@ -40,6 +40,13 @@
 
 @media (min-width: 1000px) {
     .registerSection {
-        padding: 1rem;
+        padding-top: 2rem;
+        height: 80%;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
     }
 }
