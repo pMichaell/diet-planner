@@ -11,7 +11,7 @@ import { auth } from "../../../../firebase/Firebase";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../../../../firebase/FirestoreFunctions";
 
-const ProvidersContainer = () => {
+const ProvidersContainer = ({ className }: { className: string }) => {
   const navigate = useNavigate();
 
   const signInWithProvider = (providerName: string) => {
@@ -32,7 +32,7 @@ const ProvidersContainer = () => {
   };
 
   return (
-    <div className={classes.providersContainer}>
+    <div className={className}>
       <motion.button
         className={classes.providerButton}
         whileHover={{ scale: 1.1 }}

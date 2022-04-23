@@ -14,13 +14,14 @@ import ModalContext from "./contexts/modalContext/ModalContext";
 
 function App() {
   const location = useLocation();
-  const { modalOpen } = useContext(ModalContext);
+  const { modalOpen, openModal, setModalText } = useContext(ModalContext);
 
   console.log(process.env.REACT_APP_API_KEY);
 
   useEffect(() => {
-    console.log(modalOpen);
-  }, [modalOpen]);
+    setModalText?.("Complete your registration by confirming email!");
+    openModal?.();
+  }, []);
 
   return (
     <Layout>

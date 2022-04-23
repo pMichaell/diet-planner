@@ -5,8 +5,9 @@
     --clr-fluffy-purple: 311 64% 85%;
     --clr-checkmark-green: 90 100% 44%;
     --clr-wrong-red: 350 100% 50%;
+    --clr-black: 216 100% 4%;
 
-    /* fomt-families */
+    /* font-families */
     --font-headlines: 'Oswald', sans-serif;;
     --font-body: 'Montserrat', sans-serif;;
 
@@ -145,32 +146,4 @@ Utility classes
 .fillParent {
     width: 100%;
     height: 100%;
-}
-
-.backdrop {
-    position: absolute;
-    z-index: 200;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: #000000e1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-y: hidden;
-}
-
-.modal {
-    width: clamp(50%, 700px, 90%);
-    height: min(50%, 300px);
-
-    color: white;
-    margin: auto;
-    padding: 0 2rem;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem
 }

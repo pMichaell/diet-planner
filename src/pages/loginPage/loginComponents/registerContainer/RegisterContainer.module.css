@@ -22,4 +22,24 @@
     color: white;
     height: 3rem;
     border-radius: 30px;
+    transition: border 1000ms ease-in-out;
+}
+
+.registerButton > h4 {
+    transition: color 1000ms ease-in-out;
+}
+
+
+.registerError {
+    border-color: hsl(var(--clr-wrong-red) / .85);
+}
+
+.registerError > h4 {
+    color: hsl(var(--clr-wrong-red) / .85)
+}
+
+@media (min-width: 1000px) {
+    .registerSection {
+        padding: 1rem;
+    }
 }

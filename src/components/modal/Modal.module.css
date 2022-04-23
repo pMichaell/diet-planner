@@ -1,0 +1,28 @@
+.modal {
+    width: clamp(50%, 700px, 90%);
+    height: min(50%, 300px);
+    color: white;
+    margin: auto;
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid hsl(var(--clr-creamy-green));
+    gap: 4rem;
+}
+
+.modal > h3 {
+    text-align: center;
+    padding-inline: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.modal > button {
+    border: 2px solid hsl(var(--clr-creamy-green));
+    border-radius: 12px;
+    width: 8rem;
+    height: 3rem;
+    color: white;
+    letter-spacing: 2px;
+}

@@ -6,11 +6,12 @@ import { verticalListItemsVariants } from "../../../framerVariants";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase/Firebase";
 import { signOut } from "firebase/auth";
+import useWindowDimensions from "../../../hooks/use-window-dimensions";
 
 const dropdownVariants = {
   initial: { height: 0, opacity: 0.5 },
   animate: {
-    height: "50vmin",
+    height: "",
     opacity: 1,
   },
   exit: {
@@ -20,6 +21,7 @@ const dropdownVariants = {
 
 const DropdownNav = () => {
   const [user] = useAuthState(auth);
+  const { height } = useWindowDimensions();
 
   return (
     <IconContext.Provider
@@ -32,9 +34,9 @@ const DropdownNav = () => {
       <motion.nav
         className={classes.nav}
         variants={dropdownVariants}
-        initial={"initial"}
-        animate={"animate"}
-        exit={"exit"}
+        initial={{ height: 0, opacity: 0.5 }}
+        animate={{ height: height <= 600 ? "50vh" : "300px", opacity: 1 }}
+        exit={{ opacity: 0 }}
       >
         <AnimatePresence>
           <motion.div

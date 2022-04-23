@@ -56,8 +56,8 @@ const LoginPage = () => {
           animate={"animate"}
           exit={"exit"}
         >
-          <ProvidersContainer />
-          <LoginBreak />
+          <ProvidersContainer className={classes.providersContainer} />
+          <LoginBreak className={classes.loginBreak} />
           <LoginPageContextProvider>
             <AnimatePresence>
               {isLogin ? <LoginContainer /> : <RegisterContainer />}

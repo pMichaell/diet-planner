@@ -1,11 +1,11 @@
 import classes from "../LoginPage.module.css";
 import { motion } from "framer-motion";
 
-const LoginBreak = () => {
+const LoginBreak = ({ className }: { className: string }) => {
   return (
-    <motion.section className={classes.orDiv}>
+    <motion.section className={className}>
       <hr />
-      or
+      <h4>or</h4>
       <hr />
     </motion.section>
   );

@@ -10,10 +10,15 @@
     background-color: hsl(var(--clr-creamy-green) / .15);
 }
 
-.nav a,
 .nav button{
     font-size: var(--fs-800);
     color: hsl(var(--clr-creamy-green) / .9);
+}
+
+.nav a {
+    font-size: var(--fs-800);
+    color: hsl(var(--clr-creamy-green) / .9);
+    text-align: right;
 }
 
 .nav div {

@@ -30,14 +30,16 @@ const Modal = () => {
     <Backdrop onClick={closeModal}>
       <motion.div
         onClick={(e) => e.stopPropagation()}
-        className={"modal"}
+        className={classes.modal}
         variants={modalVariants}
         initial={"initial"}
         animate={"animate"}
         exit={"exit"}
       >
-        <p>{modalText}</p>
-        <button onClick={closeModal}>Close</button>
+        <h3>{modalText}</h3>
+        <motion.button onClick={closeModal}>
+          <h4>Close</h4>
+        </motion.button>
       </motion.div>
     </Backdrop>
   );

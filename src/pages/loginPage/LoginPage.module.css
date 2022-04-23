@@ -1,7 +1,7 @@
 .loginPage {
     display: grid;
     place-items: center;
-    max-width: 40rem;
+    max-width: 100rem;
     padding: 0.5em;
 }
 
@@ -26,6 +26,16 @@
     flex: 1
 }
 
+.providersContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    height: 100%;
+}
+
+
 @media (min-height: 700px) {
     .loginSection {
         grid-template-rows: 0.7fr 50px 1fr;
@@ -40,7 +50,8 @@
 }
 
 
-.orDiv {
+
+.loginBreak {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,13 +60,16 @@
     width: 100%;
 }
 
-.orDiv > hr {
+.loginBreak > hr {
     height: 1px;
     border-top: 1px solid var(--clr-creamy-green);
     display: inline-block;
     flex: 1;
 }
 
+.loginBreak > h4 {
+    color: hsl(var(--clr-creamy-green));
+}
 
 .helpParagraph {
     text-align: center;
@@ -71,5 +85,45 @@
 @media (min-height: 600px) {
     .loginContainer {
         height: 90%;
+    }
+}
+
+@media (min-width: 1000px) {
+    .loginContainer {
+        display: grid;
+        grid-template-columns: 0.75fr min-content 1fr;
+        grid-template-rows: 1fr 100px;
+        max-height: 800px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .loginSection {
+        all:unset;
+        display: contents;
+    }
+
+    .loginBreak {
+        display: grid;
+        grid-row: span 2 / auto;
+        grid-template-rows: 40% min-content 1fr;
+    }
+
+    .loginBreak > hr {
+        height: 100%;
+    }
+
+    .helpSection {
+        grid-column: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .providersContainer {
+        gap: 3rem;
     }
 }

@@ -15,6 +15,7 @@ import { Spinner } from "phosphor-react";
 import { useSearchParams } from "react-router-dom";
 import ModalContext from "../../../../contexts/modalContext/ModalContext";
 import { createUser } from "../../../../firebase/FirestoreFunctions";
+import clsx from "clsx";
 
 const RegisterContainer = () => {
   const { email, password, secondPassword, setPasswordCorrupted } =
@@ -22,6 +23,7 @@ const RegisterContainer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const { openModal, setModalText } = useContext(ModalContext);
+  const [registerError, setRegisterError] = useState(false);
 
   const onFormSubmission = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -40,10 +42,17 @@ const RegisterContainer = () => {
         await sendEmailVerification(user);
         await createUser(user);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        displayRegisterError();
       })
       .finally(() => setIsLoading(false));
+  };
+
+  const displayRegisterError = () => {
+    setRegisterError(true);
+    setTimeout(() => {
+      setRegisterError(false);
+    }, 2000);
   };
 
   return (
@@ -68,7 +77,10 @@ const RegisterContainer = () => {
         <PasswordInput isSecondPassword />
       </div>
       <motion.button
-        className={classes.registerButton}
+        className={clsx(
+          classes.registerButton,
+          registerError && classes.registerError
+        )}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
@@ -84,7 +96,7 @@ const RegisterContainer = () => {
               from="0 0 0"
               to="360 0 0"
               repeatCount="indefinite"
-            ></animateTransform>
+            />
           </Spinner>
         )}
       </motion.button>
