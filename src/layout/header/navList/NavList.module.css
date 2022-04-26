@@ -7,6 +7,6 @@
 
 .navList > li {
     font-family: var(--font-headers);
-    letter-spacing: var(--ls-header);
+    letter-spacing: var(--ls1);
     font-size: 1.3rem;
 }

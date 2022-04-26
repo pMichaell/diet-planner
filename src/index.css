@@ -10,6 +10,7 @@
     /* font-families */
     --font-headlines: 'Oswald', sans-serif;;
     --font-body: 'Montserrat', sans-serif;;
+    --font-accent: 'Rock Salt', cursive;
 
     /* font weights */
     --oswald-regular: 400;
@@ -18,7 +19,9 @@
 
 
     /* letter spacings */
-    --ls-header: 1px;
+    --ls1: 1px;
+    --ls2: 2px;
+    --ls3: 5px;
 
     /* font sizes */
     --fs-xl: 3rem;
@@ -146,4 +149,82 @@ Utility classes
 .fillParent {
     width: 100%;
     height: 100%;
+}
+
+.ls1 {
+    letter-spacing: var(--ls1);
+}
+.ls2 {
+    letter-spacing: var(--ls2);
+}
+.ls3 {
+    letter-spacing: var(--ls3);
+}
+
+.fontAccent {
+    font-family: var(--font-accent);
+}
+
+.fontHeadlines {
+    font-family: var(--font-headlines);
+}
+
+.fontBody {
+    font-family: var(--font-body);
+}
+
+.flow > * + * {
+    margin-top: var(--flow-space, 1rem);
+}
+
+.fs300 {
+    font-size: var(--fs-300);
+}
+
+.fs400 {
+    font-size: var(--fs-400);
+
+}
+
+.fs500{
+    font-size: var(--fs-500);
+
+}
+
+.fs600 {
+    font-size: var(--fs-600);
+
+}
+
+.fs700 {
+    font-size: var(--fs-700);
+
+}
+
+.fs800 {
+    font-size: var(--fs-800);
+
+}
+
+.fsXl {
+    font-size: var(--fs-xl);
+}
+
+.fw200 {
+    font-weight: 200;
+}
+
+.fw400 {
+    font-weight: 400;
+}
+.fw500 {
+    font-weight: 500;
+}
+
+.txtAlgCenter{
+    text-align: center;
+}
+
+.standardBorder {
+    border: 2px solid hsl(var(--clr-creamy-green));
 }
