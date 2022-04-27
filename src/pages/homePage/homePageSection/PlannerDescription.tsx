@@ -2,6 +2,22 @@ import { motion } from "framer-motion";
 import classes from "./PlannerDescription.module.css";
 import clsx from "clsx";
 
+const variants = {
+  initial: {
+    opacity: 0.5,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 1.1,
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: "-100vw",
+  },
+};
+
 const PlannerDescription = ({
   number,
   text,

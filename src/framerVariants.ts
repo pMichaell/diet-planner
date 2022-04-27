@@ -73,3 +73,17 @@ export const hoverNPress = {
     scale: 0.9,
   },
 };
+
+export const breathingVariants = {
+  animate: {
+    scale: [1.0, 1.1, 1.0],
+    borderWidth: [2, 6, 2],
+  },
+  transition: {
+    type: "tween",
+    ease: "easeInOut",
+    duration: 1,
+    repeat: Infinity,
+    repeatType: "loop",
+  },
+};

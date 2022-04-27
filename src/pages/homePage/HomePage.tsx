@@ -27,6 +27,7 @@ const variants = {
   },
   exit: {
     opacity: 0,
+    x: "-100vw",
   },
 };
 
@@ -37,60 +38,64 @@ const HomePage = () => {
     <AnimatedPage
       className={clsx("fillParent", "centerContents", "overflowHidden")}
     >
-      <AnimatePresence>
-        <motion.div
-          className={clsx("fillParent", classes.homePage)}
-          variants={variants}
-          initial={"initial"}
-          animate={"animate"}
-          exit={"exit"}
-        >
-          <motion.section className={clsx(classes.headingSection)}>
-            <motion.h2
-              className={clsx(
-                "uppercase",
-                "ls1",
-                "fontAccent",
-                "txtAlgCenter",
-                "lineHeight2",
-                "fs600"
-              )}
-              variants={verticalAlignmentVariants}
-              custom={1}
-            >
-              Plan Your Meal
-            </motion.h2>
+      <AnimatePresence exitBeforeEnter>
+        {homePageActive && (
+          <motion.div
+            className={clsx("fillParent", classes.homePage)}
+            variants={variants}
+            initial={"initial"}
+            animate={"animate"}
+            exit={"exit"}
+          >
+            <motion.section className={clsx(classes.headingSection)}>
+              <motion.h2
+                className={clsx(
+                  "uppercase",
+                  "ls1",
+                  "fontAccent",
+                  "txtAlgCenter",
+                  "lineHeight2",
+                  "fs600"
+                )}
+                variants={verticalAlignmentVariants}
+                custom={1}
+              >
+                Plan Your Meal
+              </motion.h2>
+              <motion.p
+                className={clsx("uppercase", "fs600")}
+                variants={verticalAlignmentVariants}
+                custom={2}
+              >
+                In
+              </motion.p>
+              <motion.h1
+                className={clsx("uppercase", "ls3", "fontAccent", "fs600")}
+                variants={verticalAlignmentVariants}
+                custom={3}
+              >
+                No Time
+              </motion.h1>
+            </motion.section>
             <motion.p
-              className={clsx("uppercase", "fs600")}
+              className={clsx("fontBody", "fw500", "fs500", "txtAlgCenter")}
               variants={verticalAlignmentVariants}
-              custom={2}
+              custom={4}
             >
-              In
+              {homePageText}
             </motion.p>
-            <motion.h1
-              className={clsx("uppercase", "ls3", "fontAccent", "fs600")}
+            <motion.button
+              className={clsx(classes.cta, "standardBorder", "fs500")}
+              onClick={() => {
+                setHomePageActive(false);
+              }}
               variants={verticalAlignmentVariants}
-              custom={3}
+              custom={5}
             >
-              No Time
-            </motion.h1>
-          </motion.section>
-          <motion.p
-            className={clsx("fontBody", "fw500", "fs500", "txtAlgCenter")}
-            variants={verticalAlignmentVariants}
-            custom={4}
-          >
-            {homePageText}
-          </motion.p>
-          <motion.button
-            className={clsx(classes.cta, "standardBorder", "fs500")}
-            onClick={() => {}}
-            variants={verticalAlignmentVariants}
-            custom={5}
-          >
-            Explore
-          </motion.button>
-        </motion.div>
+              Explore
+            </motion.button>
+          </motion.div>
+        )}
       </AnimatePresence>
       {!homePageActive && <PlannerDescription number={"01"} text={"LAALAL"} />}
     </AnimatedPage>
