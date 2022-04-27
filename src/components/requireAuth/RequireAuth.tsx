@@ -8,7 +8,7 @@ const RequireAuth = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   if (!user && !loading) {
-    return <Navigate to="/login/true" state={{ from: location }} replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   return <Fragment>{children}</Fragment>;

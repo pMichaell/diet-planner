@@ -4,7 +4,7 @@ import AnimatedPage from "../../components/animatedPage/AnimatedPage";
 const PlannerPage = () => {
   return (
     <AnimatedPage>
-      <div>Planner Page</div>
+      <div></div>
     </AnimatedPage>
   );
 };

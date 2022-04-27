@@ -11,6 +11,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase/Firebase";
 import Modal from "./components/modal/Modal";
 import ModalContext from "./contexts/modalContext/ModalContext";
+import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
 
 function App() {
   const location = useLocation();
@@ -41,6 +42,7 @@ function App() {
             }
           />
           <Route path={"/login"} element={<LoginPage />} />
+          <Route path={"*"} element={<NotFoundPage />} />
         </Routes>
       </AnimatePresence>
     </Layout>
