@@ -228,3 +228,12 @@ Utility classes
 .standardBorder {
     border: 2px solid hsl(var(--clr-creamy-green));
 }
+
+.centerContents {
+    display: grid;
+    place-items: center;
+}
+
+.lineHeight2 {
+    line-height: 2;
+}
