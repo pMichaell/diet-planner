@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import classes from "./HomePageSection.module.css";
+import classes from "./PlannerDescription.module.css";
 import clsx from "clsx";
 
-const HomePageSection = ({
+const PlannerDescription = ({
   number,
   text,
 }: {
@@ -19,4 +19,4 @@ const HomePageSection = ({
   );
 };
 
-export default HomePageSection;
+export default PlannerDescription;
