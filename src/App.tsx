@@ -26,7 +26,7 @@ function App() {
         <Routes location={location} key={location.pathname}>
           <Route path={"/"} element={<HomePage />} />
           <Route
-            path={"/planner"}
+            path={"/planner/*"}
             element={
               <RequireAuth>
                 <PlannerPage />

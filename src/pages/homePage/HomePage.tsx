@@ -87,10 +87,12 @@ const HomePage = () => {
           <motion.button
             className={clsx(classes.cta, "standardBorder", "fs500")}
             onClick={() => {
-              navigate("/planner");
+              navigate("/planner/questionnaire");
             }}
             variants={verticalAlignmentVariants}
             custom={5}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
             Explore
           </motion.button>

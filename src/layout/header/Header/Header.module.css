@@ -10,13 +10,9 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid hsl(var(--clr-creamy-green));
-    font-family: var(--font-headlines);
 }
 
 .title {
-    color: hsl(var(--clr-creamy-green));
-    font-size: var(--fs-800);
-    font-weight: 300;
     padding-top: 7px;
 }
 

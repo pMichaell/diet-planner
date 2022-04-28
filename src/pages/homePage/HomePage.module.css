@@ -27,4 +27,5 @@
     border-radius: 24px;
     font-family: var(--font-accent);
     color: hsl(var(--clr-creamy-green));
+    cursor: pointer;
 }

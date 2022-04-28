@@ -1,10 +1,17 @@
 import classes from "./PlannerPage.module.css";
 import AnimatedPage from "../../components/animatedPage/AnimatedPage";
+import { Route, Routes } from "react-router-dom";
+import Questionnaire from "./questionnaire/Questionnaire";
+import clsx from "clsx";
 
 const PlannerPage = () => {
   return (
-    <AnimatedPage>
-      <div></div>
+    <AnimatedPage
+      className={clsx("fillParent", "centerContents", classes.container)}
+    >
+      <Routes>
+        <Route path={"/questionnaire"} element={<Questionnaire />} />
+      </Routes>
     </AnimatedPage>
   );
 };

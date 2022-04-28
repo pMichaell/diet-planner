@@ -8,17 +8,6 @@ import { auth } from "../../../firebase/Firebase";
 import { signOut } from "firebase/auth";
 import useWindowDimensions from "../../../hooks/use-window-dimensions";
 
-const dropdownVariants = {
-  initial: { height: 0, opacity: 0.5 },
-  animate: {
-    height: "",
-    opacity: 1,
-  },
-  exit: {
-    opacity: 0,
-  },
-};
-
 const DropdownNav = () => {
   const [user] = useAuthState(auth);
   const { height } = useWindowDimensions();
@@ -33,9 +22,8 @@ const DropdownNav = () => {
     >
       <motion.nav
         className={classes.nav}
-        variants={dropdownVariants}
         initial={{ height: 0, opacity: 0.5 }}
-        animate={{ height: height <= 600 ? "50vh" : "300px", opacity: 1 }}
+        animate={{ height: height <= 600 ? "50vh" : "40vh", opacity: 1 }}
         exit={{ opacity: 0 }}
       >
         <AnimatePresence>

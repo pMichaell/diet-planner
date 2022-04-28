@@ -59,7 +59,13 @@ const Header = () => {
       >
         <Apple className={classes.logo} onClick={() => navigate("/")} />
         <motion.h2
-          className={clsx("uppercase", classes.title)}
+          className={clsx(
+            "uppercase",
+            classes.title,
+            "fontAccent",
+            "fs500",
+            "clrGreen"
+          )}
           variants={headerVariants}
         >
           Diet Planner

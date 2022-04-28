@@ -263,6 +263,15 @@ Utility classes
     overflow: hidden;
 }
 
-.colorGreen {
+.clrGreen {
     color: hsl(var(--clr-creamy-green))
 }
+
+
+@supports (backdrop-filter: blur(1.5rem)) {
+    .backdropFilter {
+        background-color: hsl(var(--clr-white) / 0.05);
+        backdrop-filter: blur(1.5rem);
+    }
+}
+
