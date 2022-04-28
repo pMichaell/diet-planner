@@ -1,12 +1,29 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import classes from "./Questionnaire.module.css";
 import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
-import { verticalAlignmentVariants } from "../../../framerVariants";
+import { opacityVariants } from "../../../framerVariants";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
+import { CaretDoubleRight } from "phosphor-react";
+import MealNamer from "./MealNamer";
+
+const variants = {
+  initial: {
+    y: "-100vh",
+  },
+  animate: {
+    y: "0",
+    transition: {
+      type: "spring",
+      duration: 1,
+      bounce: 0.3,
+    },
+  },
+};
 
 const Questionnaire = () => {
   const [namingSectionVisible, setNamingSectionVisible] = useState(false);
+  const [namingSectionFilled, setNamingSectionFilled] = useState(false);
 
   useEffect(() => {
     const element = document.getElementById("name");
@@ -18,50 +35,70 @@ const Questionnaire = () => {
   });
 
   return (
-    <AnimatedPage
-      className={clsx(
-        "fillParent",
-        "overflowHidden",
-        "standardBorder",
-        "backdropFilter",
-        "clrGreen",
-        classes.container
-      )}
-    >
-      <AnimatePresence exitBeforeEnter>
+    <AnimatedPage className={clsx("fillParent", "overflowHidden")}>
+      <motion.div
+        variants={opacityVariants}
+        initial={"initial"}
+        animate={"animate"}
+        className={clsx(
+          "fillParent",
+          "overflowHidden",
+          "standardBorder",
+          "backdropFilter",
+          "clrGreen",
+          classes.container
+        )}
+      >
         <motion.p
-          variants={verticalAlignmentVariants}
-          custom={3}
-          key={2}
+          key={0}
+          variants={variants}
           className={clsx("fs500", "fw500")}
         >
           Name your brand new plan!
         </motion.p>
         <motion.input
+          key={1}
           id={"name"}
-          variants={verticalAlignmentVariants}
-          custom={4}
-          type="text"
-          key={3}
+          variants={variants}
           className={clsx(classes.input, "clrGreen", "txtAlgCenter")}
         />
         <motion.p
-          variants={verticalAlignmentVariants}
-          custom={1}
-          key={0}
-          className={clsx(classes.questionParagraph, "fs500", "fw500")}
+          key={2}
+          variants={variants}
+          className={clsx(
+            classes.questionParagraph,
+            classes.secondQuestion,
+            "fs500",
+            "fw500"
+          )}
         >
           How many meals per day would you like to eat?
         </motion.p>
         <motion.input
-          variants={verticalAlignmentVariants}
-          custom={2}
-          type="text"
-          key={1}
-          className={clsx(classes.input, "clrGreen", "txtAlgCenter")}
+          key={3}
+          variants={variants}
+          type="number"
+          min="1"
+          max="100"
+          className={clsx(
+            classes.input,
+            classes.secondInput,
+            "clrGreen",
+            "txtAlgCenter"
+          )}
+          onBlur={() => {
+            setNamingSectionVisible(true);
+          }}
         />
-        {namingSectionVisible && <motion.form></motion.form>}
-      </AnimatePresence>
+        {namingSectionVisible && <MealNamer mealCount={3} />}
+        <motion.div className={classes.arrow}>
+          <CaretDoubleRight
+            size={"36px"}
+            weight={namingSectionFilled ? "fill" : "duotone"}
+            className={"clrGreen"}
+          />
+        </motion.div>
+      </motion.div>
     </AnimatedPage>
   );
 };

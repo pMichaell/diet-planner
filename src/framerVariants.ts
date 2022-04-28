@@ -87,3 +87,15 @@ export const breathingVariants = {
     repeatType: "loop",
   },
 };
+
+export const opacityVariants = {
+  initial: {
+    opacity: 0.5,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};

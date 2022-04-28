@@ -3,7 +3,7 @@
     padding: 0.5em;
     text-align: center;
     display: grid;
-    grid-template-rows: repeat(4, 50px) 1fr;
+    grid-template-rows: 50px 40px 20px 60px 40px 1fr 40px;
     border-radius: 20px;
     place-items: center;
 }
@@ -16,5 +16,16 @@
 
 .input {
     border-bottom: 2px solid hsl(var(--clr-creamy-green));
-    align-self: flex-end;
+}
+
+.secondQuestion {
+    grid-row: 4;
+}
+
+.secondInput {
+    grid-row: 5;
+}
+
+.arrow {
+    grid-row: 7;
 }
