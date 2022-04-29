@@ -34,15 +34,22 @@ const mealNameVariants = {
   },
 };
 
-let filled: boolean = false;
+let filled: Record<number, string> = {
+  0: "",
+  1: "",
+  2: "",
+  3: "",
+  4: "",
+};
+
+const checkIfAllFilled = (mealCount: number) => {
+  for (let i = 0; i < mealCount; i++) {
+    return filled[i] === "";
+  }
+  return true;
+};
 
 const MealNameInput = ({ mealNumber }: { mealNumber: number }) => {
-  const [inputValue, setInputValue] = useState("");
-
-  useEffect(() => {
-    filled = inputValue !== "" && true;
-  });
-
   return (
     <motion.div
       key={mealNumber}
@@ -50,14 +57,15 @@ const MealNameInput = ({ mealNumber }: { mealNumber: number }) => {
       className={clsx(classes.mealNameInput)}
     >
       <label htmlFor={`meal#${mealNumber}`} className={"fw500"}>
-        Meal #{mealNumber}
+        Meal #{mealNumber + 1}
       </label>
       <input
         type="text"
         id={`meal#${mealNumber}`}
         className={clsx("txtAlgCenter", "clrGreen")}
-        value={inputValue}
-        onChange={(event) => setInputValue(event.target.value)}
+        onChange={(event) => {
+          filled[mealNumber] = event.target.value;
+        }}
       />
     </motion.div>
   );
@@ -84,7 +92,7 @@ const MealNamer = ({
         Name your meals!
       </motion.p>
       {Array.from({ length: mealCount }, (_, index) => (
-        <MealNameInput mealNumber={index + 1} key={index} />
+        <MealNameInput mealNumber={index} key={index} />
       ))}
     </motion.form>
   );
