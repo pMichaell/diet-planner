@@ -1,9 +1,25 @@
 .container {
     display: grid;
     grid-row: 6;
-    background: blue;
+    place-items: center;
+    height: 100%;
+}
+
+.container > p {
+    align-self: flex-end;
 }
 
 .mealNameInput {
-    background: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mealNameInput > input {
+    border-bottom: 2px solid hsl(var(--clr-creamy-green));
+}
+
+.mealNameInput > label {
+    padding-top: 12px;
 }

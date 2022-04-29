@@ -39,7 +39,7 @@ const Questionnaire = () => {
   const inputBlurHandler = () => {
     // @ts-ignore
     const inputValue = +numberInputRef.current.value;
-    if (inputValue < 1 || inputValue > 6) {
+    if (inputValue < 1 || inputValue > 5) {
       inputErrorSet(true);
       return;
     }
@@ -60,6 +60,7 @@ const Questionnaire = () => {
           "standardBorder",
           "backdropFilter",
           "clrGreen",
+          "ls1",
           classes.container
         )}
       >
@@ -107,7 +108,12 @@ const Questionnaire = () => {
           }}
           onBlur={inputBlurHandler}
         />
-        {namingSectionVisible && <MealNamer mealCount={5} />}
+        {namingSectionVisible && (
+          <MealNamer
+            mealCount={5}
+            setNamingSectionFilled={setNamingSectionFilled}
+          />
+        )}
         <motion.div className={classes.arrow}>
           <CaretDoubleRight
             size={"36px"}

@@ -8,10 +8,8 @@
     place-items: center;
 }
 
-
-
 .questionParagraph {
-    padding-inline: 1em;
+    max-width: 25ch;
 }
 
 .input {
