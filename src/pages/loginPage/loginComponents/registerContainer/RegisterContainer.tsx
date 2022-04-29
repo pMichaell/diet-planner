@@ -2,7 +2,7 @@ import { motion, useAnimation } from "framer-motion";
 import classes from "./RegisterContainer.module.css";
 import EmailInput from "../emailInput/EmailInput";
 import PasswordInput from "../passwordInput/PasswordInput";
-import { userValidationVariants } from "../../../../framerVariants";
+import { validationVariants } from "../../../../framerVariants";
 import { FormEvent, useContext, useState } from "react";
 import { auth } from "../../../../firebase/Firebase";
 import {
@@ -15,7 +15,6 @@ import { Spinner } from "phosphor-react";
 import { useSearchParams } from "react-router-dom";
 import ModalContext from "../../../../contexts/modalContext/ModalContext";
 import { createUser } from "../../../../firebase/FirestoreFunctions";
-import clsx from "clsx";
 
 const RegisterContainer = () => {
   const { email, password, secondPassword, setPasswordCorrupted } =
@@ -62,7 +61,7 @@ const RegisterContainer = () => {
   return (
     <motion.form
       className={classes.registerSection}
-      variants={userValidationVariants}
+      variants={validationVariants}
       initial={"initial"}
       animate={"animate"}
       exit={"exit"}

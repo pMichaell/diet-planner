@@ -2,7 +2,7 @@ import classes from "./LoginContainer.module.css";
 import { motion, useAnimation } from "framer-motion";
 import PasswordInput from "../passwordInput/PasswordInput";
 import EmailInput from "../emailInput/EmailInput";
-import { userValidationVariants } from "../../../../framerVariants";
+import { validationVariants } from "../../../../framerVariants";
 import { FormEvent, useContext, useState } from "react";
 import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
 import clsx from "clsx";
@@ -44,7 +44,7 @@ const LoginContainer = () => {
   return (
     <motion.form
       className={classes.loginSection}
-      variants={userValidationVariants}
+      variants={validationVariants}
       initial={"initial"}
       animate={"animate"}
       exit={"exit"}

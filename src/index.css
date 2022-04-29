@@ -6,6 +6,7 @@
     --clr-checkmark-green: 90 100% 44%;
     --clr-wrong-red: 350 100% 50%;
     --clr-black: 216 100% 4%;
+    --clr-light-pink: 349 100% 85%;
 
     /* font-families */
     --font-headlines: 'Oswald', sans-serif;;
@@ -42,7 +43,7 @@
     }
 }
 
-@media (min-width: 999px) {
+@media (min-width: 1600px) {
     :root {
         --fs-800: 3rem;
         --fs-700: 2.5rem;
@@ -133,6 +134,15 @@ input {
     padding: 0;
     background: none;
     outline: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */

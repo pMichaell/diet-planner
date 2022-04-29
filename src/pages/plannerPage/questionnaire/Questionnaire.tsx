@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import classes from "./Questionnaire.module.css";
 import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
 import { opacityVariants } from "../../../framerVariants";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { CaretDoubleRight } from "phosphor-react";
 import MealNamer from "./MealNamer";
@@ -24,6 +24,8 @@ const variants = {
 const Questionnaire = () => {
   const [namingSectionVisible, setNamingSectionVisible] = useState(false);
   const [namingSectionFilled, setNamingSectionFilled] = useState(false);
+  const [inputError, inputErrorSet] = useState(false);
+  const numberInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const element = document.getElementById("name");
@@ -32,10 +34,22 @@ const Questionnaire = () => {
     }, 1200);
 
     return () => window.clearTimeout(timeout);
-  });
+  }, []);
+
+  const inputBlurHandler = () => {
+    // @ts-ignore
+    const inputValue = +numberInputRef.current.value;
+    if (inputValue < 1 || inputValue > 6) {
+      inputErrorSet(true);
+      return;
+    }
+    setNamingSectionVisible(true);
+  };
 
   return (
-    <AnimatedPage className={clsx("fillParent", "overflowHidden")}>
+    <AnimatedPage
+      className={clsx("fillParent", "overflowHidden", "centerContents")}
+    >
       <motion.div
         variants={opacityVariants}
         initial={"initial"}
@@ -76,6 +90,7 @@ const Questionnaire = () => {
         </motion.p>
         <motion.input
           key={3}
+          ref={numberInputRef}
           variants={variants}
           type="number"
           min="1"
@@ -84,13 +99,15 @@ const Questionnaire = () => {
             classes.input,
             classes.secondInput,
             "clrGreen",
-            "txtAlgCenter"
+            "txtAlgCenter",
+            inputError && classes.inputError
           )}
-          onBlur={() => {
-            setNamingSectionVisible(true);
+          onFocus={() => {
+            inputErrorSet(false);
           }}
+          onBlur={inputBlurHandler}
         />
-        {namingSectionVisible && <MealNamer mealCount={3} />}
+        {namingSectionVisible && <MealNamer mealCount={5} />}
         <motion.div className={classes.arrow}>
           <CaretDoubleRight
             size={"36px"}

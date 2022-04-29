@@ -33,14 +33,14 @@ const NotFoundPage = () => {
           <motion.h1
             variants={verticalAlignmentVariants}
             custom={3}
-            className={clsx("fs700", "fontAccent", "colorGreen")}
+            className={clsx("fs700", "fontAccent", "clrGreen")}
           >
             404
           </motion.h1>
           <motion.h3
             variants={verticalAlignmentVariants}
             custom={4}
-            className={clsx("fs600", "fontAccent", "colorGreen")}
+            className={clsx("fs600", "fontAccent", "clrGreen")}
           >
             Not Found
           </motion.h3>

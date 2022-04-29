@@ -1,0 +1,9 @@
+.container {
+    display: grid;
+    grid-row: 6;
+    background: blue;
+}
+
+.mealNameInput {
+    background: yellow;
+}

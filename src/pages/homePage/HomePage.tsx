@@ -1,18 +1,10 @@
 import classes from "./HomePage.module.css";
 import AnimatedPage from "../../components/animatedPage/AnimatedPage";
-import PlannerDescription from "./homePageSection/PlannerDescription";
-import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import data from "../../assets/jsonData/homePage.json";
-import BreathingButton from "../../components/buttons/BreathingButton";
 import { verticalAlignmentVariants } from "../../framerVariants";
 import { useNavigate } from "react-router-dom";
-
-type homePageData = {
-  number: string;
-  text: string;
-};
 
 const homePageText = data[0].text;
 

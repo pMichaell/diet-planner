@@ -46,7 +46,7 @@ export const verticalAlignmentVariants = {
   }),
 };
 
-export const userValidationVariants = {
+export const validationVariants = {
   initial: {
     opacity: 0,
     rotateY: -180,
