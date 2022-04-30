@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import classes from "./Questionnaire.module.css";
 import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
 import { opacityVariants } from "../../../framerVariants";
@@ -25,7 +25,7 @@ const Questionnaire = () => {
   const [namingSectionVisible, setNamingSectionVisible] = useState(false);
   const [namingSectionFilled, setNamingSectionFilled] = useState(false);
   const [inputError, inputErrorSet] = useState(false);
-  const numberInputRef = useRef<HTMLInputElement>(null);
+  const mealsCountRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const element = document.getElementById("name");
@@ -36,16 +36,26 @@ const Questionnaire = () => {
     return () => window.clearTimeout(timeout);
   }, []);
 
-  const inputBlurHandler = () => {
-    // @ts-ignore
-    const inputValue = +numberInputRef.current.value;
-    if (inputValue < 1 || inputValue > 5) {
-      inputErrorSet(true);
+  const inputChangeHandler = (value: string) => {
+    const inputValue = +value;
+
+    if (inputValue >= 1 && inputValue <= 5) {
+      inputErrorSet(false);
+      setNamingSectionVisible(true);
       return;
     }
-    setNamingSectionVisible(true);
+
+    inputErrorSet(true);
+    setNamingSectionVisible(false);
+    return;
   };
 
+  const getRefValue = function getRefValue() {
+    // @ts-ignore
+    return +mealsCountRef.current.value;
+  };
+
+  // @ts-ignore
   return (
     <AnimatedPage
       className={clsx("fillParent", "overflowHidden", "centerContents")}
@@ -91,7 +101,7 @@ const Questionnaire = () => {
         </motion.p>
         <motion.input
           key={3}
-          ref={numberInputRef}
+          ref={mealsCountRef}
           variants={variants}
           type="number"
           min="1"
@@ -106,14 +116,18 @@ const Questionnaire = () => {
           onFocus={() => {
             inputErrorSet(false);
           }}
-          onBlur={inputBlurHandler}
+          onChange={(event) => {
+            inputChangeHandler(event.target.value);
+          }}
         />
-        {namingSectionVisible && (
-          <MealNamer
-            mealCount={5}
-            setNamingSectionFilled={setNamingSectionFilled}
-          />
-        )}
+        <AnimatePresence>
+          {namingSectionVisible && (
+            <MealNamer
+              mealCount={getRefValue()}
+              setNamingSectionFilled={setNamingSectionFilled}
+            />
+          )}
+        </AnimatePresence>
         <motion.div className={classes.arrow}>
           <CaretDoubleRight
             size={"36px"}
