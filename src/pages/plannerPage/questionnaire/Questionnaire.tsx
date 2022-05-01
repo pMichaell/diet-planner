@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import classes from "./Questionnaire.module.css";
 import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
 import { opacityVariants } from "../../../framerVariants";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { CaretDoubleRight } from "phosphor-react";
 import MealNamer from "./MealNamer";
@@ -23,7 +23,7 @@ const variants = {
 
 const Questionnaire = () => {
   const [namingSectionVisible, setNamingSectionVisible] = useState(false);
-  const [namingSectionFilled, setNamingSectionFilled] = useState(false);
+  const [formFilled, formFilledSet] = useState(false);
   const [inputError, inputErrorSet] = useState(false);
   const mealsCountRef = useRef<HTMLInputElement>(null);
 
@@ -36,7 +36,12 @@ const Questionnaire = () => {
     return () => window.clearTimeout(timeout);
   }, []);
 
+  const setFormFilled = useCallback((filled: boolean) => {
+    formFilledSet(filled);
+  }, []);
+
   const inputChangeHandler = (value: string) => {
+    setFormFilled(false);
     const inputValue = +value;
 
     if (inputValue >= 1 && inputValue <= 5) {
@@ -58,7 +63,12 @@ const Questionnaire = () => {
   // @ts-ignore
   return (
     <AnimatedPage
-      className={clsx("fillParent", "overflowHidden", "centerContents")}
+      className={clsx(
+        "fillParent",
+        "overflowHidden",
+        "centerContents",
+        "pagePadding"
+      )}
     >
       <motion.div
         variants={opacityVariants}
@@ -124,15 +134,15 @@ const Questionnaire = () => {
           {namingSectionVisible && (
             <MealNamer
               mealCount={getRefValue()}
-              setNamingSectionFilled={setNamingSectionFilled}
+              setFromFilled={setFormFilled}
             />
           )}
         </AnimatePresence>
-        <motion.div className={classes.arrow}>
+        <motion.div className={clsx(classes.arrowContainer, "centerContents")}>
           <CaretDoubleRight
             size={"36px"}
-            weight={namingSectionFilled ? "fill" : "duotone"}
-            className={"clrGreen"}
+            weight={formFilled ? "fill" : "duotone"}
+            className={clsx("clrGreen")}
           />
         </motion.div>
       </motion.div>

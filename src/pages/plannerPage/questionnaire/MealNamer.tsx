@@ -39,54 +39,60 @@ const mealNameVariants = {
 
 const MealNamer = ({
   mealCount,
-  setNamingSectionFilled,
+  setFromFilled,
 }: {
   mealCount: number;
-  setNamingSectionFilled: (filled: boolean) => void;
+  setFromFilled: (filled: boolean) => void;
 }) => {
   const [inputValues, setInputValues] = useState<Array<string>>(
     new Array(mealCount).fill("")
   );
 
   useEffect(() => {
-    !inputValues.includes("")
-      ? setNamingSectionFilled(true)
-      : setNamingSectionFilled(false);
-  }, [inputValues]);
+    !inputValues.includes("") ? setFromFilled(true) : setFromFilled(false);
+  }, [inputValues, setFromFilled]);
 
   return (
-    <motion.form
-      className={classes.container}
-      variants={formVariants}
-      initial={"initial"}
-      animate={"animate"}
-      exit={"exit"}
-    >
-      <motion.p variants={mealNameVariants} className={clsx("fw500")}>
+    <motion.div className={classes.container}>
+      <motion.p
+        variants={mealNameVariants}
+        initial={"initial"}
+        animate={"animate"}
+        exit={"exit"}
+        className={clsx("fw500")}
+      >
         {mealCount > 1 ? "Name your meals!" : "Name your meal!"}
       </motion.p>
-      {Array.from({ length: mealCount }, (_, index) => (
-        <motion.div
-          key={index}
-          variants={mealNameVariants}
-          className={clsx(classes.mealNameInput)}
-        >
-          <label htmlFor={`meal#${index}`} className={"fw500"}>
-            Meal #{index + 1}
-          </label>
-          <input
-            type="text"
-            id={`meal#${index}`}
-            className={clsx("txtAlgCenter", "clrGreen")}
-            onChange={(event) => {
-              let newArr = [...inputValues];
-              newArr[index] = event.target.value;
-              setInputValues(newArr);
-            }}
-          />
-        </motion.div>
-      ))}
-    </motion.form>
+      <motion.form
+        className={clsx(classes.form, mealCount === 1 && classes.singleMeal)}
+        variants={formVariants}
+        initial={"initial"}
+        animate={"animate"}
+        exit={"exit"}
+      >
+        {Array.from({ length: mealCount }, (_, index) => (
+          <motion.div
+            key={index}
+            variants={mealNameVariants}
+            className={clsx(classes.mealNameInput)}
+          >
+            <label htmlFor={`meal#${index}`} className={"fw500"}>
+              Meal #{index + 1}
+            </label>
+            <input
+              type="text"
+              id={`meal#${index}`}
+              className={clsx("txtAlgCenter", "clrGreen")}
+              onChange={(event) => {
+                let newArr = [...inputValues];
+                newArr[index] = event.target.value;
+                setInputValues(newArr);
+              }}
+            />
+          </motion.div>
+        ))}
+      </motion.form>
+    </motion.div>
   );
 };
 

@@ -277,6 +277,9 @@ Utility classes
     color: hsl(var(--clr-creamy-green))
 }
 
+.pagePadding{
+    padding: 1rem;
+}
 
 @supports (backdrop-filter: blur(1.5rem)) {
     .backdropFilter {

@@ -31,6 +31,6 @@
     color: hsl(var(--clr-light-pink));
 }
 
-.arrow {
+.arrowContainer {
     grid-row: 7;
 }
