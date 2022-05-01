@@ -3,6 +3,7 @@ import AnimatedPage from "../../components/animatedPage/AnimatedPage";
 import { Route, Routes } from "react-router-dom";
 import Questionnaire from "./questionnaire/Questionnaire";
 import clsx from "clsx";
+import Planner from "./Planner/Planner";
 
 const PlannerPage = () => {
   return (
@@ -10,6 +11,7 @@ const PlannerPage = () => {
       className={clsx("fillParent", "centerContents", classes.container)}
     >
       <Routes>
+        <Route index element={<Planner />} />
         <Route path={"/questionnaire"} element={<Questionnaire />} />
       </Routes>
     </AnimatedPage>

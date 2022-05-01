@@ -8,6 +8,8 @@ import { CaretDoubleRight } from "phosphor-react";
 import MealNamer from "./MealNamer";
 import { useNavigate } from "react-router-dom";
 
+type refOption = "mealsCount" | "planName";
+
 const variants = {
   initial: {
     y: "-100vh",
@@ -43,19 +45,21 @@ const Questionnaire = () => {
     if (!formFilled) {
       return;
     }
-    // @ts-ignore
-    if (mealNameRef.current.value.length === 0) {
+    if (getRefValue("planName") === "") {
       const element = document.getElementById("name");
       element?.focus();
       return;
     }
 
-    navigate("/");
+    sessionStorage.setItem(
+      "mealCount",
+      JSON.stringify(getRefValue("mealsCount"))
+    );
+    navigate("..", { replace: true });
   };
 
   const setFormFilled = useCallback((filled: boolean) => {
-    // @ts-ignore
-    if (mealNameRef.current.value.length === 0) {
+    if (getRefValue("planName") === "") {
       return;
     }
     formFilledSet(filled);
@@ -76,12 +80,12 @@ const Questionnaire = () => {
     return;
   };
 
-  const getRefValue = function getRefValue() {
-    // @ts-ignore
-    return +mealsCountRef.current.value;
+  const getRefValue = function getRefValue(option: refOption) {
+    return option === "mealsCount"
+      ? +mealsCountRef.current!.value
+      : mealNameRef.current!.value;
   };
 
-  // @ts-ignore
   return (
     <AnimatedPage
       className={clsx(
@@ -158,7 +162,7 @@ const Questionnaire = () => {
         <AnimatePresence>
           {namingSectionVisible && (
             <MealNamer
-              mealCount={getRefValue()}
+              mealCount={getRefValue("mealsCount") as number}
               setFromFilled={setFormFilled}
             />
           )}
