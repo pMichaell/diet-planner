@@ -64,7 +64,7 @@ const MealNamer = ({
         {mealCount > 1 ? "Name your meals!" : "Name your meal!"}
       </motion.p>
       <motion.form
-        className={clsx(classes.form, mealCount === 1 && classes.singleMeal)}
+        className={clsx(classes.form, mealCount < 3 && classes.fewMeals)}
         variants={formVariants}
         initial={"initial"}
         animate={"animate"}

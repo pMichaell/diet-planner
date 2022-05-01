@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { CaretDoubleRight } from "phosphor-react";
 import MealNamer from "./MealNamer";
+import { useNavigate } from "react-router-dom";
 
 const variants = {
   initial: {
@@ -25,7 +26,9 @@ const Questionnaire = () => {
   const [namingSectionVisible, setNamingSectionVisible] = useState(false);
   const [formFilled, formFilledSet] = useState(false);
   const [inputError, inputErrorSet] = useState(false);
+  const mealNameRef = useRef<HTMLInputElement>(null);
   const mealsCountRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const element = document.getElementById("name");
@@ -36,11 +39,29 @@ const Questionnaire = () => {
     return () => window.clearTimeout(timeout);
   }, []);
 
+  const submitHandler = () => {
+    if (!formFilled) {
+      return;
+    }
+    // @ts-ignore
+    if (mealNameRef.current.value.length === 0) {
+      const element = document.getElementById("name");
+      element?.focus();
+      return;
+    }
+
+    navigate("/");
+  };
+
   const setFormFilled = useCallback((filled: boolean) => {
+    // @ts-ignore
+    if (mealNameRef.current.value.length === 0) {
+      return;
+    }
     formFilledSet(filled);
   }, []);
 
-  const inputChangeHandler = (value: string) => {
+  const numberInputChangeHandler = (value: string) => {
     setFormFilled(false);
     const inputValue = +value;
 
@@ -94,8 +115,12 @@ const Questionnaire = () => {
         <motion.input
           key={1}
           id={"name"}
+          ref={mealNameRef}
           variants={variants}
           className={clsx(classes.input, "clrGreen", "txtAlgCenter")}
+          onChange={(e) =>
+            e.target.value === "" ? setFormFilled(false) : setFormFilled(true)
+          }
         />
         <motion.p
           key={2}
@@ -127,7 +152,7 @@ const Questionnaire = () => {
             inputErrorSet(false);
           }}
           onChange={(event) => {
-            inputChangeHandler(event.target.value);
+            numberInputChangeHandler(event.target.value);
           }}
         />
         <AnimatePresence>
@@ -138,13 +163,16 @@ const Questionnaire = () => {
             />
           )}
         </AnimatePresence>
-        <motion.div className={clsx(classes.arrowContainer, "centerContents")}>
+        <motion.button
+          className={clsx(classes.arrowContainer, "centerContents")}
+          onClick={submitHandler}
+        >
           <CaretDoubleRight
             size={"36px"}
             weight={formFilled ? "fill" : "duotone"}
             className={clsx("clrGreen")}
           />
-        </motion.div>
+        </motion.button>
       </motion.div>
     </AnimatedPage>
   );
