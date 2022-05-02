@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { CaretDoubleRight } from "phosphor-react";
 import MealNamer from "./MealNamer";
 import { useNavigate } from "react-router-dom";
+import { PlanDay } from "../../../Models";
 
 type refOption = "mealsCount" | "planName";
 
@@ -28,6 +29,7 @@ const Questionnaire = () => {
   const [namingSectionVisible, setNamingSectionVisible] = useState(false);
   const [formFilled, formFilledSet] = useState(false);
   const [inputError, inputErrorSet] = useState(false);
+  const [mealNames, setMealNames] = useState<string[]>([]);
   const mealNameRef = useRef<HTMLInputElement>(null);
   const mealsCountRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -51,10 +53,8 @@ const Questionnaire = () => {
       return;
     }
 
-    sessionStorage.setItem(
-      "mealCount",
-      JSON.stringify(getRefValue("mealsCount"))
-    );
+    fillSessionStorage();
+
     navigate("..", { replace: true });
   };
 
@@ -80,11 +80,26 @@ const Questionnaire = () => {
     return;
   };
 
+  const fillSessionStorage = () => {
+    sessionStorage.setItem(
+      "mealCount",
+      JSON.stringify(getRefValue("mealsCount"))
+    );
+
+    sessionStorage.setItem("mealNames", JSON.stringify(mealNames));
+
+    sessionStorage.setItem("planName", JSON.stringify(getRefValue("planName")));
+  };
+
   const getRefValue = function getRefValue(option: refOption) {
     return option === "mealsCount"
       ? +mealsCountRef.current!.value
       : mealNameRef.current!.value;
   };
+
+  const collectInputsData = useCallback((data: string[]) => {
+    setMealNames(data);
+  }, []);
 
   return (
     <AnimatedPage
@@ -163,7 +178,8 @@ const Questionnaire = () => {
           {namingSectionVisible && (
             <MealNamer
               mealCount={getRefValue("mealsCount") as number}
-              setFromFilled={setFormFilled}
+              setFormFilled={setFormFilled}
+              collectInputsData={collectInputsData}
             />
           )}
         </AnimatePresence>

@@ -39,18 +39,26 @@ const mealNameVariants = {
 
 const MealNamer = ({
   mealCount,
-  setFromFilled,
+  setFormFilled,
+  collectInputsData,
 }: {
   mealCount: number;
-  setFromFilled: (filled: boolean) => void;
+  setFormFilled: (filled: boolean) => void;
+  collectInputsData: (data: string[]) => void;
 }) => {
   const [inputValues, setInputValues] = useState<Array<string>>(
     new Array(mealCount).fill("")
   );
 
   useEffect(() => {
-    !inputValues.includes("") ? setFromFilled(true) : setFromFilled(false);
-  }, [inputValues, setFromFilled]);
+    if (inputValues.includes("")) {
+      setFormFilled(false);
+      return;
+    }
+
+    setFormFilled(true);
+    collectInputsData(inputValues);
+  }, [collectInputsData, inputValues, setFormFilled]);
 
   return (
     <motion.div className={classes.container}>

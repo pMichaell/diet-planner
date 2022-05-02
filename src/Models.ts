@@ -32,5 +32,16 @@ export type MealDetails = {
 };
 
 export type PlanDay = {
-  [mealName: string]: Meal;
+  [mealName: string]: Meal | null;
+};
+
+export type Plan = {
+  name?: string;
+  monday?: Meal[];
+  tuesday?: Meal[];
+  wednesday?: Meal[];
+  thursday?: Meal[];
+  friday?: Meal[];
+  saturday?: Meal[];
+  sunday?: Meal[];
 };
