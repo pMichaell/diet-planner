@@ -2,14 +2,64 @@ import { AnimatePresence, motion } from "framer-motion";
 import classes from "./Questionnaire.module.css";
 import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
 import { opacityVariants } from "../../../framerVariants";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import clsx from "clsx";
 import { CaretDoubleRight } from "phosphor-react";
 import MealNamer from "./MealNamer";
 import { useNavigate } from "react-router-dom";
 import { PlanDay } from "../../../Models";
 
-type refOption = "mealsCount" | "planName";
+type QuestionnaireForm = {
+  namingSectionVisible: boolean;
+  formFilled: boolean;
+  mealNames: string[];
+  planName: string;
+  mealsCount: string;
+  inputError: boolean;
+};
+
+type ACTION_TYPE =
+  | { type: "setNamingSectionVisible"; payload: boolean }
+  | { type: "setFormFilled"; payload: boolean }
+  | { type: "setPlanName"; payload: string }
+  | { type: "setMealsCount"; payload: string }
+  | { type: "setMealNames"; payload: string[] }
+  | { type: "setFirstInputError"; payload: boolean };
+
+const reducer = (state: QuestionnaireForm, action: ACTION_TYPE) => {
+  switch (action.type) {
+    case "setNamingSectionVisible":
+      return {
+        ...state,
+        namingSectionVisible: action.payload,
+      };
+    case "setFormFilled":
+      return {
+        ...state,
+        formFilled: action.payload,
+      };
+    case "setPlanName":
+      return {
+        ...state,
+        planName: action.payload,
+      };
+    case "setMealsCount":
+      return {
+        ...state,
+        mealsCount: action.payload,
+      };
+    case "setMealNames":
+      return {
+        ...state,
+        mealNames: action.payload,
+      };
+    case "setFirstInputError":
+      return {
+        ...state,
+        inputError: action.payload,
+      };
+  }
+};
 
 const variants = {
   initial: {
@@ -25,29 +75,40 @@ const variants = {
   },
 };
 
+const initialState: QuestionnaireForm = {
+  namingSectionVisible: false,
+  formFilled: false,
+  mealNames: [],
+  planName: "",
+  mealsCount: "",
+  inputError: false,
+};
+
 const Questionnaire = () => {
-  const [namingSectionVisible, setNamingSectionVisible] = useState(false);
-  const [formFilled, formFilledSet] = useState(false);
-  const [inputError, inputErrorSet] = useState(false);
-  const [mealNames, setMealNames] = useState<string[]>([]);
-  const mealNameRef = useRef<HTMLInputElement>(null);
-  const mealsCountRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    const element = document.getElementById("name");
-    const timeout = setTimeout(() => {
-      element?.focus();
-    }, 1200);
+    console.log(state);
 
-    return () => window.clearTimeout(timeout);
-  }, []);
+    const mealsCount = +state.mealsCount;
+
+    if (
+      state.planName !== "" &&
+      !state.mealNames.includes("") &&
+      state.mealNames.length !== 0 &&
+      mealsCount >= 1 &&
+      mealsCount <= 5
+    ) {
+      dispatch({ type: "setFormFilled", payload: true });
+    }
+  }, [state]);
 
   const submitHandler = () => {
-    if (!formFilled) {
+    if (!state.formFilled) {
       return;
     }
-    if (getRefValue("planName") === "") {
+    if (state.planName === "") {
       const element = document.getElementById("name");
       element?.focus();
       return;
@@ -58,47 +119,31 @@ const Questionnaire = () => {
     navigate("..", { replace: true });
   };
 
-  const setFormFilled = useCallback((filled: boolean) => {
-    if (getRefValue("planName") === "") {
-      return;
-    }
-    formFilledSet(filled);
-  }, []);
-
   const numberInputChangeHandler = (value: string) => {
-    setFormFilled(false);
+    dispatch({ type: "setMealsCount", payload: value });
+    dispatch({ type: "setFormFilled", payload: false });
     const inputValue = +value;
 
     if (inputValue >= 1 && inputValue <= 5) {
-      inputErrorSet(false);
-      setNamingSectionVisible(true);
+      dispatch({ type: "setFirstInputError", payload: false });
+      dispatch({ type: "setNamingSectionVisible", payload: true });
       return;
     }
 
-    inputErrorSet(true);
-    setNamingSectionVisible(false);
-    return;
+    dispatch({ type: "setFirstInputError", payload: true });
+    dispatch({ type: "setNamingSectionVisible", payload: false });
   };
 
   const fillSessionStorage = () => {
-    sessionStorage.setItem(
-      "mealCount",
-      JSON.stringify(getRefValue("mealsCount"))
-    );
+    sessionStorage.setItem("mealCount", JSON.stringify(state.mealsCount));
 
-    sessionStorage.setItem("mealNames", JSON.stringify(mealNames));
+    sessionStorage.setItem("mealNames", JSON.stringify(state.mealNames));
 
-    sessionStorage.setItem("planName", JSON.stringify(getRefValue("planName")));
+    sessionStorage.setItem("planName", JSON.stringify(state.planName));
   };
 
-  const getRefValue = function getRefValue(option: refOption) {
-    return option === "mealsCount"
-      ? +mealsCountRef.current!.value
-      : mealNameRef.current!.value;
-  };
-
-  const collectInputsData = useCallback((data: string[]) => {
-    setMealNames(data);
+  const setMealNames = useCallback((data: string[]) => {
+    dispatch({ type: "setMealNames", payload: data });
   }, []);
 
   return (
@@ -134,11 +179,11 @@ const Questionnaire = () => {
         <motion.input
           key={1}
           id={"name"}
-          ref={mealNameRef}
+          value={state.planName}
           variants={variants}
           className={clsx(classes.input, "clrGreen", "txtAlgCenter")}
           onChange={(e) =>
-            e.target.value === "" ? setFormFilled(false) : setFormFilled(true)
+            dispatch({ type: "setPlanName", payload: e.target.value })
           }
         />
         <motion.p
@@ -155,7 +200,7 @@ const Questionnaire = () => {
         </motion.p>
         <motion.input
           key={3}
-          ref={mealsCountRef}
+          value={state.mealsCount}
           variants={variants}
           type="number"
           min="1"
@@ -165,21 +210,20 @@ const Questionnaire = () => {
             classes.secondInput,
             "clrGreen",
             "txtAlgCenter",
-            inputError && classes.inputError
+            state.inputError && classes.inputError
           )}
           onFocus={() => {
-            inputErrorSet(false);
+            dispatch({ type: "setFirstInputError", payload: false });
           }}
-          onChange={(event) => {
-            numberInputChangeHandler(event.target.value);
+          onChange={(e) => {
+            numberInputChangeHandler(e.target.value);
           }}
         />
         <AnimatePresence>
-          {namingSectionVisible && (
+          {state.namingSectionVisible && (
             <MealNamer
-              mealCount={getRefValue("mealsCount") as number}
-              setFormFilled={setFormFilled}
-              collectInputsData={collectInputsData}
+              mealsCount={state.mealsCount as unknown as number}
+              setMealNames={setMealNames}
             />
           )}
         </AnimatePresence>
@@ -189,7 +233,7 @@ const Questionnaire = () => {
         >
           <CaretDoubleRight
             size={"36px"}
-            weight={formFilled ? "fill" : "duotone"}
+            weight={state.formFilled ? "fill" : "duotone"}
             className={clsx("clrGreen")}
           />
         </motion.button>
@@ -199,3 +243,10 @@ const Questionnaire = () => {
 };
 
 export default Questionnaire;
+
+/*const element = document.getElementById("name");
+  const timeout = setTimeout(() => {
+    element?.focus();
+  }, 1200);
+
+  return () => window.clearTimeout(timeout);*/

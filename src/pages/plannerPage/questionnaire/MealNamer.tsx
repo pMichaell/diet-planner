@@ -38,27 +38,19 @@ const mealNameVariants = {
 };
 
 const MealNamer = ({
-  mealCount,
-  setFormFilled,
-  collectInputsData,
+  mealsCount,
+  setMealNames,
 }: {
-  mealCount: number;
-  setFormFilled: (filled: boolean) => void;
-  collectInputsData: (data: string[]) => void;
+  mealsCount: number;
+  setMealNames: (data: string[]) => void;
 }) => {
   const [inputValues, setInputValues] = useState<Array<string>>(
-    new Array(mealCount).fill("")
+    new Array(mealsCount).fill("")
   );
 
   useEffect(() => {
-    if (inputValues.includes("")) {
-      setFormFilled(false);
-      return;
-    }
-
-    setFormFilled(true);
-    collectInputsData(inputValues);
-  }, [collectInputsData, inputValues, setFormFilled]);
+    setMealNames(inputValues);
+  }, [setMealNames, inputValues]);
 
   return (
     <motion.div className={classes.container}>
@@ -69,16 +61,16 @@ const MealNamer = ({
         exit={"exit"}
         className={clsx("fw500")}
       >
-        {mealCount > 1 ? "Name your meals!" : "Name your meal!"}
+        {mealsCount > 1 ? "Name your meals!" : "Name your meal!"}
       </motion.p>
       <motion.form
-        className={clsx(classes.form, mealCount < 3 && classes.fewMeals)}
+        className={clsx(classes.form, mealsCount < 3 && classes.fewMeals)}
         variants={formVariants}
         initial={"initial"}
         animate={"animate"}
         exit={"exit"}
       >
-        {Array.from({ length: mealCount }, (_, index) => (
+        {Array.from({ length: mealsCount }, (_, index) => (
           <motion.div
             key={index}
             variants={mealNameVariants}

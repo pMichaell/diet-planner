@@ -1,13 +1,13 @@
 import LoginPageContext, { LoginContext } from "./LoginPageContext";
-import { ReactNode, useEffect, useReducer } from "react";
+import { ReactNode, useReducer } from "react";
 
-type ACTIONTYPE =
+type ACTION_TYPE =
   | { type: "setEmail"; payload: string }
   | { type: "setPassword"; payload: string }
   | { type: "setSecondPassword"; payload: string }
   | { type: "setPasswordCorrupted"; payload: boolean };
 
-const reducer = (state: LoginContext, action: ACTIONTYPE) => {
+const reducer = (state: LoginContext, action: ACTION_TYPE) => {
   switch (action.type) {
     case "setEmail":
       return {
