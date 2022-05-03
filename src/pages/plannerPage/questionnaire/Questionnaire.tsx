@@ -88,21 +88,27 @@ const Questionnaire = () => {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    console.log(state);
-
+  const checkFormFilled = useCallback(() => {
     const mealsCount = +state.mealsCount;
 
     if (
       state.planName !== "" &&
       !state.mealNames.includes("") &&
-      state.mealNames.length !== 0 &&
+      state.mealNames.length === mealsCount &&
       mealsCount >= 1 &&
       mealsCount <= 5
     ) {
       dispatch({ type: "setFormFilled", payload: true });
+      return;
     }
-  }, [state]);
+
+    dispatch({ type: "setFormFilled", payload: false });
+  }, [state.planName, state.mealNames, state.mealsCount]);
+
+  useEffect(() => {
+    console.log(state);
+    checkFormFilled();
+  }, [state.planName, state.mealNames, state.mealsCount, checkFormFilled]);
 
   const submitHandler = () => {
     if (!state.formFilled) {
