@@ -59,7 +59,7 @@ const MealNamer = ({
         initial={"initial"}
         animate={"animate"}
         exit={"exit"}
-        className={clsx("fw500")}
+        className={clsx("fw500", "fs500", "centerContents", classes.title)}
       >
         {mealsCount > 1 ? "Name your meals!" : "Name your meal!"}
       </motion.p>

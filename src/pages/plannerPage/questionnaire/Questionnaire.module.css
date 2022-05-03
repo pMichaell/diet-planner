@@ -3,9 +3,12 @@
     padding: 0.5em;
     text-align: center;
     display: grid;
-    grid-template-rows: 50px 40px 20px 60px 40px 1fr 40px;
+    grid-template-rows: 80px 40px 10px 80px 40px 1fr 40px;
     border-radius: 20px;
-    place-items: center;
+}
+
+.orderParagraph {
+    max-width: 15ch;
 }
 
 .questionParagraph {

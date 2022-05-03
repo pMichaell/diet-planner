@@ -39,11 +39,13 @@ const reducer = (state: QuestionnaireForm, action: ACTION_TYPE) => {
         formFilled: action.payload,
       };
     case "setPlanName":
+      sessionStorage.setItem("planName", action.payload);
       return {
         ...state,
         planName: action.payload,
       };
     case "setMealsCount":
+      sessionStorage.setItem("mealsCount", action.payload);
       return {
         ...state,
         mealsCount: action.payload,
@@ -79,8 +81,8 @@ const initialState: QuestionnaireForm = {
   namingSectionVisible: false,
   formFilled: false,
   mealNames: [],
-  planName: "",
-  mealsCount: "",
+  planName: (sessionStorage.getItem("planName") as string) ?? "",
+  mealsCount: (sessionStorage.getItem("mealsCount") as string) ?? "",
   inputError: false,
 };
 
@@ -105,10 +107,29 @@ const Questionnaire = () => {
     dispatch({ type: "setFormFilled", payload: false });
   }, [state.planName, state.mealNames, state.mealsCount]);
 
+  const checkMealsCount = useCallback(() => {
+    const mealsCount = +state.mealsCount;
+
+    if (
+      !state.namingSectionVisible &&
+      state.mealsCount !== "" &&
+      mealsCount >= 1 &&
+      mealsCount <= 5
+    ) {
+      dispatch({ type: "setNamingSectionVisible", payload: true });
+    }
+  }, [state.mealsCount, state.namingSectionVisible]);
+
   useEffect(() => {
-    console.log(state);
+    checkMealsCount();
     checkFormFilled();
-  }, [state.planName, state.mealNames, state.mealsCount, checkFormFilled]);
+  }, [
+    state.planName,
+    state.mealNames,
+    state.mealsCount,
+    checkFormFilled,
+    checkMealsCount,
+  ]);
 
   const submitHandler = () => {
     if (!state.formFilled) {
@@ -120,7 +141,9 @@ const Questionnaire = () => {
       return;
     }
 
-    fillSessionStorage();
+    fillLocalStorage();
+
+    clearSessionStorage();
 
     navigate("..", { replace: true });
   };
@@ -140,12 +163,17 @@ const Questionnaire = () => {
     dispatch({ type: "setNamingSectionVisible", payload: false });
   };
 
-  const fillSessionStorage = () => {
-    sessionStorage.setItem("mealCount", JSON.stringify(state.mealsCount));
+  const fillLocalStorage = () => {
+    localStorage.setItem("mealsCount", JSON.stringify(state.mealsCount));
 
-    sessionStorage.setItem("mealNames", JSON.stringify(state.mealNames));
+    localStorage.setItem("mealNames", JSON.stringify(state.mealNames));
 
-    sessionStorage.setItem("planName", JSON.stringify(state.planName));
+    localStorage.setItem("planName", JSON.stringify(state.planName));
+  };
+
+  const clearSessionStorage = () => {
+    sessionStorage.removeItem("mealsCount");
+    sessionStorage.removeItem("planName");
   };
 
   const setMealNames = useCallback((data: string[]) => {
@@ -167,6 +195,7 @@ const Questionnaire = () => {
         animate={"animate"}
         className={clsx(
           "fillParent",
+          "centerContents",
           "overflowHidden",
           "standardBorder",
           "backdropFilter",
@@ -178,7 +207,7 @@ const Questionnaire = () => {
         <motion.p
           key={0}
           variants={variants}
-          className={clsx("fs500", "fw500")}
+          className={clsx("fs500", "fw500", classes.orderParagraph)}
         >
           Name your brand new plan!
         </motion.p>
