@@ -1,16 +1,26 @@
-import { Meal, Plan, Weekday } from "../../Models";
+import { Meal, Weekday } from "../../Models";
 import { createContext } from "react";
 
 export type PlanContextType = {
   planName: string;
   mealsCount: number | string;
   mealNames: string[];
-  plan: Plan;
+  monday: Meal[];
+  tuesday: Meal[];
+  wednesday: Meal[];
+  thursday: Meal[];
+  friday: Meal[];
+  saturday: Meal[];
+  sunday: Meal[];
   addMeal?: (weekday: Weekday, meal: Meal) => void;
   removeMeal?: (weekday: Weekday, mealID: string) => void;
 };
 
-export const defaultPlan: Plan = {
+
+const defaultValue: PlanContextType = {
+  planName: "",
+  mealsCount: "",
+  mealNames: new Array<string>(0),
   monday: new Array<Meal>(),
   tuesday: new Array<Meal>(),
   wednesday: new Array<Meal>(),
@@ -20,13 +30,10 @@ export const defaultPlan: Plan = {
   sunday: new Array<Meal>(),
 };
 
-const defaultValue: PlanContextType = {
-  planName: "",
-  mealsCount: "",
-  mealNames: new Array<string>(0),
-  plan: defaultPlan,
-};
-
 const context = createContext(defaultValue);
 
 export default context;
+
+function newFun() {
+  defaultValue.friday.filter(value => value !== )
+}
