@@ -1,15 +1,11 @@
-export type Notification = {
-  text: string;
-};
-
 export type Weekday =
-  | "MONDAY"
-  | "TUESDAY"
-  | "WEDNESDAY"
-  | "THURSDAY"
-  | "FRIDAY"
-  | "SATURDAY"
-  | "SUNDAY";
+  | "monday"
+  | "tuesday"
+  | "wednesday"
+  | "thursday"
+  | "friday"
+  | "saturday"
+  | "sunday";
 
 export type Meal = {
   idMeal: number;
@@ -36,12 +32,11 @@ export type PlanDay = {
 };
 
 export type Plan = {
-  name?: string;
-  monday?: Meal[];
-  tuesday?: Meal[];
-  wednesday?: Meal[];
-  thursday?: Meal[];
-  friday?: Meal[];
-  saturday?: Meal[];
-  sunday?: Meal[];
+  monday: Meal[];
+  tuesday: Meal[];
+  wednesday: Meal[];
+  thursday: Meal[];
+  friday: Meal[];
+  saturday: Meal[];
+  sunday: Meal[];
 };
