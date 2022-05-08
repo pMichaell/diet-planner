@@ -3,7 +3,7 @@ import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
 import clsx from "clsx";
 import { Weekday } from "../../../Models";
 import { useContext } from "react";
-import PlanContext from "../../../contexts/mealPlanContext/PlanContext";
+import PlanContext from "../../../contexts/planContext/PlanContext";
 import { AnimatePresence, motion } from "framer-motion";
 import useSlider from "../../../hooks/use-slider";
 import Slider from "../../../components/slider/Slider";

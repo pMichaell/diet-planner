@@ -1,12 +1,21 @@
 import classes from "./ModalContext.module.css";
 import { createContext, useContext } from "react";
 
+export type ModalType = "informative" | "optionModal";
+
 export type ModalContextType = {
   modalOpen: boolean;
+  modalText?: string;
+  modalType?: ModalType;
   openModal?: () => void;
   closeModal?: () => void;
-  modalText?: string;
   setModalText?: (text: string) => void;
+  optionsText?: [string, string];
+  optionsHandlers?: Array<() => void>;
+  setupOptionsModal?: (
+    optionsText: [string, string],
+    optionHandlers: Array<() => void>
+  ) => void;
 };
 
 const defaultValue: ModalContextType = {

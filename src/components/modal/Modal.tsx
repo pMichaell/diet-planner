@@ -24,7 +24,8 @@ const modalVariants = {
 };
 
 const Modal = () => {
-  const { closeModal, modalText } = useContext(ModalContext);
+  const { closeModal, modalText, modalType, optionsText, optionsHandlers } =
+    useContext(ModalContext);
 
   return (
     <Backdrop onClick={closeModal}>
@@ -37,9 +38,20 @@ const Modal = () => {
         exit={"exit"}
       >
         <h3>{modalText}</h3>
-        <motion.button onClick={closeModal}>
-          <h4>Close</h4>
-        </motion.button>
+        {modalType === "informative" ? (
+          <motion.button onClick={closeModal}>
+            <h4>Close</h4>
+          </motion.button>
+        ) : (
+          <>
+            <button onClick={() => optionsHandlers?.[0]?.()}>
+              <h4>{optionsText?.[0]}</h4>
+            </button>
+            <button onClick={() => optionsHandlers?.[1]?.()}>
+              <h4>{optionsText?.[1]}</h4>
+            </button>
+          </>
+        )}
       </motion.div>
     </Backdrop>
   );

@@ -12,6 +12,7 @@ import { auth } from "./firebase/Firebase";
 import Modal from "./components/modal/Modal";
 import ModalContext from "./contexts/modalContext/ModalContext";
 import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
+import PlanChecker from "./components/planChecker/PlanChecker";
 
 function App() {
   const location = useLocation();
@@ -29,7 +30,9 @@ function App() {
             path={"/planner/*"}
             element={
               <RequireAuth>
-                <PlannerPage />
+                <PlanChecker>
+                  <PlannerPage />
+                </PlanChecker>
               </RequireAuth>
             }
           />
