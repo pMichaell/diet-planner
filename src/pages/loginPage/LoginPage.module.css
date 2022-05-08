@@ -62,7 +62,7 @@
 
 .loginBreak > hr {
     height: 1px;
-    border-top: 1px solid var(--clr-creamy-green);
+    border-top: 1px solid hsl(var(--clr-creamy-green));
     display: inline-block;
     flex: 1;
 }
@@ -99,7 +99,6 @@
     }
 
     .loginSection {
-        all:unset;
         display: contents;
     }
 
