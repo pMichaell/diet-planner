@@ -16,7 +16,6 @@ export type PlanContextType = {
   removeMeal?: (weekday: Weekday, mealID: string) => void;
 };
 
-
 const defaultValue: PlanContextType = {
   planName: "",
   mealsCount: "",
@@ -33,7 +32,3 @@ const defaultValue: PlanContextType = {
 const context = createContext(defaultValue);
 
 export default context;
-
-function newFun() {
-  defaultValue.friday.filter(value => value !== )
-}

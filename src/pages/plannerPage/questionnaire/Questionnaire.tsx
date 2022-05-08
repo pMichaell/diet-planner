@@ -168,7 +168,7 @@ const Questionnaire = () => {
 
     localStorage.setItem("mealNames", JSON.stringify(state.mealNames));
 
-    localStorage.setItem("planName", JSON.stringify(state.planName));
+    localStorage.setItem("planName", JSON.stringify(state.planName.trim()));
   };
 
   const clearSessionStorage = () => {

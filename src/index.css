@@ -273,6 +273,10 @@ Utility classes
     overflow: hidden;
 }
 
+.overflowXHidden {
+    overflow-x: hidden;
+}
+
 .clrGreen {
     color: hsl(var(--clr-creamy-green))
 }

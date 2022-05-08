@@ -2,9 +2,10 @@ import PlanContext, { PlanContextType } from "./PlanContext";
 import { ReactNode, useReducer } from "react";
 import { Meal, Weekday } from "../../Models";
 
-const planName = (localStorage.getItem("planName") as string) ?? "";
-const mealsCount =
-  (localStorage.getItem("mealsCount") as unknown as number) ?? "";
+const planName = JSON.parse((localStorage.getItem("planName") as string) ?? "");
+const mealsCount = +JSON.parse(
+  (localStorage.getItem("mealsCount") as string) ?? ""
+);
 const mealNames = JSON.parse(localStorage.getItem("mealNames") ?? "[]");
 
 const initialState: PlanContextType = {
@@ -101,9 +102,7 @@ const PlanContextProvider = ({ children }: { children: ReactNode }) => {
   const removeMeal = function removeMeal(mealID: number) {};
 
   return (
-    <PlanContext.Provider value={initialState}>
-      <div></div>
-    </PlanContext.Provider>
+    <PlanContext.Provider value={initialState}>{children}</PlanContext.Provider>
   );
 };
 
