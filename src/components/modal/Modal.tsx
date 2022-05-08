@@ -37,20 +37,23 @@ const Modal = () => {
         animate={"animate"}
         exit={"exit"}
       >
-        <h3>{modalText}</h3>
+        <h3 className={"clrGreen"}>{modalText}</h3>
         {modalType === "informative" ? (
           <motion.button onClick={closeModal}>
             <h4>Close</h4>
           </motion.button>
         ) : (
-          <>
-            <button onClick={() => optionsHandlers?.[0]?.()}>
+          <motion.section className={classes.optionsSection}>
+            <motion.button onClick={() => optionsHandlers?.[0]?.()}>
               <h4>{optionsText?.[0]}</h4>
-            </button>
-            <button onClick={() => optionsHandlers?.[1]?.()}>
+            </motion.button>
+            <motion.button
+              onClick={() => optionsHandlers?.[1]?.()}
+              animate={{ scale: 1.1 }}
+            >
               <h4>{optionsText?.[1]}</h4>
-            </button>
-          </>
+            </motion.button>
+          </motion.section>
         )}
       </motion.div>
     </Backdrop>

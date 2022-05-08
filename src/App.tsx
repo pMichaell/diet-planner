@@ -22,8 +22,8 @@ function App() {
 
   return (
     <Layout>
+      {modalOpen && <Modal />}
       <AnimatePresence initial={false} exitBeforeEnter>
-        {modalOpen && <Modal />}
         <Routes location={location} key={location.pathname}>
           <Route path={"/"} element={<HomePage />} />
           <Route

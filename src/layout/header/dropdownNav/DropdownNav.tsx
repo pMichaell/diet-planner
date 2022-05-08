@@ -51,7 +51,7 @@ const DropdownNav = () => {
             whileHover={"whileHover"}
           >
             <ListChecks />
-            <Link to={"/planner"}>New Plan</Link>
+            <Link to={"/planner/questionnaire"}>New Plan</Link>
           </motion.div>
           <motion.div
             variants={verticalListItemsVariants}

@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
 import ModalContext, { ModalContextType, ModalType } from "./ModalContext";
 
 const ModalContextProvider = ({ children }: { children: ReactNode }) => {
@@ -8,30 +8,30 @@ const ModalContextProvider = ({ children }: { children: ReactNode }) => {
   const [optionsText, setOptionsText] = useState<[string, string]>(["", ""]);
   const [optionsHandlers, setOptionHandlers] = useState<Array<() => void>>();
 
-  const openModal = function openModal() {
+  const openModal = useCallback(() => {
     setModalOpen(true);
-  };
+  }, []);
 
-  const closeModal = function closeModal() {
+  const closeModal = useCallback(() => {
     setModalOpen(false);
     modalTextSet("");
     modalTypeSet("informative");
     setOptionsText(["", ""]);
     setOptionHandlers([]);
-  };
+  }, []);
 
-  const setModalText = function setModalText(text: string) {
+  const setModalText = useCallback((text: string) => {
     modalTextSet(text);
-  };
+  }, []);
 
-  const setupOptionsModal = function setupOptionModal(
-    optionsText: [string, string],
-    optionHandlers: Array<() => void>
-  ) {
-    modalTypeSet("optionModal");
-    setOptionsText(optionsText);
-    setOptionHandlers(optionHandlers);
-  };
+  const setupOptionsModal = useCallback(
+    (optionsText: [string, string], optionHandlers: Array<() => void>) => {
+      modalTypeSet("optionModal");
+      setOptionsText(optionsText);
+      setOptionHandlers(optionHandlers);
+    },
+    []
+  );
 
   const contextValue: ModalContextType = {
     modalOpen,
@@ -51,5 +51,4 @@ const ModalContextProvider = ({ children }: { children: ReactNode }) => {
     </ModalContext.Provider>
   );
 };
-
 export default ModalContextProvider;

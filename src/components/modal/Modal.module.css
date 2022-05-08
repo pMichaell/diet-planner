@@ -18,11 +18,19 @@
     letter-spacing: 0.5px;
 }
 
-.modal > button {
+.modal button {
     border: 2px solid hsl(var(--clr-creamy-green));
     border-radius: 12px;
     width: 8rem;
     height: 3rem;
-    color: white;
+    color: hsl(var(--clr-creamy-green));
     letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.optionsSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
 }
