@@ -6,7 +6,7 @@ import { validationVariants } from "../../../../framerVariants";
 import { FormEvent, useContext, useState } from "react";
 import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
 import clsx from "clsx";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Spinner } from "phosphor-react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../../firebase/Firebase";

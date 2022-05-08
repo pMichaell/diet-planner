@@ -8,7 +8,7 @@ import LoginContainer from "./loginComponents/loginContainer/LoginContainer";
 import { useEffect, useState } from "react";
 import RegisterContainer from "./loginComponents/registerContainer/RegisterContainer";
 import LoginPageContextProvider from "../../contexts/loginPageContext/LoginPageContextProvider";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const loginVariants = {
   initial: {

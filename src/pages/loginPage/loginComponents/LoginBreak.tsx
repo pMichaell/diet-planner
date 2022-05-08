@@ -1,4 +1,3 @@
-import classes from "../LoginPage.module.css";
 import { motion } from "framer-motion";
 
 const LoginBreak = ({ className }: { className: string }) => {

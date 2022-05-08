@@ -1,5 +1,4 @@
-import classes from "./ModalContext.module.css";
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 
 export type ModalType = "informative" | "optionModal";
 

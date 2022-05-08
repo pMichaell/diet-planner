@@ -1,4 +1,3 @@
-import classes from "./AccountPage.module.css";
 import AnimatedPage from "../../components/animatedPage/AnimatedPage";
 
 const AccountPage = () => {
