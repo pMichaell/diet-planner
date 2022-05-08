@@ -33,7 +33,7 @@ const PlanChecker = ({ children }: { children: ReactNode }) => {
       location.pathname === "/planner/questionnaire"
     ) {
       setModalText?.(
-        "WELP, looks like you have an unfinished plan available, would you like to finish it?"
+        "Hey, looks like you have an unfinished plan available, would you like to finish it?"
       );
 
       setupOptionsModal?.(options, optionsHandlers);

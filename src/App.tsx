@@ -1,28 +1,31 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Layout from "./layout/layout/Layout";
 import { Route, Routes, useLocation } from "react-router-dom";
-import HomePage from "./pages/homePage/HomePage";
-import PlannerPage from "./pages/plannerPage/PlannerPage";
-import AccountPage from "./pages/accountPage/AccountPage";
-import LoginPage from "./pages/loginPage/LoginPage";
 import { AnimatePresence } from "framer-motion";
-import RequireAuth from "./components/requireAuth/RequireAuth";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./firebase/Firebase";
-import Modal from "./components/modal/Modal";
 import ModalContext from "./contexts/modalContext/ModalContext";
-import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
-import PlanChecker from "./components/planChecker/PlanChecker";
+
+const Modal = React.lazy(() => import("./components/modal/Modal"));
+const HomePage = React.lazy(() => import("./pages/homePage/HomePage"));
+const PlannerPage = React.lazy(() => import("./pages/plannerPage/PlannerPage"));
+const AccountPage = React.lazy(() => import("./pages/accountPage/AccountPage"));
+const LoginPage = React.lazy(() => import("./pages/loginPage/LoginPage"));
+const NotFoundPage = React.lazy(
+  () => import("./pages/notFoundPage/NotFoundPage")
+);
+const RequireAuth = React.lazy(
+  () => import("./components/requireAuth/RequireAuth")
+);
+const PlanChecker = React.lazy(
+  () => import("./components/planChecker/PlanChecker")
+);
 
 function App() {
   const location = useLocation();
-  const { modalOpen, openModal, setModalText } = useContext(ModalContext);
-
-  useEffect(() => {}, []);
+  const { modalOpen } = useContext(ModalContext);
 
   return (
     <Layout>
-      {modalOpen && <Modal />}
+      <AnimatePresence>{modalOpen && <Modal />}</AnimatePresence>
       <AnimatePresence initial={false} exitBeforeEnter>
         <Routes location={location} key={location.pathname}>
           <Route path={"/"} element={<HomePage />} />
