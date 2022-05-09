@@ -4,9 +4,10 @@ import clsx from "clsx";
 import { Weekday } from "../../../Models";
 import { useContext } from "react";
 import PlanContext from "../../../contexts/planContext/PlanContext";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import useSlider from "../../../hooks/use-slider";
 import Slider from "../../../components/slider/Slider";
+import WeekdayContainer from "./weekdayContainer/WeekdayContainer";
 
 const weekdays: Weekday[] = [
   "monday",
@@ -20,32 +21,34 @@ const weekdays: Weekday[] = [
 
 const Planner = () => {
   const planContext = useContext(PlanContext);
-  const { page, direction, currentIndex, paginate } =
-    useSlider<Weekday>(weekdays);
-
-  console.log(currentIndex);
+  const { page, direction, currentIndex, paginate } = useSlider<Weekday>(
+    weekdays,
+    "plannerSliderIndex"
+  );
 
   return (
     <AnimatedPage
       className={clsx("fillParent", "pagePadding", "centerContents")}
     >
-      <motion.div
-        className={clsx(
-          "centerContents",
-          "standardBorder",
-          "backdropFilter",
-          "overflowHidden",
-          classes.mealsContainer
-        )}
-      >
-        <AnimatePresence initial={false} custom={direction}>
-          <Slider
-            sliderMovement={{ page, direction, paginate }}
-            className={clsx("fillParent", "fs600", classes.mealPicker)}
-            render={() => <p>{weekdays[currentIndex]}</p>}
-          />
-        </AnimatePresence>
-      </motion.div>
+      <AnimatePresence initial={false} custom={direction}>
+        <Slider
+          sliderMovement={{ page, direction, paginate }}
+          className={clsx(
+            "fillParent",
+            "fs600",
+            "curvedBorder",
+            "overflowHidden",
+            "backdropFilter",
+            classes.mealPicker
+          )}
+          render={() => (
+            <WeekdayContainer
+              currentIndex={currentIndex}
+              weekday={weekdays[currentIndex]}
+            />
+          )}
+        />
+      </AnimatePresence>
     </AnimatedPage>
   );
 };

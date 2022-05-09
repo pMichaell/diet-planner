@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import classes from "./DropdownNav.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Books, IconContext, ListChecks, SignOut, User } from "phosphor-react";
 import { verticalListItemsVariants } from "../../../framerVariants";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -11,6 +11,7 @@ import useWindowDimensions from "../../../hooks/use-window-dimensions";
 const DropdownNav = () => {
   const [user] = useAuthState(auth);
   const { height } = useWindowDimensions();
+  const location = useLocation();
 
   return (
     <IconContext.Provider
@@ -51,7 +52,9 @@ const DropdownNav = () => {
             whileHover={"whileHover"}
           >
             <ListChecks />
-            <Link to={"/planner/questionnaire"}>New Plan</Link>
+            <Link to={"/planner/questionnaire"} state={{ from: location }}>
+              New Plan
+            </Link>
           </motion.div>
           <motion.div
             variants={verticalListItemsVariants}

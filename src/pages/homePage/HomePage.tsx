@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import data from "../../assets/jsonData/homePage.json";
 import { verticalAlignmentVariants } from "../../framerVariants";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const homePageText = data[0].text;
 
@@ -26,6 +26,7 @@ const variants = {
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <AnimatedPage
@@ -79,7 +80,7 @@ const HomePage = () => {
           <motion.button
             className={clsx(classes.cta, "standardBorder", "fs500")}
             onClick={() => {
-              navigate("/planner/questionnaire");
+              navigate("/planner/questionnaire", { state: { from: location } });
             }}
             variants={verticalAlignmentVariants}
             custom={5}

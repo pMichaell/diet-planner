@@ -2,12 +2,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import classes from "./Questionnaire.module.css";
 import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
 import { opacityVariants } from "../../../framerVariants";
-import { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import clsx from "clsx";
 import { CaretDoubleRight } from "phosphor-react";
 import MealNamer from "./MealNamer";
 import { useNavigate } from "react-router-dom";
-import { PlanDay } from "../../../Models";
 
 type QuestionnaireForm = {
   namingSectionVisible: boolean;
@@ -197,7 +196,7 @@ const Questionnaire = () => {
           "fillParent",
           "centerContents",
           "overflowHidden",
-          "standardBorder",
+          "curvedBorder",
           "backdropFilter",
           "clrGreen",
           "ls1",

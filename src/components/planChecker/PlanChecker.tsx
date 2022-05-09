@@ -8,6 +8,9 @@ const PlanChecker = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // @ts-ignore
+  const from = location.state?.from || "/";
+
   useEffect(() => {
     const yesHandler = function yesHandler() {
       navigate("/planner");
@@ -26,11 +29,14 @@ const PlanChecker = ({ children }: { children: ReactNode }) => {
 
     const optionsHandlers = [noHandler, yesHandler];
 
+    const regex = RegExp("/planner/?.*");
+
     if (
       localStorage.getItem("planName") &&
       localStorage.getItem("mealNames") &&
       localStorage.getItem("mealsCount") &&
-      location.pathname === "/planner/questionnaire"
+      regex.test(location.pathname) &&
+      from.pathname
     ) {
       setModalText?.(
         "Hey, looks like you have an unfinished plan available, would you like to finish it?"

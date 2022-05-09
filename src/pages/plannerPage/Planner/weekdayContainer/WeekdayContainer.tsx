@@ -1,10 +1,23 @@
 import { motion } from "framer-motion";
-import classes from "./WeekdayContainer.module.css";
+import { Weekday } from "../../../../Models";
+import clsx from "clsx";
 
-type weekdayContainerProps = {};
+type WeekdayContainerProps = {
+  currentIndex: Number;
+  weekday: Weekday;
+  className?: string;
+};
 
-const WeekdayContainer = () => {
-  return <motion.section></motion.section>;
+const mealsCount = localStorage.getItem("mealsCount");
+
+const WeekdayContainer = ({ currentIndex, weekday }: WeekdayContainerProps) => {
+  console.log(mealsCount);
+
+  return (
+    <motion.div key={weekday} className={clsx("fillParent")}>
+      <p>{weekday}</p>
+    </motion.div>
+  );
 };
 
 export default WeekdayContainer;

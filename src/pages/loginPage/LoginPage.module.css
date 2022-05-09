@@ -62,8 +62,8 @@
 
 .loginBreak > hr {
     height: 1px;
-    border-top: 1px solid hsl(var(--clr-creamy-green));
     display: inline-block;
+    color: hsl(var(--clr-creamy-green));
     flex: 1;
 }
 

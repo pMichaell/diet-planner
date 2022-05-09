@@ -260,6 +260,11 @@ Utility classes
     border: 2px solid hsl(var(--clr-creamy-green));
 }
 
+.curvedBorder {
+    border: 2px solid hsl(var(--clr-creamy-green));
+    border-radius: 20px;
+}
+
 .centerContents {
     display: grid;
     place-items: center;

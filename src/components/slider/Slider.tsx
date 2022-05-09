@@ -39,7 +39,7 @@ const swipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity;
 };
 
-const ContentSlider = function <T>({
+const ContentSlider = function ContentSlider<T>({
   render,
   className,
   sliderMovement,
