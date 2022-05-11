@@ -1,23 +1,12 @@
 import PlanContext, { PlanContextType } from "./PlanContext";
-import { ReactNode, useReducer } from "react";
+import { ReactNode, useEffect, useReducer } from "react";
 import { Meal, Weekday } from "../../Models";
-
-const getMealsCount = function getMealsCount(): number {
-  const saved = localStorage.getItem("mealsCount");
-  if (saved) {
-    return saved.length === 0 ? 0 : +saved;
-  }
-  return 0;
-};
-
-const planName = (localStorage.getItem("planName") as string) ?? "";
-const mealsCount = getMealsCount();
-const mealNames = JSON.parse(localStorage.getItem("mealNames") as string);
+import usePlanDetails from "../../hooks/use-plan-details";
 
 const initialState: PlanContextType = {
-  planName,
-  mealsCount,
-  mealNames,
+  planName: "",
+  mealsCount: "",
+  mealNames: [],
   monday: new Array<Meal>(),
   tuesday: new Array<Meal>(),
   wednesday: new Array<Meal>(),
@@ -103,7 +92,11 @@ console.log(object.x);*/
 
 type ACTION_TYPE =
   | { type: "addMeal"; mealPayload: MealPayload }
-  | { type: "removeMeal"; mealPayload: MealPayload };
+  | { type: "removeMeal"; mealPayload: MealPayload }
+  | {
+      type: "setNaming";
+      payload: { planName: string; mealsCount: number; mealNames: string[] };
+    };
 
 const reducer = function reducer(state: PlanContextType, action: ACTION_TYPE) {
   switch (action.type) {
@@ -111,17 +104,28 @@ const reducer = function reducer(state: PlanContextType, action: ACTION_TYPE) {
       return resolveMealWeekday(state, action.mealPayload);
     case "removeMeal":
       return resolveMealWeekday(state, action.mealPayload, false);
+    case "setNaming":
+      return {
+        ...state,
+        planName: action.payload.planName,
+        mealsCount: action.payload.mealsCount,
+        mealNames: action.payload.mealNames,
+      };
   }
 };
 
 const PlanContextProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { planName, mealsCount, mealNames } = usePlanDetails();
 
-  const removeMeal = function removeMeal(mealID: number) {};
+  useEffect(() => {
+    dispatch({
+      type: "setNaming",
+      payload: { planName, mealsCount, mealNames },
+    });
+  }, [planName, mealsCount, mealNames]);
 
-  return (
-    <PlanContext.Provider value={initialState}>{children}</PlanContext.Provider>
-  );
+  return <PlanContext.Provider value={state}>{children}</PlanContext.Provider>;
 };
 
 export default PlanContextProvider;
