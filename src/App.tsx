@@ -27,8 +27,6 @@ function App() {
   //TODO keep render functions pure
   //TODO Cleanup useEffects
 
-  console.log(typeof null);
-
   return (
     <Layout>
       <AnimatePresence>{modalOpen && <Modal />}</AnimatePresence>

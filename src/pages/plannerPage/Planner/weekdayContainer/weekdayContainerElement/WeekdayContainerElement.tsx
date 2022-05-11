@@ -1,6 +1,4 @@
 import { motion } from "framer-motion";
-import { useContext } from "react";
-import PlanContext from "../../../../../contexts/planContext/PlanContext";
 import clsx from "clsx";
 import { Weekday } from "../../../../../Models";
 
@@ -17,10 +15,6 @@ const MealElement = ({
   weekday,
   className,
 }: MealElementProps) => {
-  const planContext = useContext(PlanContext);
-
-  console.log(planContext[weekday]);
-
   return (
     <motion.article
       className={clsx("curvedBorder", "centerContents", className)}
