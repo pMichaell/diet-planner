@@ -8,16 +8,21 @@ import PlanContextProvider from "../../contexts/planContext/PlanContextProvider"
 
 const PlannerPage = () => {
   return (
-    <PlanContextProvider>
-      <AnimatedPage
-        className={clsx("fillParent", "centerContents", classes.container)}
-      >
-        <Routes>
-          <Route index element={<Planner />} />
-          <Route path={"/questionnaire"} element={<Questionnaire />} />
-        </Routes>
-      </AnimatedPage>
-    </PlanContextProvider>
+    <AnimatedPage
+      className={clsx("fillParent", "centerContents", classes.container)}
+    >
+      <Routes>
+        <Route
+          index
+          element={
+            <PlanContextProvider>
+              <Planner />
+            </PlanContextProvider>
+          }
+        />
+        <Route path={"/questionnaire"} element={<Questionnaire />} />
+      </Routes>
+    </AnimatedPage>
   );
 };
 

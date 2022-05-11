@@ -2,8 +2,16 @@ import PlanContext, { PlanContextType } from "./PlanContext";
 import { ReactNode, useReducer } from "react";
 import { Meal, Weekday } from "../../Models";
 
+const getMealsCount = function getMealsCount(): number {
+  const saved = localStorage.getItem("mealsCount");
+  if (saved) {
+    return saved.length === 0 ? 0 : +saved;
+  }
+  return 0;
+};
+
 const planName = (localStorage.getItem("planName") as string) ?? "";
-const mealsCount = +(localStorage.getItem("mealsCount") as string) ?? "";
+const mealsCount = getMealsCount();
 const mealNames = JSON.parse(localStorage.getItem("mealNames") as string);
 
 const initialState: PlanContextType = {
@@ -27,6 +35,18 @@ type MealPayload = {
 };
 
 const resolveMealWeekday = function resolveMealWeekday(
+  //TODO use this, keyof instead of this crap
+  /*
+let variable = "x";
+
+let object: Test = {
+    x: "test"
+}
+
+object[variable as keyof Test] = "new value";
+
+console.log(object.x);*/
+
   state: PlanContextType,
   mealPayload: MealPayload,
   add: boolean = true

@@ -23,12 +23,17 @@ const Planner = () => {
   const planContext = useContext(PlanContext);
   const { page, direction, currentIndex, paginate } = useSlider<Weekday>(
     weekdays,
-    "plannerSliderIndex"
+    "currentWeekday"
   );
 
   return (
     <AnimatedPage
-      className={clsx("fillParent", "pagePadding", "centerContents")}
+      className={clsx(
+        "fillParent",
+        "pagePadding",
+        "centerContents",
+        "overflowHidden"
+      )}
     >
       <AnimatePresence initial={false} custom={direction}>
         <Slider

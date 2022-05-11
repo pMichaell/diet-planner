@@ -13,15 +13,21 @@ const NotFoundPage = React.lazy(
   () => import("./pages/notFoundPage/NotFoundPage")
 );
 const RequireAuth = React.lazy(
-  () => import("./components/requireAuth/RequireAuth")
+  () => import("./components/routeGuards/requireAuth/RequireAuth")
 );
-const PlanChecker = React.lazy(
-  () => import("./components/planChecker/PlanChecker")
+const QuestionnaireChecker = React.lazy(
+  () =>
+    import("./components/routeGuards/questionnaireChecker/QuestionnaireChecker")
 );
 
 function App() {
   const location = useLocation();
   const { modalOpen } = useContext(ModalContext);
+
+  //TODO keep render functions pure
+  //TODO Cleanup useEffects
+
+  console.log(typeof null);
 
   return (
     <Layout>
@@ -33,9 +39,9 @@ function App() {
             path={"/planner/*"}
             element={
               <RequireAuth>
-                <PlanChecker>
+                <QuestionnaireChecker>
                   <PlannerPage />
-                </PlanChecker>
+                </QuestionnaireChecker>
               </RequireAuth>
             }
           />

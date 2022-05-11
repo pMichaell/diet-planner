@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { auth } from "../../firebase/Firebase";
+import { auth } from "../../../firebase/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Fragment, ReactNode } from "react";
 

@@ -1,17 +1,17 @@
 import { Fragment, ReactNode, useContext, useEffect } from "react";
-import ModalContext from "../../contexts/modalContext/ModalContext";
+import ModalContext from "../../../contexts/modalContext/ModalContext";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const PlanChecker = ({ children }: { children: ReactNode }) => {
+const QuestionnaireChecker = ({ children }: { children: ReactNode }) => {
   const { setModalText, openModal, setupOptionsModal, closeModal } =
     useContext(ModalContext);
   const navigate = useNavigate();
   const location = useLocation();
 
-  // @ts-ignore
-  const from = location.state?.from || "/";
-
   useEffect(() => {
+    // @ts-ignore
+    const from = location.state?.from || "/";
+
     const yesHandler = function yesHandler() {
       navigate("/planner");
       closeModal?.();
@@ -44,6 +44,7 @@ const PlanChecker = ({ children }: { children: ReactNode }) => {
 
       setupOptionsModal?.(options, optionsHandlers);
       openModal?.();
+      return;
     }
   }, [
     closeModal,
@@ -57,4 +58,4 @@ const PlanChecker = ({ children }: { children: ReactNode }) => {
   return <Fragment>{children}</Fragment>;
 };
 
-export default PlanChecker;
+export default QuestionnaireChecker;
