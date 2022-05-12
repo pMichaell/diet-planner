@@ -32,7 +32,7 @@ const RegisterContainer = () => {
     }
 
     setIsLoading(true);
-    createUserWithEmailAndPassword(auth, "1134@gmail.com", "123456")
+    createUserWithEmailAndPassword(auth, email, password)
       .then(async ({ user }) => {
         setSearchParams({});
         signOut(auth).then(() => {});

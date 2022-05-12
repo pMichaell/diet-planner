@@ -28,15 +28,16 @@ const WeekdayContainer = ({ currentIndex, weekday }: WeekdayContainerProps) => {
       className={clsx("fillParent", "flow", "clrGreen", classes.container)}
     >
       <p className={clsx("fs600", "fontAccent")}>{weekday}</p>
-      {ctx.mealNames.map((mealName, index) => (
-        <MealElement
-          key={index}
-          mealName={mealName}
-          mealIndex={index}
-          weekday={weekday}
-          className={classes.mealElement}
-        />
-      ))}
+      {ctx.mealNames &&
+        ctx.mealNames.map((mealName, index) => (
+          <MealElement
+            key={index}
+            mealName={mealName}
+            mealIndex={index}
+            weekday={weekday}
+            className={classes.mealElement}
+          />
+        ))}
     </motion.div>
   );
 };
