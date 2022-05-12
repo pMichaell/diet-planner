@@ -1,7 +1,7 @@
 import { Meal, Weekday } from "../../Models";
 import { createContext } from "react";
 
-type MealsContext = {
+export type MealsContextType = {
   monday: Meal[];
   tuesday: Meal[];
   wednesday: Meal[];
@@ -9,11 +9,11 @@ type MealsContext = {
   friday: Meal[];
   saturday: Meal[];
   sunday: Meal[];
-  addMeal?: (weekday: Weekday, meal: Meal) => void;
-  removeMeal?: (weekday: Weekday, mealID: string) => void;
+  setMeal?: (weekday: Weekday, mealIndex: number, meal: Meal) => void;
+  removeMeal?: (weekday: Weekday, mealIndex: number) => void;
 };
 
-const defaultValue: MealsContext = {
+const defaultValue: MealsContextType = {
   monday: new Array<Meal>(),
   tuesday: new Array<Meal>(),
   wednesday: new Array<Meal>(),

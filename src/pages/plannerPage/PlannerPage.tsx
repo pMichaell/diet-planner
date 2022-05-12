@@ -5,6 +5,7 @@ import Questionnaire from "./questionnaire/Questionnaire";
 import clsx from "clsx";
 import Planner from "./Planner/Planner";
 import PlanContextProvider from "../../contexts/planContext/PlanContextProvider";
+import MealsContextProvider from "../../contexts/mealsContext/MealsContextProvider";
 
 const PlannerPage = () => {
   return (
@@ -16,7 +17,9 @@ const PlannerPage = () => {
           index
           element={
             <PlanContextProvider>
-              <Planner />
+              <MealsContextProvider>
+                <Planner />
+              </MealsContextProvider>
             </PlanContextProvider>
           }
         />

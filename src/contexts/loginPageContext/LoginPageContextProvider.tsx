@@ -7,6 +7,13 @@ type ACTION_TYPE =
   | { type: "setSecondPassword"; payload: string }
   | { type: "setPasswordCorrupted"; payload: boolean };
 
+const initialState: LoginContext = {
+  email: "",
+  password: "",
+  secondPassword: "",
+  passwordCorrupted: false,
+};
+
 const reducer = (state: LoginContext, action: ACTION_TYPE) => {
   switch (action.type) {
     case "setEmail":
@@ -33,49 +40,48 @@ const reducer = (state: LoginContext, action: ACTION_TYPE) => {
 };
 
 const LoginPageContextProvider = ({ children }: { children: ReactNode }) => {
-  const setEmail = (email: string) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const setEmail = function setEmal(email: string) {
     dispatch({
       type: "setEmail",
       payload: email,
     });
   };
 
-  const setPassword = (password: string) => {
+  const setPassword = function setPassword(password: string) {
     dispatch({
       type: "setPassword",
       payload: password,
     });
   };
 
-  const setSecondPassword = (secondPassword: string) => {
+  const setSecondPassword = function setSecondPassword(secondPassword: string) {
     dispatch({
       type: "setSecondPassword",
       payload: secondPassword,
     });
   };
 
-  const setPasswordCorrupted = (passwordCorrupted: boolean) => {
+  const setPasswordCorrupted = function setPasswordCorrupted(
+    passwordCorrupted: boolean
+  ) {
     dispatch({
       type: "setPasswordCorrupted",
       payload: passwordCorrupted,
     });
   };
 
-  const initialState: LoginContext = {
-    email: "",
-    password: "",
-    secondPassword: "",
-    passwordCorrupted: false,
-    setEmail,
-    setPassword,
-    setSecondPassword,
-    setPasswordCorrupted,
-  };
-
-  const [state, dispatch] = useReducer(reducer, initialState);
-
   return (
-    <LoginPageContext.Provider value={state}>
+    <LoginPageContext.Provider
+      value={{
+        ...state,
+        setEmail,
+        setPassword,
+        setSecondPassword,
+        setPasswordCorrupted,
+      }}
+    >
       {children}
     </LoginPageContext.Provider>
   );
