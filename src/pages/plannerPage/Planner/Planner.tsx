@@ -48,7 +48,6 @@ const Planner = () => {
           )}
           render={() => (
             <WeekdayContainer
-              currentIndex={currentIndex}
               weekday={weekdays[currentIndex]}
               mealNames={ctx.mealNames}
             />

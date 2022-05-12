@@ -1,8 +1,10 @@
+import classes from "./WeekdayContainerElement.module.css";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import { Meal, Weekday } from "../../../../../Models";
 import useMealContext from "../../../../../hooks/use-meal-context";
 import { Fragment, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 type MealElementProps = {
   mealName: string;
@@ -11,13 +13,10 @@ type MealElementProps = {
   className?: string;
 };
 
-const MealElement = ({
-  mealName,
-  mealIndex,
-  weekday,
-  className,
-}: MealElementProps) => {
+const MealElement = ({ mealName, mealIndex, weekday }: MealElementProps) => {
   const { meal, mealSet, mealRemove } = useMealContext(weekday, mealIndex);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const dummyMeal: Meal = {
     idMeal: Math.random() * 20,
@@ -32,20 +31,30 @@ const MealElement = ({
 
   return (
     <motion.article
-      className={clsx("curvedBorder", "centerContents", className)}
+      className={clsx(
+        "centerContents",
+        "curvedBorder",
+        "clrGreen",
+        classes.container
+      )}
     >
-      <label>{mealIndex + 1}</label>
-      <p>{mealName}</p>
-      <button
-        className={"curvedBorder"}
-        onClick={() => {
-          console.log("button clicked");
-          mealSet(dummyMeal);
-        }}
-      >
-        Click to add Meal
-      </button>
-      {meal && (
+      <h4>{mealName}</h4>
+      {!meal ? (
+        <motion.button
+          className={clsx("standardBorder", "clrGreen", classes.cta)}
+          onClick={() => {
+            console.log("button clicked");
+            setSearchParams({ name: weekday, mealIndex: mealIndex.toString() });
+            console.log(searchParams.toString());
+            navigate({
+              pathname: "./picker",
+              search: `?weekday=${weekday}&mealIndex=${mealIndex}`,
+            });
+          }}
+        >
+          Add Meal
+        </motion.button>
+      ) : (
         <Fragment>
           <p>{meal.idMeal}</p>
           <p>{meal.strMeal}</p>

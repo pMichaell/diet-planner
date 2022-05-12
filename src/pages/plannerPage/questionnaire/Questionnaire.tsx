@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import classes from "./Questionnaire.module.css";
 import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
 import { opacityVariants } from "../../../framerVariants";
-import { useCallback, useEffect, useReducer } from "react";
+import React, { useCallback, useEffect, useReducer } from "react";
 import clsx from "clsx";
 import { CaretDoubleRight } from "phosphor-react";
 import MealNamer from "./MealNamer";
@@ -130,6 +130,12 @@ const Questionnaire = () => {
     checkMealsCount,
   ]);
 
+  const enterKeyHandler = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      submitHandler();
+    }
+  };
+
   const submitHandler = () => {
     if (!state.formFilled) {
       return;
@@ -192,6 +198,7 @@ const Questionnaire = () => {
         variants={opacityVariants}
         initial={"initial"}
         animate={"animate"}
+        onKeyDown={enterKeyHandler}
         className={clsx(
           "fillParent",
           "centerContents",

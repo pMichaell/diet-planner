@@ -1,11 +1,13 @@
 import classes from "./PlannerPage.module.css";
 import AnimatedPage from "../../components/animatedPage/AnimatedPage";
 import { Route, Routes } from "react-router-dom";
-import Questionnaire from "./questionnaire/Questionnaire";
 import clsx from "clsx";
+import React from "react";
 import Planner from "./Planner/Planner";
 import PlanContextProvider from "../../contexts/planContext/PlanContextProvider";
 import MealsContextProvider from "../../contexts/mealsContext/MealsContextProvider";
+import Questionnaire from "./questionnaire/Questionnaire";
+import MealPicker from "./mealPicker/MealPicker";
 
 const PlannerPage = () => {
   return (
@@ -24,6 +26,7 @@ const PlannerPage = () => {
           }
         />
         <Route path={"/questionnaire"} element={<Questionnaire />} />
+        <Route path={"/picker"} element={<MealPicker />} />
       </Routes>
     </AnimatedPage>
   );

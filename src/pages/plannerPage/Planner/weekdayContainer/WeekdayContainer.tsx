@@ -2,25 +2,18 @@ import classes from "./WeekdayContainer.module.css";
 import { motion } from "framer-motion";
 import { Weekday } from "../../../../Models";
 import clsx from "clsx";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import PlanContext from "../../../../contexts/planContext/PlanContext";
 import MealElement from "./weekdayContainerElement/WeekdayContainerElement";
 
 type WeekdayContainerProps = {
-  currentIndex: Number;
   weekday: Weekday;
   mealNames: string[];
   className?: string;
 };
 
-const WeekdayContainer = ({ currentIndex, weekday }: WeekdayContainerProps) => {
+const WeekdayContainer = ({ weekday }: WeekdayContainerProps) => {
   const ctx = useContext(PlanContext);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      console.log(ctx.mealNames);
-    }, 100);
-  });
 
   return (
     <motion.div
