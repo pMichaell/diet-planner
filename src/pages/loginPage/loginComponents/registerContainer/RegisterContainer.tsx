@@ -20,7 +20,7 @@ const RegisterContainer = () => {
   const { email, password, secondPassword, setPasswordCorrupted } =
     useContext(LoginPageContext);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [_, setSearchParams] = useSearchParams();
   const { openModal, setModalText } = useContext(ModalContext);
   const controls = useAnimation();
 

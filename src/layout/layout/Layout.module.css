@@ -2,7 +2,7 @@
     min-width: 100vw;
     min-height: 100vh;
     display: grid;
-    grid-template-rows: 5em 1fr 5vh;
+    grid-template-rows: 5em 1fr;
     background-image: url("../../assets/folder/verticalBackground.svg");
     background-repeat: no-repeat;
     background-size: cover;

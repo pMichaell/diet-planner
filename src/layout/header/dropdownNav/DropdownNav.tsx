@@ -7,6 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase/Firebase";
 import { signOut } from "firebase/auth";
 import useWindowDimensions from "../../../hooks/use-window-dimensions";
+import clsx from "clsx";
 
 const DropdownNav = () => {
   const [user] = useAuthState(auth);
@@ -24,7 +25,7 @@ const DropdownNav = () => {
       <motion.nav
         className={classes.nav}
         initial={{ height: 0, opacity: 0.5 }}
-        animate={{ height: height <= 600 ? "50vh" : "40vh", opacity: 1 }}
+        animate={{ height: height <= 600 ? "50vh" : "30vh", opacity: 1 }}
         exit={{ opacity: 0 }}
       >
         <AnimatePresence>
@@ -67,7 +68,10 @@ const DropdownNav = () => {
             whileHover={"whileHover"}
           >
             <User />
-            <Link to={`${user ? "account" : "login"}`}>
+            <Link
+              to={`${user ? "account" : "login"}`}
+              className={clsx(user && classes.myAccount)}
+            >
               {user ? "My Account" : "Login"}
             </Link>
           </motion.div>

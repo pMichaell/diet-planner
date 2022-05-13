@@ -2,16 +2,13 @@
     display: grid;
     place-items: center;
     max-width: 100rem;
-    padding: 0.5em;
 }
 
 .loginContainer {
     flex: 1;
     overflow: auto;
     width: 85%;
-    padding-inline: 1em;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    padding: 1em;
     background: transparent;
     display: flex;
     flex-direction: column;
@@ -23,7 +20,7 @@
 .loginSection {
     height: 90%;
     display: grid;
-    flex: 1
+    flex: 1;
 }
 
 .providersContainer {
@@ -35,6 +32,21 @@
     height: 100%;
 }
 
+@media (max-height: 770px) {
+    .helpSection {
+        height: 1px;
+    }
+
+    .loginContainer {
+        height: 97%;
+    }
+}
+
+@media (min-height: 770px) {
+    .loginContainer {
+        height: 90%;
+    }
+}
 
 @media (min-height: 700px) {
     .loginSection {
@@ -48,8 +60,6 @@
         backdrop-filter: blur(1.5rem);
     }
 }
-
-
 
 .loginBreak {
     display: flex;
@@ -81,12 +91,6 @@
     cursor: pointer;
 }
 
-
-@media (min-height: 600px) {
-    .loginContainer {
-        height: 90%;
-    }
-}
 
 @media (min-width: 1000px) {
     .loginContainer {

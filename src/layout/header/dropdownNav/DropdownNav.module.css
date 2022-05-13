@@ -11,12 +11,12 @@
 }
 
 .nav button{
-    font-size: var(--fs-800);
+    font-size: var(--fs-700);
     color: hsl(var(--clr-creamy-green) / .9);
 }
 
 .nav a {
-    font-size: var(--fs-800);
+    font-size: var(--fs-700);
     color: hsl(var(--clr-creamy-green) / .9);
     text-align: right;
 }
@@ -27,6 +27,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.myAccount {
+    padding-inline: .3em;
 }
 
 @supports (backdrop-filter: blur(1.5rem)) {

@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import Header from "../header/Header/Header";
-import Footer from "../footer/Footer";
 import classes from "./Layout.module.css";
 
 const Layout = ({ children }: { children: ReactNode }) => {
@@ -8,7 +7,6 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <div className={classes.layout}>
       <Header />
       <main className={classes.main}>{children}</main>
-      <Footer />
     </div>
   );
 };
