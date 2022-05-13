@@ -11,12 +11,12 @@
 }
 
 .nav button{
-    font-size: var(--fs-700);
+    font-size: var(--fs-600);
     color: hsl(var(--clr-creamy-green) / .9);
 }
 
 .nav a {
-    font-size: var(--fs-700);
+    font-size: var(--fs-600);
     color: hsl(var(--clr-creamy-green) / .9);
     text-align: right;
 }
@@ -39,4 +39,13 @@
         backdrop-filter: blur(1.5rem);
     }
 }
+@media (min-height: 900px) {
 
+    .nav button{
+        font-size: var(--fs-700);
+    }
+
+    .nav a {
+        font-size: var(--fs-700);
+    }
+}
