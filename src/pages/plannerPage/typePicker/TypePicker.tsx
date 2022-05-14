@@ -1,9 +1,12 @@
 import classes from "./TypePicker.module.css";
-import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
 import clsx from "clsx";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Slider from "../../../components/slider/Slider";
 import useSlider from "../../../hooks/use-slider";
+import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
+import RegionPicker from "./regionPicker/RegionPicker";
+import CategoryPicker from "./categoryPicker/CategoryPicker";
+import IngredientsPicker from "./ingredientsPicker/IngredientsPicker";
 
 const options = ["Regions", "Categories", "Ingredients"];
 
@@ -36,17 +39,24 @@ const TypePicker = () => {
       <motion.section
         className={clsx("curvedBorder", "clrGreen", classes.chooseTypeSection)}
       >
-        <Slider
-          sliderMovement={{ page, direction, paginate }}
-          render={() => (
-            <h3 className={clsx("fontHeadlines", "fw400")}>
-              {options[currentIndex]}
-            </h3>
-          )}
-          className={clsx("centerContents", classes.nav)}
-        />
-
-        <motion.div className={clsx(classes.contentsContainer)}></motion.div>
+        <AnimatePresence exitBeforeEnter initial={false}>
+          <Slider
+            sliderMovement={{ page, direction, paginate }}
+            render={() => (
+              <div>
+                <h3 className={clsx("fontHeadlines", "fw400")}>
+                  {options[currentIndex]}
+                </h3>
+              </div>
+            )}
+            className={clsx("centerContents", classes.nav)}
+          />
+        </AnimatePresence>
+        <motion.div className={clsx(classes.contentsContainer)}>
+          {currentIndex === 0 && <RegionPicker />}
+          {currentIndex === 1 && <CategoryPicker />}
+          {currentIndex === 2 && <IngredientsPicker />}
+        </motion.div>
       </motion.section>
     </AnimatedPage>
   );

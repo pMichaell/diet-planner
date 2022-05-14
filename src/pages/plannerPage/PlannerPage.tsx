@@ -26,7 +26,7 @@ const PlannerPage = () => {
           }
         />
         <Route path={"/questionnaire"} element={<Questionnaire />} />
-        <Route path={"/type-picker"} element={<MealPicker />} />
+        <Route path={"/typePicker"} element={<MealPicker />} />
       </Routes>
     </AnimatedPage>
   );

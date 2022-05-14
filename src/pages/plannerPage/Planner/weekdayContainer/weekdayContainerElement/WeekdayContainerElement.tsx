@@ -1,9 +1,9 @@
 import classes from "./WeekdayContainerElement.module.css";
 import { motion } from "framer-motion";
 import clsx from "clsx";
-import { Meal, Weekday } from "../../../../../Models";
+import { Weekday } from "../../../../../Models";
 import useMealContext from "../../../../../hooks/use-meal-context";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 type MealElementProps = {
@@ -32,9 +32,8 @@ const MealElement = ({ mealName, mealIndex, weekday }: MealElementProps) => {
         <motion.button
           className={clsx("standardBorder", "clrGreen", classes.cta)}
           onClick={() => {
-            setSearchParams({ name: weekday, mealIndex: mealIndex.toString() });
             navigate({
-              pathname: "./picker",
+              pathname: "typePicker",
               search: `?weekday=${weekday}&mealIndex=${mealIndex}`,
             });
           }}
@@ -52,3 +51,5 @@ const MealElement = ({ mealName, mealIndex, weekday }: MealElementProps) => {
 };
 
 export default MealElement;
+
+//              search: `?weekday=${weekday}&mealIndex=${mealIndex}`,
