@@ -7,7 +7,7 @@ import Planner from "./Planner/Planner";
 import PlanContextProvider from "../../contexts/planContext/PlanContextProvider";
 import MealsContextProvider from "../../contexts/mealsContext/MealsContextProvider";
 import Questionnaire from "./questionnaire/Questionnaire";
-import MealPicker from "./mealPicker/MealPicker";
+import MealPicker from "./typePicker/TypePicker";
 
 const PlannerPage = () => {
   return (
@@ -26,7 +26,7 @@ const PlannerPage = () => {
           }
         />
         <Route path={"/questionnaire"} element={<Questionnaire />} />
-        <Route path={"/picker"} element={<MealPicker />} />
+        <Route path={"/type-picker"} element={<MealPicker />} />
       </Routes>
     </AnimatedPage>
   );

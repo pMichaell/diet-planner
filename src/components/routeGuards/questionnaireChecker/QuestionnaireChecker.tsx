@@ -15,14 +15,12 @@ const QuestionnaireChecker = ({ children }: { children: ReactNode }) => {
     const yesHandler = function yesHandler() {
       navigate("/planner");
       closeModal?.();
-      console.log("yes");
     };
 
     const noHandler = function noHandler() {
       localStorage.clear();
       navigate("/planner/questionnaire");
       closeModal?.();
-      console.log("no");
     };
 
     const options: [string, string] = ["no", "yes"];

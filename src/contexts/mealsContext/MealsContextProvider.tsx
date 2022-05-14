@@ -41,11 +41,6 @@ const reducer = function reducer(state: MealsContextType, action: ACTION_TYPE) {
 const MealsContextProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    console.log("Meals Context Provider useEffect run");
-    console.log(state);
-  }, [state]);
-
   const setMeal = function setMeal(
     weekday: Weekday,
     mealIndex: number,

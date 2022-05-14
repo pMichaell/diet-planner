@@ -14,6 +14,7 @@ import { createUser } from "../../../../firebase/FirestoreFunctions";
 const ProvidersContainer = ({ className }: { className: string }) => {
   const navigate = useNavigate();
 
+  //TODO add error notifications for providers sign in fail
   const signInWithProvider = (providerName: string) => {
     const provider =
       providerName === "google"
@@ -21,14 +22,10 @@ const ProvidersContainer = ({ className }: { className: string }) => {
         : providerName === "github"
         ? new GithubAuthProvider()
         : new FacebookAuthProvider();
-    signInWithPopup(auth, provider)
-      .then(async (result) => {
-        navigate("/");
-        await createUser(result.user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    signInWithPopup(auth, provider).then(async (result) => {
+      navigate("/");
+      await createUser(result.user);
+    });
   };
 
   return (

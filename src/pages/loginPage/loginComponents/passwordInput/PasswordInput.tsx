@@ -50,7 +50,6 @@ const PasswordInput = ({
         onChange={(e) => setValue(e.target.value)}
         onBlur={() => {
           getPasswordValue(value.trim());
-          console.log(value);
         }}
         onFocus={() => setPasswordCorrupted?.(false)}
         className={clsx(

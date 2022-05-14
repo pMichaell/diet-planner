@@ -28,7 +28,6 @@ const EmailInput = () => {
         onChange={(e) => setValue(e.target.value)}
         onBlur={() => {
           setEmail?.(value.trim());
-          console.log(value);
         }}
         className={classes.emailInput}
       />

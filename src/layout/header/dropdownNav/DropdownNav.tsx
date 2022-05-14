@@ -25,7 +25,7 @@ const DropdownNav = () => {
       <motion.nav
         className={classes.nav}
         initial={{ height: 0, opacity: 0.5 }}
-        animate={{ height: height <= 600 ? "50vh" : "30vh", opacity: 1 }}
+        animate={{ height: height <= 600 ? "50vh" : "40vh", opacity: 1 }}
         exit={{ opacity: 0 }}
       >
         <AnimatePresence>

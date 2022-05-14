@@ -18,17 +18,6 @@ const MealElement = ({ mealName, mealIndex, weekday }: MealElementProps) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const dummyMeal: Meal = {
-    idMeal: Math.random() * 20,
-    strMeal: "testMeal",
-    strMealThumb: "XD",
-  };
-
-  useEffect(() => {
-    console.log(meal);
-    console.log("meal updated in useEffect");
-  }, [meal]);
-
   return (
     <motion.article
       className={clsx(
@@ -43,9 +32,7 @@ const MealElement = ({ mealName, mealIndex, weekday }: MealElementProps) => {
         <motion.button
           className={clsx("standardBorder", "clrGreen", classes.cta)}
           onClick={() => {
-            console.log("button clicked");
             setSearchParams({ name: weekday, mealIndex: mealIndex.toString() });
-            console.log(searchParams.toString());
             navigate({
               pathname: "./picker",
               search: `?weekday=${weekday}&mealIndex=${mealIndex}`,
