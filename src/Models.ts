@@ -30,3 +30,16 @@ export type MealDetails = {
 export type PlanDay = {
   [mealName: string]: Meal | null;
 };
+
+export type Category = {
+  strCategory: string;
+};
+
+export type Region = {
+  strRegion: string;
+};
+
+export type Ingredient = {
+  idIngredient: string;
+  strIngredient: string;
+};

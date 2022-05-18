@@ -14,5 +14,3 @@
 
 ### Framer Motion
 
-### SWR
-

@@ -65,11 +65,11 @@ export const validationVariants = {
   },
 };
 
-export const hoverNPress = {
+export const hoverNTap = {
   hover: {
     scale: 1.1,
   },
-  press: {
+  tap: {
     scale: 0.9,
   },
 };

@@ -8,9 +8,10 @@ type sliderMovementProps = {
 };
 
 type SliderProps<T> = {
-  render?: (item?: T) => ReactNode;
-  className?: string;
   sliderMovement: sliderMovementProps;
+  render?: (item?: T) => ReactNode;
+  children?: ReactNode;
+  className?: string;
 };
 
 const variants = {
@@ -40,9 +41,10 @@ const swipePower = (offset: number, velocity: number) => {
 };
 
 const ContentSlider = function ContentSlider<T>({
-  render,
-  className,
   sliderMovement,
+  render,
+  children,
+  className,
 }: SliderProps<T>) {
   const { page, direction, paginate } = sliderMovement;
   return (
@@ -77,6 +79,7 @@ const ContentSlider = function ContentSlider<T>({
       }}
     >
       {render?.()}
+      {children && children}
     </motion.section>
   );
 };
