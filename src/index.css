@@ -286,7 +286,11 @@ Utility classes
 }
 
 .clrGreen {
-    color: hsl(var(--clr-creamy-green))
+    color: hsl(var(--clr-creamy-green));
+}
+
+.clrCheckmark {
+    color: hsl(var(--clr-checkmark-green));
 }
 
 .pagePadding{

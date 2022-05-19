@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import DropdownNav from "../dropdownNav/DropdownNav";
 import { List, X } from "phosphor-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { creamyGreen } from "../../../utils/CssColors";
 
 export const headerVariants = {
   initial: {
@@ -79,7 +78,7 @@ const Header = () => {
               initial={"initial"}
             >
               <List
-                color={creamyGreen}
+                className={"clrGreen"}
                 size={"2.5em"}
                 weight={"bold"}
                 onClick={changeDropDownState}
@@ -94,7 +93,7 @@ const Header = () => {
             initial={"initial"}
           >
             <X
-              color={creamyGreen}
+              className={"clrGreen"}
               size={"2.5em"}
               weight={"bold"}
               onClick={changeDropDownState}

@@ -2,7 +2,6 @@ import { motion, useAnimation } from "framer-motion";
 import classes from "./PasswordInput.module.css";
 import { useContext, useEffect, useState } from "react";
 import { Check } from "phosphor-react";
-import { checkMarkGreen } from "../../../../utils/CssColors";
 import clsx from "clsx";
 import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
 
@@ -68,7 +67,7 @@ const PasswordInput = ({
           animate={controls}
           className={classes.animatedSpan}
         >
-          <Check size={"40px"} color={checkMarkGreen} />
+          <Check size={"40px"} className={"clrCheckmark"} />
         </motion.span>
       )}
     </motion.div>

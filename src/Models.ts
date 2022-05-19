@@ -39,7 +39,4 @@ export type Region = {
   strRegion: string;
 };
 
-export type Ingredient = {
-  idIngredient: string;
-  strIngredient: string;
-};
+export type PickMode = "Region" | "Category" | "Ingredient";

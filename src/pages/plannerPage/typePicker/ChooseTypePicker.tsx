@@ -12,9 +12,9 @@ import {
   Globe,
   IconContext,
 } from "phosphor-react";
-import React from "react";
-import ElementsPicker, { PickMode } from "./elementsPicker/ElementsPicker";
-import { Ingredient } from "../../../Models";
+import React, { useCallback } from "react";
+import ElementsPicker from "./elementsPicker/ElementsPicker";
+import { PickMode } from "../../../Models";
 
 const options = ["Regions", "Categories", "Main Ingredient"];
 
@@ -24,18 +24,18 @@ const pickModes: PickMode[] = ["Region", "Category", "Ingredient"];
 
 const categories: string[] = require("../../../assets/jsonData/categories.json");
 const regions: string[] = require("../../../assets/jsonData/regions.json");
-const ingredients: Ingredient[] = require("../../../assets/jsonData/ingredients.json");
-const strIngredients = ingredients
-  .map((ingredient) => ingredient.strIngredient)
-  .sort();
+const ingredients: string[] = require("../../../assets/jsonData/ingredients.json");
 
-const data = [regions, categories, strIngredients];
+const data = [regions, categories, ingredients];
 
 const ChooseTypePicker = () => {
   const { page, direction, paginate, currentIndex } = useSlider(
     options,
     "categorySlider"
   );
+
+  const onElementClick = useCallback((mode: PickMode, fetchParam: string) => {},
+  []);
 
   return (
     <AnimatedPage
@@ -97,6 +97,7 @@ const ChooseTypePicker = () => {
                 <ElementsPicker
                   mode={pickModes[currentIndex]}
                   data={data[currentIndex]}
+                  onClick={onElementClick}
                 />
               }
             </Slider>

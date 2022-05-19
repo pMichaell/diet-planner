@@ -2,7 +2,6 @@ import classes from "./EmailInput.module.css";
 import { useContext, useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { Check, X } from "phosphor-react";
-import { checkMarkGreen, creamyGreen } from "../../../../utils/CssColors";
 import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
 
 const EmailInput = () => {
@@ -38,7 +37,7 @@ const EmailInput = () => {
         </motion.span>
       ) : (
         <motion.span animate={controls} className={classes.animatedSpan}>
-          <Check size={"40px"} color={checkMarkGreen} />
+          <Check size={"40px"} className={"clrCheckmark"} />
         </motion.span>
       )}
     </div>
