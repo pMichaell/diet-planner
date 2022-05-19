@@ -9,12 +9,15 @@ const pageVariants = {
     opacity: 1,
     transition: {
       duration: 0.3,
-      ease: "easeInOut",
     },
   },
   exit: {
     x: "-100vw",
     opacity: 0,
+    transition: {
+      type: "spring",
+      duration: 0.3,
+    },
   },
 };
 

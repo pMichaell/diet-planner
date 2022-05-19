@@ -2,12 +2,16 @@ import classes from "./PlannerPage.module.css";
 import AnimatedPage from "../../components/animatedPage/AnimatedPage";
 import { Route, Routes } from "react-router-dom";
 import clsx from "clsx";
-import React from "react";
+import React, { Suspense } from "react";
 import Planner from "./Planner/Planner";
 import PlanContextProvider from "../../contexts/planContext/PlanContextProvider";
 import MealsContextProvider from "../../contexts/mealsContext/MealsContextProvider";
 import Questionnaire from "./questionnaire/Questionnaire";
-import MealPicker from "./typePicker/TypePicker";
+import SuspenseSpinner from "../../components/suspenseComponents/SuspenseSpinner";
+
+const ChooseTypePicker = React.lazy(
+  () => import("./typePicker/ChooseTypePicker")
+);
 
 const PlannerPage = () => {
   return (
@@ -26,7 +30,14 @@ const PlannerPage = () => {
           }
         />
         <Route path={"/questionnaire"} element={<Questionnaire />} />
-        <Route path={"/typePicker"} element={<MealPicker />} />
+        <Route
+          path={"/type-picker"}
+          element={
+            <Suspense fallback={<SuspenseSpinner />}>
+              <ChooseTypePicker />
+            </Suspense>
+          }
+        />
       </Routes>
     </AnimatedPage>
   );

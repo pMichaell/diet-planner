@@ -1,4 +1,4 @@
-import classes from "./TypePicker.module.css";
+import classes from "./ChooseTypePicker.module.css";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import Slider from "../../../components/slider/Slider";
@@ -25,13 +25,13 @@ const pickModes: PickMode[] = ["Region", "Category", "Ingredient"];
 const categories: string[] = require("../../../assets/jsonData/categories.json");
 const regions: string[] = require("../../../assets/jsonData/regions.json");
 const ingredients: Ingredient[] = require("../../../assets/jsonData/ingredients.json");
-const strIngredients = ingredients.map(
-  (ingredient) => ingredient.strIngredient
-);
+const strIngredients = ingredients
+  .map((ingredient) => ingredient.strIngredient)
+  .sort();
 
-const data = [categories, regions, strIngredients];
+const data = [regions, categories, strIngredients];
 
-const TypePicker = () => {
+const ChooseTypePicker = () => {
   const { page, direction, paginate, currentIndex } = useSlider(
     options,
     "categorySlider"
@@ -46,19 +46,15 @@ const TypePicker = () => {
         classes.container
       )}
     >
-      <motion.h2
-        className={clsx(
-          "txtAlgCenter",
-          "clrGreen",
-          "fontHeadlines",
-          "fw400",
-          "fs500"
-        )}
-      >
-        How would you like to pick your meal?
-      </motion.h2>
       <motion.section
         className={clsx("curvedBorder", "clrGreen", classes.chooseTypeSection)}
+        initial={{ x: "-100vw" }}
+        animate={{ x: 0 }}
+        transition={{
+          duration: 0.3,
+          type: "spring",
+          stiffness: 110,
+        }}
       >
         <nav className={classes.nav}>
           <IconContext.Provider
@@ -91,7 +87,11 @@ const TypePicker = () => {
           <AnimatePresence exitBeforeEnter initial={false}>
             <Slider
               sliderMovement={{ page, direction, paginate }}
-              className={clsx("fillParent", "centerContents")}
+              className={clsx(
+                "fillParent",
+                "centerContents",
+                classes.contentsSlider
+              )}
             >
               {
                 <ElementsPicker
@@ -107,4 +107,4 @@ const TypePicker = () => {
   );
 };
 
-export default TypePicker;
+export default ChooseTypePicker;

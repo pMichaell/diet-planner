@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { Weekday } from "../../../../../Models";
 import useMealContext from "../../../../../hooks/use-meal-context";
 import { Fragment } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 type MealElementProps = {
   mealName: string;
@@ -13,10 +13,13 @@ type MealElementProps = {
   className?: string;
 };
 
-const MealElement = ({ mealName, mealIndex, weekday }: MealElementProps) => {
+const WeekdayContainerElement = ({
+  mealName,
+  mealIndex,
+  weekday,
+}: MealElementProps) => {
   const { meal, mealSet, mealRemove } = useMealContext(weekday, mealIndex);
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <motion.article
@@ -33,8 +36,11 @@ const MealElement = ({ mealName, mealIndex, weekday }: MealElementProps) => {
           className={clsx("standardBorder", "clrGreen", classes.cta)}
           onClick={() => {
             navigate({
-              pathname: "typePicker",
-              search: `?weekday=${weekday}&mealIndex=${mealIndex}`,
+              pathname: "type-picker",
+              search: `?${createSearchParams({
+                weekday,
+                mealIndex: mealIndex.toString(),
+              })}`,
             });
           }}
         >
@@ -50,6 +56,6 @@ const MealElement = ({ mealName, mealIndex, weekday }: MealElementProps) => {
   );
 };
 
-export default MealElement;
+export default WeekdayContainerElement;
 
 //              search: `?weekday=${weekday}&mealIndex=${mealIndex}`,

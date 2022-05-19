@@ -1,15 +1,20 @@
+import classes from "./ElementsPicker.module.css";
 import clsx from "clsx";
-import { motion } from "framer-motion";
 
 export type PickMode = "Region" | "Category" | "Ingredient";
 
 const ElementsPicker = ({ mode, data }: { mode: PickMode; data: string[] }) => {
   return (
-    <motion.div className={clsx("fillParent", "centerContents")}>
+    <div className={clsx("fillParent", "centerContents", classes.container)}>
       {data.map((element) => (
-        <button key={element}>{element}</button>
+        <button
+          key={element}
+          className={clsx("fs600", "clrGreen", classes.element)}
+        >
+          {element}
+        </button>
       ))}
-    </motion.div>
+    </div>
   );
 };
 
