@@ -56,7 +56,7 @@ const ChooseTypePicker = () => {
           stiffness: 110,
         }}
       >
-        <nav className={classes.nav}>
+        <ul className={classes.typesList}>
           <IconContext.Provider
             value={{
               size: "2em",
@@ -70,19 +70,19 @@ const ChooseTypePicker = () => {
                 sliderMovement={{ page, direction, paginate }}
                 className={clsx("fillParent", "centerContents")}
                 render={() => (
-                  <div className={clsx("fillParent", classes.navElement)}>
+                  <li className={clsx("fillParent", classes.typesListItem)}>
                     <h3 className={clsx("fontHeadlines", "fw400", "fs600")}>
                       {options[currentIndex]}
                     </h3>
 
                     {icons[currentIndex]}
-                  </div>
+                  </li>
                 )}
               />
             </AnimatePresence>
             <CaretRight onClick={() => paginate(1)} />
           </IconContext.Provider>
-        </nav>
+        </ul>
         <motion.div className={clsx(classes.contentsContainer)}>
           <AnimatePresence exitBeforeEnter initial={false}>
             <Slider

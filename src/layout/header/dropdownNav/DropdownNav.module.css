@@ -6,7 +6,7 @@
     overflow: hidden;
     gap: 1em;
     justify-content: center;
-    z-index: 10;
+    z-index: 30;
     background-color: hsl(var(--clr-creamy-green) / .15);
 }
 

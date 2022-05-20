@@ -49,9 +49,9 @@ const Header = () => {
   };
 
   return (
-    <div className={classes.headerDiv}>
-      <motion.header
-        className={classes.header}
+    <header className={classes.header}>
+      <motion.div
+        className={classes.headerDiv}
         variants={headerVariants}
         initial={"initial"}
         animate={"animate"}
@@ -100,9 +100,9 @@ const Header = () => {
             />
           </motion.div>
         )}
-      </motion.header>
+      </motion.div>
       <AnimatePresence>{dropdownVisible && <DropdownNav />}</AnimatePresence>
-    </div>
+    </header>
   );
 };
 

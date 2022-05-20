@@ -13,7 +13,7 @@
     max-width: 80rem;
 }
 
-.nav {
+.typesList {
     height: 10%;
     width: 100%;
     display: flex;
@@ -22,26 +22,13 @@
     padding-inline: 10%;
 }
 
-.navElement {
+.typesListItem {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: .5em;
 }
 
-
-.list {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    flex-grow: 1;
-}
-
-.list > li {
-    margin: 0;
-    padding: 0;
-}
 
 .contentsContainer {
     flex: 1;
