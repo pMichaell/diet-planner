@@ -15,6 +15,7 @@ import {
 import React, { useCallback } from "react";
 import ElementsPicker from "./elementsPicker/ElementsPicker";
 import { PickMode } from "../../../Models";
+import { useNavigate } from "react-router-dom";
 
 const options = ["Regions", "Categories", "Main Ingredient"];
 
@@ -29,13 +30,22 @@ const ingredients: string[] = require("../../../assets/jsonData/ingredients.json
 const data = [regions, categories, ingredients];
 
 const ChooseTypePicker = () => {
+  const navigate = useNavigate();
   const { page, direction, paginate, currentIndex } = useSlider(
     options,
     "categorySlider"
   );
 
-  const onElementClick = useCallback((mode: PickMode, fetchParam: string) => {},
-  []);
+  const onElementClick = useCallback(
+    (mode: PickMode, fetchParam: string) => {
+      sessionStorage.setItem(
+        "mealFetchData",
+        JSON.stringify({ mode: fetchParam })
+      );
+      navigate("../meal-picker");
+    },
+    [navigate]
+  );
 
   return (
     <AnimatedPage

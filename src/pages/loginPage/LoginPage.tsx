@@ -30,6 +30,8 @@ const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
 
+  //TODO fix register and login page accessibility
+
   useEffect(() => {
     if (searchParams.get("register")) {
       setIsLogin(false);
@@ -67,7 +69,7 @@ const LoginPage = () => {
         <section className={classes.helpSection}>
           <p className={classes.helpParagraph}>
             Forgot Your Password?
-            <span>Click here</span>
+            <span>Reset Password</span>
           </p>
           <p className={classes.helpParagraph}>
             {isLogin ? "Not a member yet?" : "Already a member?"}

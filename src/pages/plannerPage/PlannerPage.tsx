@@ -13,6 +13,8 @@ const ChooseTypePicker = React.lazy(
   () => import("./typePicker/ChooseTypePicker")
 );
 
+const MealPicker = React.lazy(() => import("./mealPicker/MealPicker"));
+
 const PlannerPage = () => {
   return (
     <AnimatedPage
@@ -30,6 +32,14 @@ const PlannerPage = () => {
           }
         />
         <Route path={"/questionnaire"} element={<Questionnaire />} />
+        <Route
+          path={"/meal-picker"}
+          element={
+            <Suspense fallback={<SuspenseSpinner />}>
+              <MealPicker />
+            </Suspense>
+          }
+        />
         <Route
           path={"/type-picker"}
           element={

@@ -18,12 +18,6 @@ const fetchData = async function (
   return new Array<Meal>();
 };
 
-const useFetchMeals = ({
-  mode,
-  fetchParam,
-}: {
-  mode: PickMode;
-  fetchParam: string;
-}) => {};
+const useFetchMeals = () => {};
 
 export default useFetchMeals;
