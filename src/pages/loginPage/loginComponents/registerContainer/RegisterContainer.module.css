@@ -12,8 +12,10 @@
     padding-inline: max(0.5em, 2vw);
 }
 
-.registerSection > div > h4 {
+.inputLabel {
     padding-left: 20px;
+    font-size: 1em;
+    font-weight: bold;
 }
 
 .registerButton {

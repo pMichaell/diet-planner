@@ -5,10 +5,11 @@ import AnimatedPage from "../../components/animatedPage/AnimatedPage";
 import ProvidersContainer from "./loginComponents/providersContainer/ProvidersContainer";
 import LoginBreak from "./loginComponents/LoginBreak";
 import LoginContainer from "./loginComponents/loginContainer/LoginContainer";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import RegisterContainer from "./loginComponents/registerContainer/RegisterContainer";
-import LoginPageContextProvider from "../../contexts/loginPageContext/LoginPageContextProvider";
+
 import { useSearchParams } from "react-router-dom";
+import LoginPageContext from "../../contexts/loginPageContext/LoginPageContext";
 
 const loginVariants = {
   initial: {
@@ -29,16 +30,19 @@ const loginVariants = {
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-
-  //TODO fix register and login page accessibility
+  const { setEmail, setPassword, setSecondPassword } =
+    useContext(LoginPageContext);
 
   useEffect(() => {
+    setEmail?.("");
+    setPassword?.("");
+    setSecondPassword?.("");
     if (searchParams.get("register")) {
       setIsLogin(false);
       return;
     }
     setIsLogin(true);
-  }, [searchParams]);
+  }, [searchParams, setEmail, setPassword, setSecondPassword]);
 
   const onLoginModeSwitch = () => {
     if (searchParams.get("register")) {
@@ -60,11 +64,9 @@ const LoginPage = () => {
         >
           <ProvidersContainer className={classes.providersContainer} />
           <LoginBreak className={classes.loginBreak} />
-          <LoginPageContextProvider>
-            <AnimatePresence>
-              {isLogin ? <LoginContainer /> : <RegisterContainer />}
-            </AnimatePresence>
-          </LoginPageContextProvider>
+          <AnimatePresence>
+            {isLogin ? <LoginContainer /> : <RegisterContainer />}
+          </AnimatePresence>
         </motion.section>
         <section className={classes.helpSection}>
           <p className={classes.helpParagraph}>

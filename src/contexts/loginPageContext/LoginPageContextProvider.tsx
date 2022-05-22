@@ -5,15 +5,15 @@ import validator from "validator";
 type ACTION_TYPE =
   | { type: "setEmail"; email: string }
   | { type: "setPassword"; password: string }
-  | { type: "setSecondPassword"; secondPassword: string }
-  | { type: "setPasswordCorrupted"; passwordCorrupted: boolean };
+  | { type: "setSecondPassword"; secondPassword: string };
 
 const initialState: LoginContext = {
   email: "",
   password: "",
   secondPassword: "",
-  emailCorrupted: false,
-  passwordCorrupted: false,
+  emailCorrupted: true,
+  passwordCorrupted: true,
+  secondPasswordCorrupted: true,
 };
 
 const reducer = (state: LoginContext, action: ACTION_TYPE) => {
@@ -22,7 +22,7 @@ const reducer = (state: LoginContext, action: ACTION_TYPE) => {
       const isValid = validator.isEmail(action.email);
       return {
         ...state,
-        emailCorrupted: isValid,
+        emailCorrupted: !isValid,
         email: action.email,
       };
     case "setPassword":
@@ -33,13 +33,11 @@ const reducer = (state: LoginContext, action: ACTION_TYPE) => {
         passwordCorrupted: passwordCorrupted,
       };
     case "setSecondPassword":
+      const secondPasswordCorrupted = action.secondPassword.length < 6;
       return {
         ...state,
         secondPassword: action.secondPassword,
-      };
-    case "setPasswordCorrupted":
-      return {
-        ...state,
+        secondPasswordCorrupted: secondPasswordCorrupted,
       };
   }
 };
@@ -68,13 +66,6 @@ const LoginPageContextProvider = ({ children }: { children: ReactNode }) => {
     });
   }, []);
 
-  const setPasswordCorrupted = useCallback((passwordCorrupted: boolean) => {
-    dispatch({
-      type: "setPasswordCorrupted",
-      passwordCorrupted,
-    });
-  }, []);
-
   return (
     <LoginPageContext.Provider
       value={{
@@ -82,7 +73,6 @@ const LoginPageContextProvider = ({ children }: { children: ReactNode }) => {
         setEmail,
         setPassword,
         setSecondPassword,
-        setPasswordCorrupted,
       }}
     >
       {children}

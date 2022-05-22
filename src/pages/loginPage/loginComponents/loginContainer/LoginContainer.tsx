@@ -63,7 +63,7 @@ const LoginContainer = () => {
         <AnimatedInput
           value={email}
           setter={setEmail}
-          valueCorrect={emailCorrupted}
+          valueIncorrect={emailCorrupted}
           name={"email"}
           id={"email"}
         />
@@ -77,7 +77,8 @@ const LoginContainer = () => {
           name={"password"}
           id={"password"}
           setter={setPassword}
-          valueCorrect={passwordCorrupted}
+          valueIncorrect={passwordCorrupted}
+          inputType={"password"}
           minCharacters={6}
         />
       </div>

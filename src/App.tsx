@@ -3,6 +3,7 @@ import Layout from "./layout/layout/Layout";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import ModalContext from "./contexts/modalContext/ModalContext";
+import LoginPageContextProvider from "./contexts/loginPageContext/LoginPageContextProvider";
 
 const Modal = React.lazy(() => import("./components/modal/Modal"));
 const HomePage = React.lazy(() => import("./pages/homePage/HomePage"));
@@ -51,7 +52,14 @@ function App() {
               </RequireAuth>
             }
           />
-          <Route path={"/login"} element={<LoginPage />} />
+          <Route
+            path={"/login"}
+            element={
+              <LoginPageContextProvider>
+                <LoginPage />
+              </LoginPageContextProvider>
+            }
+          />
           <Route path={"*"} element={<NotFoundPage />} />
         </Routes>
       </AnimatePresence>

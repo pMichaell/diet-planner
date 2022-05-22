@@ -1,6 +1,5 @@
 import { motion, useAnimation } from "framer-motion";
 import classes from "./RegisterContainer.module.css";
-import PasswordInput from "../passwordInput/PasswordInput";
 import { validationVariants } from "../../../../framerVariants";
 import { FormEvent, useContext, useState } from "react";
 import { auth } from "../../../../firebase/Firebase";
@@ -14,10 +13,20 @@ import { Spinner } from "phosphor-react";
 import { useSearchParams } from "react-router-dom";
 import ModalContext from "../../../../contexts/modalContext/ModalContext";
 import { createUser } from "../../../../firebase/FirestoreFunctions";
+import AnimatedInput from "../animatedInput/AnimatedInput";
 
 const RegisterContainer = () => {
-  const { email, password, secondPassword, setPasswordCorrupted } =
-    useContext(LoginPageContext);
+  const {
+    email,
+    setEmail,
+    emailCorrupted,
+    password,
+    setPassword,
+    setSecondPassword,
+    secondPassword,
+    passwordCorrupted,
+    secondPasswordCorrupted,
+  } = useContext(LoginPageContext);
   const [isLoading, setIsLoading] = useState(false);
   const [_, setSearchParams] = useSearchParams();
   const { openModal, setModalText } = useContext(ModalContext);
@@ -25,8 +34,8 @@ const RegisterContainer = () => {
 
   const onFormSubmission = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (password !== secondPassword) {
-      setPasswordCorrupted?.(true);
+    if (password.length === 0 || password !== secondPassword) {
+      await displayRegisterError();
       return;
     }
 
@@ -67,15 +76,44 @@ const RegisterContainer = () => {
       onSubmit={onFormSubmission}
     >
       <div>
-        <motion.h4>Email</motion.h4>
+        <label htmlFor="email" className={classes.inputLabel}>
+          Email
+        </label>
+        <AnimatedInput
+          value={email}
+          setter={setEmail}
+          valueIncorrect={emailCorrupted}
+          name={"email"}
+          id={"email"}
+        />
       </div>
       <div>
-        <motion.h4>Password</motion.h4>
-        <PasswordInput />
+        <label htmlFor={"password"} className={classes.inputLabel}>
+          Password
+        </label>
+        <AnimatedInput
+          value={password}
+          setter={setPassword}
+          name={"password"}
+          id={"password"}
+          valueIncorrect={passwordCorrupted}
+          minCharacters={6}
+          inputType={"password"}
+        />
       </div>
       <div>
-        <motion.h4>Repeat Password</motion.h4>
-        <PasswordInput isSecondPassword />
+        <label htmlFor={"confirmPassword"} className={classes.inputLabel}>
+          Confirm Password
+        </label>
+        <AnimatedInput
+          value={secondPassword}
+          setter={setSecondPassword}
+          name={"confirmPassword"}
+          id={"confirmPassword"}
+          valueIncorrect={secondPasswordCorrupted}
+          minCharacters={6}
+          inputType={"password"}
+        />
       </div>
       <motion.button
         className={classes.registerButton}

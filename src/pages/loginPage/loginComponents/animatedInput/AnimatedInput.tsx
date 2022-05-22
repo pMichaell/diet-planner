@@ -1,5 +1,5 @@
 import classes from "./AnimatedInput.module.css";
-import { useEffect } from "react";
+import { HTMLInputTypeAttribute, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { Check, X } from "phosphor-react";
 import clsx from "clsx";
@@ -7,19 +7,21 @@ import clsx from "clsx";
 type InputProps = {
   value: string;
   setter?: (userInput: string) => void;
-  valueCorrect?: boolean;
+  valueIncorrect?: boolean;
   minCharacters?: number;
   name: string;
   id: string;
+  inputType?: HTMLInputTypeAttribute;
 };
 
 const AnimatedInput = ({
   value,
   setter,
-  valueCorrect,
+  valueIncorrect,
   minCharacters,
   name,
   id,
+  inputType = "text",
 }: InputProps) => {
   const controls = useAnimation();
 
@@ -33,14 +35,13 @@ const AnimatedInput = ({
     });
   }, [value, controls]);
 
-  console.log(minCharacters);
-
   return (
     <div className={classes.emailContainer}>
       <input
         id={id}
         name={name}
         value={value}
+        type={inputType}
         onChange={(e) => setter?.(e.target.value)}
         onBlur={() => {
           setter?.(value.trim());
@@ -48,7 +49,7 @@ const AnimatedInput = ({
         className={classes.emailInput}
       />
 
-      {!valueCorrect ? (
+      {valueIncorrect ? (
         <motion.span
           animate={controls}
           className={clsx("fs700", classes.animatedSpan)}
