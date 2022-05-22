@@ -4,6 +4,7 @@ export type LoginContext = {
   email: string;
   password: string;
   secondPassword?: string;
+  emailCorrupted?: boolean;
   passwordCorrupted?: boolean;
   setEmail?: (email: string) => void;
   setPassword?: (password: string) => void;
@@ -15,6 +16,7 @@ const defaultValue: LoginContext = {
   email: "",
   password: "",
   secondPassword: "",
+  emailCorrupted: false,
   passwordCorrupted: false,
 };
 

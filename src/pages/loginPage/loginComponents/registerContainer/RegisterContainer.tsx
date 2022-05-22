@@ -1,6 +1,5 @@
 import { motion, useAnimation } from "framer-motion";
 import classes from "./RegisterContainer.module.css";
-import EmailInput from "../emailInput/EmailInput";
 import PasswordInput from "../passwordInput/PasswordInput";
 import { validationVariants } from "../../../../framerVariants";
 import { FormEvent, useContext, useState } from "react";
@@ -69,7 +68,6 @@ const RegisterContainer = () => {
     >
       <div>
         <motion.h4>Email</motion.h4>
-        <EmailInput />
       </div>
       <div>
         <motion.h4>Password</motion.h4>

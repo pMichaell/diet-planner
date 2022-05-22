@@ -1,40 +1,45 @@
 import LoginPageContext, { LoginContext } from "./LoginPageContext";
-import { ReactNode, useReducer } from "react";
+import { ReactNode, useCallback, useReducer } from "react";
+import validator from "validator";
 
 type ACTION_TYPE =
-  | { type: "setEmail"; payload: string }
-  | { type: "setPassword"; payload: string }
-  | { type: "setSecondPassword"; payload: string }
-  | { type: "setPasswordCorrupted"; payload: boolean };
+  | { type: "setEmail"; email: string }
+  | { type: "setPassword"; password: string }
+  | { type: "setSecondPassword"; secondPassword: string }
+  | { type: "setPasswordCorrupted"; passwordCorrupted: boolean };
 
 const initialState: LoginContext = {
   email: "",
   password: "",
   secondPassword: "",
+  emailCorrupted: false,
   passwordCorrupted: false,
 };
 
 const reducer = (state: LoginContext, action: ACTION_TYPE) => {
   switch (action.type) {
     case "setEmail":
+      const isValid = validator.isEmail(action.email);
       return {
         ...state,
-        email: action.payload,
+        emailCorrupted: isValid,
+        email: action.email,
       };
     case "setPassword":
+      const passwordCorrupted = action.password.length < 6;
       return {
         ...state,
-        password: action.payload,
+        password: action.password,
+        passwordCorrupted: passwordCorrupted,
       };
     case "setSecondPassword":
       return {
         ...state,
-        secondPassword: action.payload,
+        secondPassword: action.secondPassword,
       };
     case "setPasswordCorrupted":
       return {
         ...state,
-        passwordCorrupted: action.payload,
       };
   }
 };
@@ -42,35 +47,33 @@ const reducer = (state: LoginContext, action: ACTION_TYPE) => {
 const LoginPageContextProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const setEmail = function setEmal(email: string) {
+  const setEmail = useCallback((email: string) => {
     dispatch({
       type: "setEmail",
-      payload: email,
+      email,
     });
-  };
+  }, []);
 
-  const setPassword = function setPassword(password: string) {
+  const setPassword = useCallback((password: string) => {
     dispatch({
       type: "setPassword",
-      payload: password,
+      password,
     });
-  };
+  }, []);
 
-  const setSecondPassword = function setSecondPassword(secondPassword: string) {
+  const setSecondPassword = useCallback((secondPassword: string) => {
     dispatch({
       type: "setSecondPassword",
-      payload: secondPassword,
+      secondPassword,
     });
-  };
+  }, []);
 
-  const setPasswordCorrupted = function setPasswordCorrupted(
-    passwordCorrupted: boolean
-  ) {
+  const setPasswordCorrupted = useCallback((passwordCorrupted: boolean) => {
     dispatch({
       type: "setPasswordCorrupted",
-      payload: passwordCorrupted,
+      passwordCorrupted,
     });
-  };
+  }, []);
 
   return (
     <LoginPageContext.Provider
@@ -86,5 +89,4 @@ const LoginPageContextProvider = ({ children }: { children: ReactNode }) => {
     </LoginPageContext.Provider>
   );
 };
-
 export default LoginPageContextProvider;

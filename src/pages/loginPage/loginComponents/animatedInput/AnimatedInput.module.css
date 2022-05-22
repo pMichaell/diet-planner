@@ -20,8 +20,9 @@
 .animatedSpan {
     display: grid;
     place-items: center;
-    font-size: var(--fs-700);
 }
+
+
 
 .wrong {
     border: 2px solid red;

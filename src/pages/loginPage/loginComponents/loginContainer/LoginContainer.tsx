@@ -1,7 +1,5 @@
 import classes from "./LoginContainer.module.css";
 import { motion, useAnimation } from "framer-motion";
-import PasswordInput from "../passwordInput/PasswordInput";
-import EmailInput from "../emailInput/EmailInput";
 import { validationVariants } from "../../../../framerVariants";
 import { FormEvent, useContext, useState } from "react";
 import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
@@ -10,9 +8,17 @@ import { useNavigate } from "react-router-dom";
 import { Spinner } from "phosphor-react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../../firebase/Firebase";
+import AnimatedInput from "../animatedInput/AnimatedInput";
 
 const LoginContainer = () => {
-  const { email, password } = useContext(LoginPageContext);
+  const {
+    email,
+    password,
+    setEmail,
+    emailCorrupted,
+    setPassword,
+    passwordCorrupted,
+  } = useContext(LoginPageContext);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const controls = useAnimation();
@@ -51,12 +57,29 @@ const LoginContainer = () => {
       onSubmit={onFormSubmission}
     >
       <div>
-        <motion.h4>Email</motion.h4>
-        <EmailInput />
+        <label htmlFor="email" className={classes.inputLabel}>
+          Email
+        </label>
+        <AnimatedInput
+          value={email}
+          setter={setEmail}
+          valueCorrect={emailCorrupted}
+          name={"email"}
+          id={"email"}
+        />
       </div>
       <div>
-        <motion.h4>Password</motion.h4>
-        <PasswordInput />
+        <label htmlFor={"password"} className={classes.inputLabel}>
+          Password
+        </label>
+        <AnimatedInput
+          value={password}
+          name={"password"}
+          id={"password"}
+          setter={setPassword}
+          valueCorrect={passwordCorrupted}
+          minCharacters={6}
+        />
       </div>
       <motion.button
         className={clsx(classes.logInButton)}
