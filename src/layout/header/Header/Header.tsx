@@ -50,13 +50,21 @@ const Header = () => {
 
   return (
     <header className={classes.header}>
+      <a
+        href="#main-content"
+        className={clsx("curvedBorder", "fontHeadlines", classes.skipNavLink)}
+      >
+        Skip To Content
+      </a>
       <motion.div
         className={classes.headerDiv}
         variants={headerVariants}
         initial={"initial"}
         animate={"animate"}
       >
-        <Apple className={classes.logo} onClick={() => navigate("/")} />
+        <button className={classes.logoButton} onClick={() => navigate("/")}>
+          <Apple className={classes.logo} />
+        </button>
         <motion.h2
           className={clsx(
             "uppercase",
@@ -71,34 +79,26 @@ const Header = () => {
         </motion.h2>
         {!dropdownVisible ? (
           <AnimatePresence>
-            <motion.div
+            <motion.button
               className={classes.navIcon}
               variants={navIconVariants}
               animate={"animate"}
               initial={"initial"}
+              onClick={changeDropDownState}
             >
-              <List
-                className={"clrGreen"}
-                size={"2.5em"}
-                weight={"bold"}
-                onClick={changeDropDownState}
-              />
-            </motion.div>
+              <List className={"clrGreen"} size={"2.5em"} weight={"bold"} />
+            </motion.button>
           </AnimatePresence>
         ) : (
-          <motion.div
+          <motion.button
             className={classes.navIcon}
             variants={navIconVariants}
             animate={"animate"}
             initial={"initial"}
+            onClick={changeDropDownState}
           >
-            <X
-              className={"clrGreen"}
-              size={"2.5em"}
-              weight={"bold"}
-              onClick={changeDropDownState}
-            />
-          </motion.div>
+            <X className={"clrGreen"} size={"2.5em"} weight={"bold"} />
+          </motion.button>
         )}
       </motion.div>
       <AnimatePresence>{dropdownVisible && <DropdownNav />}</AnimatePresence>

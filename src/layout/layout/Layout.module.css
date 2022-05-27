@@ -1,9 +1,8 @@
 .layout {
-    min-width: 100vw;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 5em 1fr;
-    background-image: url("../../assets/folder/verticalBackground.svg");
+    background-image: url("../../assets/svgs/verticalBackground.svg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -16,14 +15,8 @@
 
 @media (min-width: 560px) {
     .layout {
-        background-image: url("../../assets/folder/horizontalBackground.svg");
+        background-image: url("../../assets/svgs/horizontalBackground.svg");
     }
 
 }
-
-.main {
-    display: grid;
-    place-items: center;
-}
-
 

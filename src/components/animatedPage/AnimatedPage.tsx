@@ -28,7 +28,8 @@ type AnimatedPageProps = {
 
 const AnimatedPage = ({ children, className }: AnimatedPageProps) => {
   return (
-    <motion.div
+    <motion.main
+      id={"main-content"}
       className={className}
       variants={pageVariants}
       initial={"initial"}
@@ -36,7 +37,7 @@ const AnimatedPage = ({ children, className }: AnimatedPageProps) => {
       exit={"exit"}
     >
       {children}
-    </motion.div>
+    </motion.main>
   );
 };
 

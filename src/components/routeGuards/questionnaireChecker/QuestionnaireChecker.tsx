@@ -1,10 +1,13 @@
 import { Fragment, ReactNode, useContext, useEffect } from "react";
 import ModalContext from "../../../contexts/modalContext/ModalContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../../firebase/Firebase";
 
 const QuestionnaireChecker = ({ children }: { children: ReactNode }) => {
   const { setModalText, openModal, setupOptionsModal, closeModal } =
     useContext(ModalContext);
+  const [user, _] = useAuthState(auth);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -30,6 +33,7 @@ const QuestionnaireChecker = ({ children }: { children: ReactNode }) => {
     const regex = RegExp("/planner/?.*");
 
     if (
+      user &&
       localStorage.getItem("planName") &&
       localStorage.getItem("mealNames") &&
       localStorage.getItem("mealsCount") &&

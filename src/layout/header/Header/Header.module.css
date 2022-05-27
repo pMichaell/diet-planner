@@ -2,6 +2,19 @@
     z-index: 10;
 }
 
+.skipNavLink {
+    position: absolute;
+    transform: translateY(-120%) translateX(0);
+    transition: all .5s ease-in;
+    display: block;
+    padding: 1em;
+    color: hsl(var(--clr-creamy-green))
+}
+
+.skipNavLink:focus {
+    transform: translateY(15%) translateX(100%);
+}
+
 .headerDiv {
     height: 100%;
     width: 100%;
@@ -16,10 +29,15 @@
     padding-top: 7px;
 }
 
-.logo {
+.logoButton {
+    height: 3em;
+    width: 3em;
     max-height: 3em;
     max-width: 3em;
     aspect-ratio: 1;
+}
+
+.logo {
     fill: hsl(var(--clr-creamy-green));
 }
 

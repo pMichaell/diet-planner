@@ -101,10 +101,23 @@ body {
     line-height: 1.5;
 }
 
-
-a {
-    text-decoration: none;
+#root {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 5em 1fr;
+    background-image: url("./assets/svgs/verticalBackground.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
+
+@media (min-width: 560px) {
+    #root {
+        background-image: url("./assets/svgs/horizontalBackground.svg");
+    }
+
+}
+
 
 p {
     font-family: var(--font-body);
@@ -132,6 +145,19 @@ button {
     cursor: pointer;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button:focus,
+a:focus {
+    transform: scale(1.1);
+    outline: 3px solid violet;
+    outline-offset: 3px;
+}
+
+
 input {
     border: 0;
     padding: 0;
@@ -144,6 +170,7 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 input[type="number"] {
     -moz-appearance: textfield;
 }
@@ -293,7 +320,7 @@ Utility classes
     color: hsl(var(--clr-checkmark-green));
 }
 
-.pagePadding{
+.pagePadding {
     padding: 1rem;
 }
 
