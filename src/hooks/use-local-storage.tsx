@@ -5,12 +5,12 @@ function useLocalStorage<T>(
   initial?: T
 ): [state: T, setState?: (data: T) => void] {
   const [value, setValue] = useState(() => {
-    const saved = sessionStorage.getItem(key);
+    const saved = localStorage.getItem(key);
     return saved !== null ? JSON.parse(saved) : initial;
   });
 
   useEffect(() => {
-    sessionStorage.setItem(key, JSON.stringify(value));
+    localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
 
   return [value, setValue];

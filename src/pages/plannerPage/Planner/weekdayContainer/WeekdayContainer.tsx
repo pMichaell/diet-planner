@@ -4,15 +4,19 @@ import { Weekday } from "../../../../Models";
 import clsx from "clsx";
 import { useContext } from "react";
 import PlanContext from "../../../../contexts/planContext/PlanContext";
-import MealElement from "./weekdayContainerElement/WeekdayContainerElement";
+import WeekdayContainerElement from "./weekdayContainerElement/WeekdayContainerElement";
+import { OnPlannerElementClick } from "../Planner";
 
 type WeekdayContainerProps = {
   weekday: Weekday;
-  mealNames: string[];
+  onElementClick: OnPlannerElementClick;
   className?: string;
 };
 
-const WeekdayContainer = ({ weekday }: WeekdayContainerProps) => {
+const WeekdayContainer = ({
+  weekday,
+  onElementClick,
+}: WeekdayContainerProps) => {
   const ctx = useContext(PlanContext);
 
   return (
@@ -23,11 +27,12 @@ const WeekdayContainer = ({ weekday }: WeekdayContainerProps) => {
       <p className={clsx("fs600", "fontAccent")}>{weekday}</p>
       {ctx.mealNames &&
         ctx.mealNames.map((mealName, index) => (
-          <MealElement
+          <WeekdayContainerElement
             key={index}
             mealName={mealName}
             mealIndex={index}
             weekday={weekday}
+            onClick={onElementClick}
             className={classes.mealElement}
           />
         ))}

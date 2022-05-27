@@ -8,7 +8,7 @@ export type Weekday =
   | "sunday";
 
 export type Meal = {
-  idMeal: number;
+  idMeal: string;
   strMeal: string;
   strMealThumb: string;
 };

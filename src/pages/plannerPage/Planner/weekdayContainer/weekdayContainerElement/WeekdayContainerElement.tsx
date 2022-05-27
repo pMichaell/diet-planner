@@ -4,12 +4,13 @@ import clsx from "clsx";
 import { Weekday } from "../../../../../Models";
 import useMealContext from "../../../../../hooks/use-meal-context";
 import { Fragment } from "react";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { OnPlannerElementClick } from "../../Planner";
 
 type MealElementProps = {
   mealName: string;
   weekday: Weekday;
   mealIndex: number;
+  onClick: OnPlannerElementClick;
   className?: string;
 };
 
@@ -17,9 +18,9 @@ const WeekdayContainerElement = ({
   mealName,
   mealIndex,
   weekday,
+  onClick,
 }: MealElementProps) => {
   const { meal, mealSet, mealRemove } = useMealContext(weekday, mealIndex);
-  const navigate = useNavigate();
 
   return (
     <motion.article
@@ -34,15 +35,7 @@ const WeekdayContainerElement = ({
       {!meal ? (
         <motion.button
           className={clsx("standardBorder", "clrGreen", classes.cta)}
-          onClick={() => {
-            navigate({
-              pathname: "type-picker",
-              search: `?${createSearchParams({
-                weekday,
-                mealIndex: mealIndex.toString(),
-              })}`,
-            });
-          }}
+          onClick={() => onClick(weekday, mealIndex)}
         >
           Add Meal
         </motion.button>

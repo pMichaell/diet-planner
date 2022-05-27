@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { Weekday } from "../../Models";
 
 export type PlanContextType = {
   planName: string;

@@ -8,6 +8,8 @@ import Slider from "../../../components/slider/Slider";
 import WeekdayContainer from "./weekdayContainer/WeekdayContainer";
 import { useContext } from "react";
 import PlanContext from "../../../contexts/planContext/PlanContext";
+import useLocalStorage from "../../../hooks/use-local-storage";
+import { useNavigate } from "react-router-dom";
 
 const weekdays: Weekday[] = [
   "monday",
@@ -19,12 +21,26 @@ const weekdays: Weekday[] = [
   "sunday",
 ];
 
+export type OnPlannerElementClick = (
+  pickedWeekday: string,
+  pickedMealIndex: number
+) => void;
+
 const Planner = () => {
-  const ctx = useContext(PlanContext);
+  const navigate = useNavigate();
   const { page, direction, currentIndex, paginate } = useSlider<Weekday>(
     weekdays,
     "currentWeekday"
   );
+
+  const setPickData: OnPlannerElementClick = function setPickData(
+    pickedWeekday,
+    pickedMealIndex
+  ) {
+    localStorage.setItem("plannerIndex", pickedMealIndex.toString());
+    localStorage.setItem("weekday", pickedWeekday);
+    navigate("type-picker");
+  };
 
   return (
     <AnimatedPage
@@ -49,7 +65,7 @@ const Planner = () => {
           render={() => (
             <WeekdayContainer
               weekday={weekdays[currentIndex]}
-              mealNames={ctx.mealNames}
+              onElementClick={setPickData}
             />
           )}
         />

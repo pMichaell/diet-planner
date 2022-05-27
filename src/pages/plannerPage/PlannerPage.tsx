@@ -10,7 +10,7 @@ import Questionnaire from "./questionnaire/Questionnaire";
 import SuspenseSpinner from "../../components/suspenseComponents/SuspenseSpinner";
 
 const ChooseTypePicker = React.lazy(
-  () => import("./typePicker/ChooseTypePicker")
+  () => import("./chooseTypePicker/ChooseTypePicker")
 );
 
 const MealPicker = React.lazy(() => import("./mealPicker/MealPicker"));
