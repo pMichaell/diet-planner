@@ -3,16 +3,18 @@
 }
 
 .skipNavLink {
-    position: absolute;
-    transform: translateY(-120%) translateX(0);
+    color: palevioletred;
+    position: fixed;
+    right: 50%;
+    transform: translateY(-120%);
+    background: hsl(var(--clr-creamy-green));
     transition: all .5s ease-in;
     display: block;
     padding: 1em;
-    color: hsl(var(--clr-creamy-green))
 }
 
 .skipNavLink:focus {
-    transform: translateY(15%) translateX(100%);
+    transform: translateY(15%) translateX(50%);
 }
 
 .headerDiv {

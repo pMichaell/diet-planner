@@ -53,8 +53,10 @@ const LoginPage = () => {
   };
 
   return (
-    <AnimatedPage className={clsx("fillParent", classes.loginPage)}>
-      <motion.div className={classes.loginContainer}>
+    <AnimatedPage
+      className={clsx("fillParent", "centerContents", classes.loginPage)}
+    >
+      <motion.div className={clsx(classes.loginContainer)}>
         <motion.section
           className={classes.loginSection}
           variants={loginVariants}

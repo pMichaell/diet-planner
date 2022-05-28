@@ -38,6 +38,7 @@ const ChooseTypePicker = () => {
       };
 
       localStorage.setItem("fetchInfo", JSON.stringify(fetchInfo));
+      localStorage.removeItem("fetchedMeals");
       navigate("../meal-picker");
     },
     [currentIndex, navigate]

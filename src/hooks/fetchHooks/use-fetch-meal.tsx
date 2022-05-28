@@ -15,19 +15,33 @@ const useFetchMeal = () => {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [error, setError] = useState<boolean | null>(null);
 
-  console.log("useFetchMeal runs");
-
   useEffect(() => {
-    options.params = JSON.parse(localStorage.getItem("fetchInfo") ?? "");
+    const fetchInfo = JSON.parse(localStorage.getItem("fetchInfo") ?? "");
+
+    if (fetchInfo === "") {
+      throw new Error("Something Went Wrong");
+    }
+
+    options.params = fetchInfo;
 
     const fetchData = async () => {
       try {
         const response = await axios.request<MealResponse>(options);
-        setMeals(response.data.meals);
+        const meals = response.data.meals;
+        setMeals(meals);
+        localStorage.setItem("fetchedMeals", JSON.stringify(meals));
       } catch (e) {
         setError(true);
       }
     };
+
+    if (localStorage.getItem("fetchedMeals") !== null) {
+      const cachedMeals: Meal[] = JSON.parse(
+        localStorage.getItem("fetchedMeals") ?? ""
+      );
+      setMeals(cachedMeals);
+      return;
+    }
 
     fetchData();
   }, []);

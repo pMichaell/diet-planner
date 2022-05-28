@@ -8,11 +8,6 @@ import { motion } from "framer-motion";
 const MealPicker = () => {
   const [meals, error] = useFetchMeal();
 
-  useEffect(() => {
-    console.log("ERROR " + error);
-    console.log(meals);
-  }, [meals, error]);
-
   return (
     <AnimatedPage
       className={clsx(

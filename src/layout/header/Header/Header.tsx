@@ -52,7 +52,15 @@ const Header = () => {
     <header className={classes.header}>
       <a
         href="#main-content"
-        className={clsx("curvedBorder", "fontHeadlines", classes.skipNavLink)}
+        className={clsx(
+          "curvedBorder",
+          "fontHeadlines",
+          "fs500",
+          "fontHeadlines",
+          "fw400",
+          "uppercase",
+          classes.skipNavLink
+        )}
       >
         Skip To Content
       </a>
