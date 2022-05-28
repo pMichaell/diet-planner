@@ -60,6 +60,7 @@ const Planner = () => {
             "curvedBorder",
             "overflowHidden",
             "backdropFilter",
+            "maxWidthContainer",
             classes.mealPicker
           )}
           render={() => (

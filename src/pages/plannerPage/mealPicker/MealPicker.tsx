@@ -2,19 +2,45 @@ import classes from "./MealPicker.module.css";
 import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
 import clsx from "clsx";
 import { useEffect } from "react";
-import { PickMode } from "../../../Models";
+import useFetchMeal from "../../../hooks/fetchHooks/use-fetch-meal";
+import { motion } from "framer-motion";
 
 const MealPicker = () => {
+  const [meals, error] = useFetchMeal();
+
   useEffect(() => {
-    const element: { mode: PickMode; params: string } = JSON.parse(
-      sessionStorage.getItem("mealFetchData") || ""
-    );
-    console.log(element);
-  }, []);
+    console.log("ERROR " + error);
+    console.log(meals);
+  }, [meals, error]);
 
   return (
-    <AnimatedPage className={clsx("fillParent", "fillParent", "pagePadding")}>
-      <h2>Meal Picker</h2>
+    <AnimatedPage
+      className={clsx(
+        "fillParent",
+        "fillParent",
+        "pagePadding",
+        "centerContents"
+      )}
+    >
+      <motion.div
+        className={clsx(
+          "curvedBorder",
+          "clrGreen",
+          "maxWidthContainer",
+          "fillParent"
+        )}
+      >
+        <section
+          className={clsx(
+            "centerContents",
+            "containerTitle",
+            classes.titleSection
+          )}
+        >
+          Pick Something
+        </section>
+        <section className={classes.mainSection}></section>
+      </motion.div>
     </AnimatedPage>
   );
 };

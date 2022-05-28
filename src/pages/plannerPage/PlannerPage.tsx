@@ -2,7 +2,7 @@ import classes from "./PlannerPage.module.css";
 import AnimatedPage from "../../components/animatedPage/AnimatedPage";
 import { Route, Routes } from "react-router-dom";
 import clsx from "clsx";
-import React, { Suspense } from "react";
+import React, { Fragment, Suspense } from "react";
 import Planner from "./Planner/Planner";
 import PlanContextProvider from "../../contexts/planContext/PlanContextProvider";
 import MealsContextProvider from "../../contexts/mealsContext/MealsContextProvider";
@@ -17,9 +17,7 @@ const MealPicker = React.lazy(() => import("./mealPicker/MealPicker"));
 
 const PlannerPage = () => {
   return (
-    <AnimatedPage
-      className={clsx("fillParent", "centerContents", classes.container)}
-    >
+    <Fragment>
       <Routes>
         <Route
           index
@@ -49,7 +47,7 @@ const PlannerPage = () => {
           }
         />
       </Routes>
-    </AnimatedPage>
+    </Fragment>
   );
 };
 

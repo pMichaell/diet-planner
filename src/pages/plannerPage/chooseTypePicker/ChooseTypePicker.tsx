@@ -14,20 +14,15 @@ import {
 } from "phosphor-react";
 import React, { useCallback } from "react";
 import ElementsPicker from "./elementsPicker/ElementsPicker";
-import { PickMode } from "../../../Models";
 import { useNavigate } from "react-router-dom";
+import { FetchInfo } from "../../../Models";
+import { data } from "./ChooseTypePickerUtils";
 
+type ParamKeys = "a" | "c" | "i";
 const options = ["Regions", "Categories", "Main Ingredient"];
+const paramKeys: ParamKeys[] = ["a", "c", "i"];
 
 const icons = [<Globe />, <Cardholder />, <Fish />];
-
-const pickModes: PickMode[] = ["Region", "Category", "Ingredient"];
-
-const categories: string[] = require("../../../assets/jsonData/categories.json");
-const regions: string[] = require("../../../assets/jsonData/regions.json");
-const ingredients: string[] = require("../../../assets/jsonData/ingredients.json");
-
-const data = [regions, categories, ingredients];
 
 const ChooseTypePicker = () => {
   const navigate = useNavigate();
@@ -37,14 +32,15 @@ const ChooseTypePicker = () => {
   );
 
   const onElementClick = useCallback(
-    (mode: PickMode, fetchParam: string) => {
-      sessionStorage.setItem(
-        "mealFetchData",
-        JSON.stringify({ mode: fetchParam })
-      );
+    (fetchParam: string) => {
+      const fetchInfo: FetchInfo = {
+        [paramKeys[currentIndex]]: fetchParam,
+      };
+
+      localStorage.setItem("fetchInfo", JSON.stringify(fetchInfo));
       navigate("../meal-picker");
     },
-    [navigate]
+    [currentIndex, navigate]
   );
 
   return (
@@ -53,11 +49,17 @@ const ChooseTypePicker = () => {
         "fillParent",
         "overflowHidden",
         "pagePadding",
-        classes.container
+        "centerContents"
       )}
     >
       <motion.section
-        className={clsx("curvedBorder", "clrGreen", classes.chooseTypeSection)}
+        className={clsx(
+          "curvedBorder",
+          "clrGreen",
+          "maxWidthContainer",
+          "fillParent",
+          classes.chooseTypeSection
+        )}
         initial={{ x: "-100vw" }}
         animate={{ x: 0 }}
         transition={{
@@ -70,27 +72,30 @@ const ChooseTypePicker = () => {
           <IconContext.Provider
             value={{
               size: "2em",
-              style: { marginTop: "5px" },
               weight: "duotone",
             }}
           >
-            <CaretLeft onClick={() => paginate(-1)} />
+            <button onClick={() => paginate(-1)} className={classes.navButton}>
+              <CaretLeft />
+            </button>
             <AnimatePresence exitBeforeEnter initial={false}>
               <Slider
                 sliderMovement={{ page, direction, paginate }}
                 className={clsx("fillParent", "centerContents")}
                 render={() => (
                   <li className={clsx("fillParent", classes.typesListItem)}>
-                    <h3 className={clsx("fontHeadlines", "fw400", "fs600")}>
+                    <p className={clsx("fontHeadlines", "fw400", "fs600")}>
                       {options[currentIndex]}
-                    </h3>
+                    </p>
 
                     {icons[currentIndex]}
                   </li>
                 )}
               />
             </AnimatePresence>
-            <CaretRight onClick={() => paginate(1)} />
+            <button className={classes.navButton} onClick={() => paginate(-1)}>
+              <CaretRight />
+            </button>
           </IconContext.Provider>
         </ul>
         <motion.div className={clsx(classes.contentsContainer)}>
@@ -105,7 +110,6 @@ const ChooseTypePicker = () => {
             >
               {
                 <ElementsPicker
-                  mode={pickModes[currentIndex]}
                   data={data[currentIndex]}
                   onClick={onElementClick}
                 />

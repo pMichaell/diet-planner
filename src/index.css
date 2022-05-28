@@ -150,8 +150,7 @@ a {
     text-decoration: none;
 }
 
-button:focus,
-a:focus {
+*:focus {
     transform: scale(1.1);
     outline: 3px solid violet;
     outline-offset: 3px;
@@ -201,7 +200,6 @@ Utility classes
 
 .maxWidthContainer {
     max-width: 60rem;
-    height: 100%;
 }
 
 .fillParent {
@@ -322,6 +320,12 @@ Utility classes
 
 .pagePadding {
     padding: 1rem;
+}
+
+.containerTitle {
+    font-family: var(--font-headlines);
+    font-weight: 400;
+    font-size: var(--fs-600);
 }
 
 @supports (backdrop-filter: blur(1.5rem)) {

@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import ModalContext from "./contexts/modalContext/ModalContext";
 import LoginPageContextProvider from "./contexts/loginPageContext/LoginPageContextProvider";
+import useFetchMeal from "./hooks/fetchHooks/use-fetch-meal";
 
 const Modal = React.lazy(() => import("./components/modal/Modal"));
 const HomePage = React.lazy(() => import("./pages/homePage/HomePage"));

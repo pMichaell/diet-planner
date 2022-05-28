@@ -27,8 +27,14 @@ export type MealDetails = {
   strYoutube: string;
 };
 
-export type PlanDay = {
-  [mealName: string]: Meal | null;
+export type MealResponse = {
+  meals: Meal[];
+};
+
+export type FetchInfo = {
+  a?: string;
+  c?: string;
+  i?: string;
 };
 
 export type Category = {

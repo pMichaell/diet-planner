@@ -1,0 +1,14 @@
+.mealPickerContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.titleSection {
+    height: 10%;
+    padding-inline: 10%;
+    border-bottom: 2px solid hsl(var(--clr-creamy-green));
+}
+
+.mainSection {
+    flex: 1;
+}
