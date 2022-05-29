@@ -1,17 +1,19 @@
 import classes from "./MealPicker.module.css";
 import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
 import clsx from "clsx";
-import { useEffect } from "react";
 import useFetchMeal from "../../../hooks/fetchHooks/use-fetch-meal";
 import { motion } from "framer-motion";
 import MealArticle from "../../../components/mealArticle/MealArticle";
 import SuspenseSpinner from "../../../components/suspenseComponents/SuspenseSpinner";
-import { AppleLogo } from "phosphor-react";
+import { mealPickerVariants } from "./MealPickerVariants";
+import { useContext } from "react";
+import ModalContext from "../../../contexts/modalContext/ModalContext";
 
 const MealPicker = () => {
+  const ctx = useContext(ModalContext);
   const [meals, error] = useFetchMeal();
 
-  console.log(meals);
+  const onMealArticleClick = function onMealArticleClick(idMeal: string) {};
 
   return (
     <AnimatedPage
@@ -23,6 +25,9 @@ const MealPicker = () => {
       )}
     >
       <motion.div
+        variants={mealPickerVariants}
+        initial={"initial"}
+        animate={"animate"}
         className={clsx(
           "curvedBorder",
           "clrGreen",
@@ -41,19 +46,25 @@ const MealPicker = () => {
         >
           Pick Something
         </section>
-        <section className={classes.mainSection}>
+        <motion.section
+          className={classes.mainSection}
+          variants={mealPickerVariants}
+          initial={"initial"}
+          animate={"animate"}
+        >
           {meals.length === 0 ? (
             <SuspenseSpinner />
           ) : (
-            meals.map((meal) => (
+            meals.map((meal, index) => (
               <MealArticle
                 key={meal.idMeal}
+                articleIndex={index}
                 meal={meal}
                 className={clsx("curvedBorder", classes.mealArticle)}
               />
             ))
           )}
-        </section>
+        </motion.section>
       </motion.div>
     </AnimatedPage>
   );
