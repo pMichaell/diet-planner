@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Layout from "./layout/layout/Layout";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import ModalContext from "./contexts/modalContext/ModalContext";
 import LoginPageContextProvider from "./contexts/loginPageContext/LoginPageContextProvider";
 import useFetchMeal from "./hooks/fetchHooks/use-fetch-meal";
+import NotificationModal from "./components/modal/modalVariants/NotificationModal";
 
 const Modal = React.lazy(() => import("./components/modal/Modal"));
 const HomePage = React.lazy(() => import("./pages/homePage/HomePage"));
@@ -24,10 +25,21 @@ const QuestionnaireChecker = React.lazy(
 
 function App() {
   const location = useLocation();
-  const { modalOpen } = useContext(ModalContext);
+  const { modalOpen, openModal, setModalChildren, closeModal } =
+    useContext(ModalContext);
 
   //TODO keep render functions pure
   //TODO Cleanup useEffects
+
+  useEffect(() => {
+    openModal?.();
+    setModalChildren?.(
+      <NotificationModal
+        notificationText={"Account created successfully!"}
+        onClick={() => closeModal?.()}
+      />
+    );
+  }, []);
 
   return (
     <Layout>

@@ -5,8 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase/Firebase";
 
 const QuestionnaireChecker = ({ children }: { children: ReactNode }) => {
-  const { setModalText, openModal, setupOptionsModal, closeModal } =
-    useContext(ModalContext);
+  const { openModal, closeModal } = useContext(ModalContext);
   const [user, _] = useAuthState(auth);
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,22 +39,10 @@ const QuestionnaireChecker = ({ children }: { children: ReactNode }) => {
       regex.test(location.pathname) &&
       from.pathname
     ) {
-      setModalText?.(
-        "Hey, looks like you have an unfinished plan available, would you like to finish it?"
-      );
-
-      setupOptionsModal?.(options, optionsHandlers);
       openModal?.();
       return;
     }
-  }, [
-    closeModal,
-    location.pathname,
-    navigate,
-    openModal,
-    setModalText,
-    setupOptionsModal,
-  ]);
+  }, [closeModal, location.pathname, navigate, openModal]);
 
   return <Fragment>{children}</Fragment>;
 };

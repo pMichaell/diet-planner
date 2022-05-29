@@ -13,7 +13,7 @@ const MealArticle = ({ meal, articleIndex, className }: MealArticleProps) => {
     <motion.article
       className={className}
       variants={mealElementVariants}
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       custom={articleIndex}
     >

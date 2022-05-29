@@ -2,51 +2,23 @@ import { ReactNode, useCallback, useState } from "react";
 import ModalContext, { ModalContextType, ModalType } from "./ModalContext";
 
 const ModalContextProvider = ({ children }: { children: ReactNode }) => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalText, modalTextSet] = useState("");
-  const [modalType, modalTypeSet] = useState<ModalType>("informative");
-  const [optionsText, setOptionsText] = useState<[string, string]>(["", ""]);
-  const [optionsHandlers, setOptionHandlers] = useState<Array<() => void>>();
+  const [modalOpen, modalOpenSet] = useState(false);
+  const [modalChildren, modalChildrenSet] = useState<ReactNode | null>(null);
 
-  const openModal = useCallback(() => {
-    setModalOpen(true);
-  }, []);
-
-  const closeModal = useCallback(() => {
-    setModalOpen(false);
-    modalTextSet("");
-    modalTypeSet("informative");
-    setOptionsText(["", ""]);
-    setOptionHandlers([]);
-  }, []);
-
-  const setModalText = useCallback((text: string) => {
-    modalTextSet(text);
-  }, []);
-
-  const setupOptionsModal = useCallback(
-    (optionsText: [string, string], optionHandlers: Array<() => void>) => {
-      modalTypeSet("optionModal");
-      setOptionsText(optionsText);
-      setOptionHandlers(optionHandlers);
-    },
-    []
-  );
-
-  const contextValue: ModalContextType = {
-    modalOpen,
-    modalText,
-    modalType,
-    openModal,
-    closeModal,
-    setModalText,
-    optionsText,
-    optionsHandlers,
-    setupOptionsModal,
-  };
+  const setModalOpen = () => modalOpenSet(true);
+  const setModalClosed = () => modalOpenSet(false);
+  const setModalChildren = (children: ReactNode) => modalChildrenSet(children);
 
   return (
-    <ModalContext.Provider value={contextValue}>
+    <ModalContext.Provider
+      value={{
+        modalOpen,
+        modalChildren,
+        openModal: setModalOpen,
+        closeModal: setModalClosed,
+        setModalChildren,
+      }}
+    >
       {children}
     </ModalContext.Provider>
   );

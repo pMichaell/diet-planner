@@ -1,0 +1,11 @@
+.modal {
+    display: grid;
+    grid-template-rows: 1fr 100px
+}
+
+.cta {
+    justify-self: center;
+    align-self: center;
+    width: min(50%, 8em);
+    height: min(50%, 4em);
+}

@@ -14,6 +14,7 @@ import { useSearchParams } from "react-router-dom";
 import ModalContext from "../../../../contexts/modalContext/ModalContext";
 import { createUser } from "../../../../firebase/FirestoreFunctions";
 import AnimatedInput from "../animatedInput/AnimatedInput";
+import NotificationModal from "../../../../components/modal/modalVariants/NotificationModal";
 
 const RegisterContainer = () => {
   const {
@@ -29,7 +30,7 @@ const RegisterContainer = () => {
   } = useContext(LoginPageContext);
   const [isLoading, setIsLoading] = useState(false);
   const [_, setSearchParams] = useSearchParams();
-  const { openModal, setModalText } = useContext(ModalContext);
+  const { openModal, setModalChildren, closeModal } = useContext(ModalContext);
   const controls = useAnimation();
 
   const onFormSubmission = async (event: FormEvent<HTMLFormElement>) => {
@@ -45,7 +46,12 @@ const RegisterContainer = () => {
         setSearchParams({});
         signOut(auth).then(() => {});
         openModal?.();
-        setModalText?.("Account created succesfully");
+        setModalChildren?.(
+          <NotificationModal
+            notificationText={"Account created successfully"}
+            onClick={() => closeModal?.()}
+          />
+        );
         await sendEmailVerification(user);
         await createUser(user);
       })
