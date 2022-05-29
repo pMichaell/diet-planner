@@ -59,6 +59,7 @@ const ChooseTypePicker = () => {
           "clrGreen",
           "maxWidthContainer",
           "fillParent",
+          "backdropFilter",
           classes.chooseTypeSection
         )}
         initial={{ x: "-100vw" }}

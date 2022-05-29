@@ -11,7 +11,7 @@ const options: AxiosRequestConfig = {
   },
 };
 
-const useFetchMeal = () => {
+const useFetchMeal = (): [Meal[], boolean | null] => {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [error, setError] = useState<boolean | null>(null);
 
