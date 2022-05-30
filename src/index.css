@@ -280,6 +280,10 @@ Utility classes
     font-weight: 500;
 }
 
+.fw600 {
+    font-weight: 600;
+}
+
 .txtAlgCenter {
     text-align: center;
 }

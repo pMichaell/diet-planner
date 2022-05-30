@@ -1,6 +1,7 @@
 import classes from "./NotificationModal.module.css";
 import { Fragment } from "react";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 
 type NotificationModalProps = {
   notificationText: string;
@@ -18,18 +19,21 @@ const NotificationModal = ({
       <p className={clsx("fontHeadlines", "fw500", "fs700", "txtAlgCenter")}>
         {notificationText}
       </p>
-      <button
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
         onClick={onClick}
         className={clsx(
           "curvedBorder",
           "clrGreen",
           "uppercase",
           "fw500",
+          "fs500",
           classes.cta
         )}
       >
         {buttonText ? buttonText : "OK"}
-      </button>
+      </motion.button>
     </div>
   );
 };

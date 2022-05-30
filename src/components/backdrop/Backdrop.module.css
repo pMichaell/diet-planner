@@ -5,13 +5,12 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background: hsl( var(--clr-black) / .5);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow-y: hidden;
+    background: hsl( var(--clr-black) / .5);
 }
-
 
 @supports (backdrop-filter: blur(1.5rem)) {
     .backdrop {

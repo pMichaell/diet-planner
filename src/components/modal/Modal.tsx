@@ -25,13 +25,17 @@ const modalVariants = {
 };
 
 const Modal = () => {
-  const { closeModal, modalChildren } = useContext(ModalContext);
+  const { closeModal, modalSize, modalChildren } = useContext(ModalContext);
 
   return (
     <Backdrop onClick={closeModal}>
       <motion.dialog
         onClick={(e) => e.stopPropagation()}
-        className={clsx("clrGreen", "backdropFilter", classes.modal)}
+        className={clsx(
+          "clrGreen",
+          classes.modal,
+          modalSize === "big" && classes.big
+        )}
         variants={modalVariants}
         initial={"initial"}
         animate={"animate"}

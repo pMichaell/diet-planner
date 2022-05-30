@@ -80,7 +80,8 @@
     text-align: center;
 }
 
-.helpParagraph > span {
+.helpParagraph > button {
+    color: white;
     text-decoration: underline;
     margin-left: 2px;
     cursor: pointer;

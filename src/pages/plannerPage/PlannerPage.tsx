@@ -7,7 +7,7 @@ import Planner from "./Planner/Planner";
 import PlanContextProvider from "../../contexts/planContext/PlanContextProvider";
 import MealsContextProvider from "../../contexts/mealsContext/MealsContextProvider";
 import Questionnaire from "./questionnaire/Questionnaire";
-import SuspenseSpinner from "../../components/suspenseComponents/SuspenseSpinner";
+import LoadingSpinner from "../../components/loadingComponents/LoadingSpinner";
 
 const ChooseTypePicker = React.lazy(
   () => import("./chooseTypePicker/ChooseTypePicker")
@@ -33,7 +33,7 @@ const PlannerPage = () => {
         <Route
           path={"/meal-picker"}
           element={
-            <Suspense fallback={<SuspenseSpinner />}>
+            <Suspense fallback={<LoadingSpinner />}>
               <MealPicker />
             </Suspense>
           }
@@ -41,7 +41,7 @@ const PlannerPage = () => {
         <Route
           path={"/type-picker"}
           element={
-            <Suspense fallback={<SuspenseSpinner />}>
+            <Suspense fallback={<LoadingSpinner />}>
               <ChooseTypePicker />
             </Suspense>
           }

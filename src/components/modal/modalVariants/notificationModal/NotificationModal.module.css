@@ -4,6 +4,7 @@
 }
 
 .cta {
+    border-width: 3px;
     justify-self: center;
     align-self: center;
     width: min(50%, 8em);

@@ -1,7 +1,7 @@
 import { motion, useAnimation } from "framer-motion";
 import classes from "./RegisterContainer.module.css";
 import { validationVariants } from "../../../../framerVariants";
-import { FormEvent, useContext, useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import { auth } from "../../../../firebase/Firebase";
 import {
   createUserWithEmailAndPassword,
@@ -9,12 +9,19 @@ import {
   signOut,
 } from "firebase/auth";
 import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
-import { Spinner } from "phosphor-react";
 import { useSearchParams } from "react-router-dom";
 import ModalContext from "../../../../contexts/modalContext/ModalContext";
 import { createUser } from "../../../../firebase/FirestoreFunctions";
 import AnimatedInput from "../animatedInput/AnimatedInput";
-import NotificationModal from "../../../../components/modal/modalVariants/NotificationModal";
+import LoadingSpinner from "../../../../components/loadingComponents/LoadingSpinner";
+import clsx from "clsx";
+
+const NotificationModal = React.lazy(
+  () =>
+    import(
+      "../../../../components/modal/modalVariants/notificationModal/NotificationModal"
+    )
+);
 
 const RegisterContainer = () => {
   const {
@@ -122,25 +129,15 @@ const RegisterContainer = () => {
         />
       </div>
       <motion.button
-        className={classes.registerButton}
+        className={clsx("centerContents", classes.registerButton)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         animate={controls}
       >
         {!isLoading ? (
-          <h4>Register</h4>
+          <p className={"fw600"}>Register</p>
         ) : (
-          <Spinner size={24}>
-            <animateTransform
-              attributeName="transform"
-              attributeType="XML"
-              type="rotate"
-              dur="5s"
-              from="0 0 0"
-              to="360 0 0"
-              repeatCount="indefinite"
-            />
-          </Spinner>
+          <LoadingSpinner size={"24px"} color={"white"} weight={"bold"} />
         )}
       </motion.button>
     </motion.form>

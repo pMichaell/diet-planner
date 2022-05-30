@@ -4,7 +4,7 @@ import clsx from "clsx";
 import useFetchMeal from "../../../hooks/fetchHooks/use-fetch-meal";
 import { motion } from "framer-motion";
 import MealArticle from "../../../components/mealArticle/MealArticle";
-import SuspenseSpinner from "../../../components/suspenseComponents/SuspenseSpinner";
+import LoadingSpinner from "../../../components/loadingComponents/LoadingSpinner";
 import { mealPickerVariants } from "./MealPickerVariants";
 import { useContext } from "react";
 import ModalContext from "../../../contexts/modalContext/ModalContext";
@@ -53,7 +53,7 @@ const MealPicker = () => {
           animate={"animate"}
         >
           {meals.length === 0 ? (
-            <SuspenseSpinner />
+            <LoadingSpinner />
           ) : (
             meals.map((meal, index) => (
               <MealArticle

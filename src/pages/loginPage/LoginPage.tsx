@@ -73,13 +73,13 @@ const LoginPage = () => {
         <section className={classes.helpSection}>
           <p className={classes.helpParagraph}>
             Forgot Your Password?
-            <span>Reset Password</span>
+            <button>Reset Password</button>
           </p>
           <p className={classes.helpParagraph}>
             {isLogin ? "Not a member yet?" : "Already a member?"}
-            <motion.span onClick={onLoginModeSwitch}>
+            <motion.button onClick={onLoginModeSwitch}>
               {isLogin ? "Sign Up" : "Log In"}
-            </motion.span>
+            </motion.button>
           </p>
         </section>
       </motion.div>

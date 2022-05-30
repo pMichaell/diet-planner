@@ -9,6 +9,7 @@ import { Spinner } from "phosphor-react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../../firebase/Firebase";
 import AnimatedInput from "../animatedInput/AnimatedInput";
+import LoadingSpinner from "../../../../components/loadingComponents/LoadingSpinner";
 
 const LoginContainer = () => {
   const {
@@ -83,7 +84,7 @@ const LoginContainer = () => {
         />
       </div>
       <motion.button
-        className={clsx(classes.logInButton)}
+        className={clsx("centerContents", classes.logInButton)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         animate={controls}
@@ -91,17 +92,7 @@ const LoginContainer = () => {
         {!isLoading ? (
           <h4>Log In</h4>
         ) : (
-          <Spinner size={24}>
-            <animateTransform
-              attributeName="transform"
-              attributeType="XML"
-              type="rotate"
-              dur="5s"
-              from="0 0 0"
-              to="360 0 0"
-              repeatCount="indefinite"
-            />
-          </Spinner>
+          <LoadingSpinner size={"24px"} color={"white"} weight={"bold"} />
         )}
       </motion.button>
     </motion.form>

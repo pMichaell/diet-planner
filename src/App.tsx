@@ -1,11 +1,13 @@
-import React, { useContext, useEffect } from "react";
+import React, { Suspense, useContext, useEffect } from "react";
 import Layout from "./layout/layout/Layout";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import ModalContext from "./contexts/modalContext/ModalContext";
 import LoginPageContextProvider from "./contexts/loginPageContext/LoginPageContextProvider";
 import useFetchMeal from "./hooks/fetchHooks/use-fetch-meal";
-import NotificationModal from "./components/modal/modalVariants/NotificationModal";
+import NotificationModal from "./components/modal/modalVariants/notificationModal/NotificationModal";
+import LoadingSpinner from "./components/loadingComponents/LoadingSpinner";
+import BinaryModal from "./components/modal/modalVariants/binaryModal/BinaryModal";
 
 const Modal = React.lazy(() => import("./components/modal/Modal"));
 const HomePage = React.lazy(() => import("./pages/homePage/HomePage"));
@@ -30,16 +32,6 @@ function App() {
 
   //TODO keep render functions pure
   //TODO Cleanup useEffects
-
-  useEffect(() => {
-    openModal?.();
-    setModalChildren?.(
-      <NotificationModal
-        notificationText={"Account created successfully!"}
-        onClick={() => closeModal?.()}
-      />
-    );
-  }, []);
 
   return (
     <Layout>
@@ -68,9 +60,13 @@ function App() {
           <Route
             path={"/login"}
             element={
-              <LoginPageContextProvider>
-                <LoginPage />
-              </LoginPageContextProvider>
+              <Suspense
+                fallback={<LoadingSpinner size={"6em"} weight={"bold"} />}
+              >
+                <LoginPageContextProvider>
+                  <LoginPage />
+                </LoginPageContextProvider>
+              </Suspense>
             }
           />
           <Route path={"*"} element={<NotFoundPage />} />
