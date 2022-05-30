@@ -17,9 +17,11 @@ import ElementsPicker from "./elementsPicker/ElementsPicker";
 import { useNavigate } from "react-router-dom";
 import { FetchInfo } from "../../../Models";
 import { data } from "./ChooseTypePickerUtils";
+import ScrollablePicker from "../../../components/scrollablePicker/ScrollablePicker";
 
 type ParamKeys = "a" | "c" | "i";
-const options = ["Regions", "Categories", "Main Ingredient"];
+type PickType = "Regions" | "Categories" | "Main Ingredient";
+const options: PickType[] = ["Regions", "Categories", "Main Ingredient"];
 const paramKeys: ParamKeys[] = ["a", "c", "i"];
 
 const icons = [<Globe />, <Cardholder />, <Fish />];
@@ -110,12 +112,25 @@ const ChooseTypePicker = () => {
                 classes.contentsSlider
               )}
             >
-              {
+              {options[currentIndex] !== "Main Ingredient" ? (
                 <ElementsPicker
                   data={data[currentIndex]}
-                  onClick={onElementClick}
+                  onElementClick={onElementClick}
                 />
-              }
+              ) : (
+                <ScrollablePicker
+                  data={data[currentIndex]}
+                  itemsPerPage={40}
+                  render={(item) => item}
+                  onElementClick={onElementClick}
+                  className={clsx("fillParent", "centerContents")}
+                  elementClassName={clsx(
+                    "fs600",
+                    "clrGreen",
+                    classes.scrollablePickerElement
+                  )}
+                />
+              )}
             </Slider>
           </AnimatePresence>
         </motion.div>

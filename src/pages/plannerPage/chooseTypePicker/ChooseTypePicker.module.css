@@ -54,7 +54,30 @@
 }
 
 
+.scrollablePickerElement {
+    width: 100%;
+    height: 2em;
+    scale: 1;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+}
+
+.scrollablePickerElement:hover {
+    transform: scale(1.1);
+}
+
+.scrollablePickerElement:active {
+    transform: scale(0.9);
+}
+
+
 @media (min-width: 1000px) {
+    .scrollablePicker {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding-inline: 5%;
+    }
+
     .contentsContainer::-webkit-scrollbar {
         background: transparent;
         width: .6em;

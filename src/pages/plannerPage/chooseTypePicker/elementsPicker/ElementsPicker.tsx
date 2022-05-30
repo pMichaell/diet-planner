@@ -3,19 +3,17 @@ import clsx from "clsx";
 
 const ElementsPicker = ({
   data,
-  onClick,
+  onElementClick,
 }: {
   data: string[];
-  onClick: (fetchParam: string) => void;
+  onElementClick: (fetchParam: string) => void;
 }) => {
-  //TODO add data pagination for ingredients mode
-
   return (
     <div className={clsx("fillParent", "centerContents", classes.container)}>
       {data.map((element) => (
         <button
           key={element}
-          onClick={() => onClick(element)}
+          onClick={() => onElementClick(element)}
           className={clsx("fs600", "clrGreen", classes.element)}
         >
           {element}
