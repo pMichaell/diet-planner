@@ -14,7 +14,6 @@ const LoadingSpinner = ({
   return (
     <SpinnerGap
       size={size ?? "4em"}
-      color={color ?? ""}
       weight={weight ?? "regular"}
       className={clsx("clrGreen", classes.spinner)}
     />

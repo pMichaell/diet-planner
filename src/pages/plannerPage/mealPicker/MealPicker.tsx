@@ -56,12 +56,7 @@ const MealPicker = () => {
             <LoadingSpinner />
           ) : (
             meals.map((meal, index) => (
-              <MealArticle
-                key={meal.idMeal}
-                articleIndex={index}
-                meal={meal}
-                className={clsx("curvedBorder", classes.mealArticle)}
-              />
+              <MealArticle key={meal.idMeal} articleIndex={index} meal={meal} />
             ))
           )}
         </motion.section>

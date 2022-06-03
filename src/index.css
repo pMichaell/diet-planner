@@ -337,5 +337,10 @@ Utility classes
         background-color: hsl(var(--clr-white) / 0.05);
         backdrop-filter: blur(1.5rem);
     }
+
+    .backdropFilter2 {
+        background-color: hsl(var(--clr-white) / 0.07);
+        backdrop-filter: blur(1.5rem);
+    }
 }
 
