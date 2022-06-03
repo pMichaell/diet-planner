@@ -3,12 +3,11 @@ import { MutableRefObject, useEffect, useState } from "react";
 const useOnScreen = function <T extends Element>(
   ref: MutableRefObject<T>,
   rootMargin: string = "0px"
-) {
-  // State and setter for storing whether element is visible
+): boolean {
   const [isIntersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
-    let refCurrent = ref.current;
+    const refVariable = ref.current;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -19,12 +18,12 @@ const useOnScreen = function <T extends Element>(
       }
     );
     if (ref.current) {
-      observer.observe(refCurrent);
+      observer.observe(refVariable);
     }
     return () => {
-      observer.unobserve(refCurrent);
+      observer.unobserve(refVariable);
     };
-  }, []);
+  }, [ref, rootMargin]);
 
   return isIntersecting;
 };

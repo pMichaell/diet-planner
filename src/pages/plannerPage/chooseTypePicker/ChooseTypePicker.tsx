@@ -120,10 +120,15 @@ const ChooseTypePicker = () => {
               ) : (
                 <ScrollablePicker
                   data={data[currentIndex]}
+                  keys={data[currentIndex]}
                   itemsPerPage={40}
                   render={(item) => item}
                   onElementClick={onElementClick}
-                  className={clsx("fillParent", "centerContents")}
+                  className={clsx(
+                    "fillParent",
+                    "centerContents",
+                    classes.scrollablePicker
+                  )}
                   elementClassName={clsx(
                     "fs600",
                     "clrGreen",
