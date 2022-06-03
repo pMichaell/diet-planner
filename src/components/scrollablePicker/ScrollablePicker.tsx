@@ -1,13 +1,5 @@
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import useInfiniteScroll from "../../hooks/use-infinite-scroll";
-import useOnScreen from "../../hooks/use-on-screen";
-import { int } from "framer-motion/types/render/dom/value-types/type-int";
 
 type ScrollablePickerProps<T> = {
   data: T[];
@@ -29,14 +21,33 @@ const ScrollablePicker = function <T>({
   elementClassName,
 }: ScrollablePickerProps<T>) {
   const { currentData, paginate } = useInfiniteScroll(data, itemsPerPage);
-  const intersectionRef: any = useRef<HTMLButtonElement>(null);
-  const intersected = useOnScreen(intersectionRef);
+  const [element, setElement] = useState<HTMLElement | null>(null);
+  const observer = useRef(
+    new IntersectionObserver(
+      (entries) => {
+        const first = entries[0];
+        if (first.isIntersecting) {
+          paginate();
+        }
+      },
+      { rootMargin: "30px" }
+    )
+  );
 
   useEffect(() => {
-    if (intersected) {
-      paginate();
+    const currentElement = element;
+    const currentObserver = observer.current;
+
+    if (currentElement) {
+      currentObserver.observe(currentElement);
     }
-  }, [intersected, paginate]);
+
+    return () => {
+      if (currentElement) {
+        currentObserver.unobserve(currentElement);
+      }
+    };
+  }, [element]);
 
   return (
     <div className={className}>
@@ -45,7 +56,7 @@ const ScrollablePicker = function <T>({
           return (
             <button
               key={keys[index]}
-              ref={intersectionRef}
+              ref={setElement}
               onClick={() => onElementClick(element)}
               className={elementClassName}
             >

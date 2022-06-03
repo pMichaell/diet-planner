@@ -1,14 +1,12 @@
-import { MutableRefObject, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-const useOnScreen = function <T extends Element>(
-  ref: MutableRefObject<T>,
+const useOnScreen = function (
+  element: Element,
   rootMargin: string = "0px"
 ): boolean {
   const [isIntersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
-    const refVariable = ref.current;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIntersecting(entry.isIntersecting);
@@ -17,13 +15,15 @@ const useOnScreen = function <T extends Element>(
         rootMargin,
       }
     );
-    if (ref.current) {
-      observer.observe(refVariable);
+    if (element !== null) {
+      observer.observe(element);
     }
     return () => {
-      observer.unobserve(refVariable);
+      if (element !== null) {
+        observer.unobserve(element);
+      }
     };
-  }, [ref, rootMargin]);
+  }, [element, rootMargin]);
 
   return isIntersecting;
 };
