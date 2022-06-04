@@ -14,3 +14,12 @@
     animation: rotate linear 0.5s infinite;
 }
 
+.center {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 30%;
+    margin: auto;
+}
+

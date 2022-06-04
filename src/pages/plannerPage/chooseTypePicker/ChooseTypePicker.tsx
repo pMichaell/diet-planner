@@ -106,11 +106,7 @@ const ChooseTypePicker = () => {
           <AnimatePresence exitBeforeEnter initial={false}>
             <Slider
               sliderMovement={{ page, direction, paginate }}
-              className={clsx(
-                "fillParent",
-                "centerContents",
-                classes.contentsSlider
-              )}
+              className={clsx("fillParent", "centerContents")}
             >
               {options[currentIndex] !== "Main Ingredient" ? (
                 <ElementsPicker

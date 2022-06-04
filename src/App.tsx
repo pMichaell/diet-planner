@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import ModalContext from "./contexts/modalContext/ModalContext";
 import LoginPageContextProvider from "./contexts/loginPageContext/LoginPageContextProvider";
 import LoadingSpinner from "./components/loadingComponents/LoadingSpinner";
+import useMealDetails from "./hooks/fetchHooks/use-meal-details";
 
 const Modal = React.lazy(() => import("./components/modal/Modal"));
 const HomePage = React.lazy(() => import("./pages/homePage/HomePage"));
@@ -25,6 +26,7 @@ const QuestionnaireChecker = React.lazy(
 function App() {
   const location = useLocation();
   const { modalOpen } = useContext(ModalContext);
+  useMealDetails("52772");
   //TODO keep render functions pure
   //TODO Cleanup useEffects
 
@@ -38,7 +40,9 @@ function App() {
             path={"/planner/*"}
             element={
               <Suspense
-                fallback={<LoadingSpinner size={"6em"} weight={"bold"} />}
+                fallback={
+                  <LoadingSpinner size={"6em"} weight={"bold"} center />
+                }
               >
                 <RequireAuth>
                   <QuestionnaireChecker>
@@ -60,7 +64,9 @@ function App() {
             path={"/login"}
             element={
               <Suspense
-                fallback={<LoadingSpinner size={"6em"} weight={"bold"} />}
+                fallback={
+                  <LoadingSpinner size={"6em"} weight={"bold"} center />
+                }
               >
                 <LoginPageContextProvider>
                   <LoginPage />

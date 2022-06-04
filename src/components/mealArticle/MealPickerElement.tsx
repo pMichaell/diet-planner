@@ -5,15 +5,26 @@ import { mealElementVariants } from "../../pages/plannerPage/mealPicker/MealPick
 import SpinnerImg from "../spinnerImg/SpinnerImg";
 import clsx from "clsx";
 
-type MealArticleProps = {
+type MealPickerElementProps = {
   meal: Meal;
   articleIndex?: number;
+  onClick: (idMeal: string) => void;
 };
 
-const MealArticle = ({ meal, articleIndex }: MealArticleProps) => {
+const MealPickerElement = ({
+  meal,
+  articleIndex,
+  onClick,
+}: MealPickerElementProps) => {
   return (
-    <motion.article
-      className={clsx("curvedBorder", "backdropFilter2", classes.mealArticle)}
+    <motion.button
+      onClick={() => onClick(meal.idMeal)}
+      className={clsx(
+        "curvedBorder",
+        "backdropFilter2",
+        "clrGreen",
+        classes.pickerElement
+      )}
       variants={mealElementVariants}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
@@ -26,8 +37,8 @@ const MealArticle = ({ meal, articleIndex }: MealArticleProps) => {
         imgClassName={classes.img}
       />
       <p className={clsx(classes.mealName)}>{meal.strMeal}</p>
-    </motion.article>
+    </motion.button>
   );
 };
 
-export default MealArticle;
+export default MealPickerElement;

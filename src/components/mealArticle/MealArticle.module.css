@@ -1,4 +1,4 @@
-.mealArticle {
+.pickerElement {
     height: 250px;
     width: 250px;
     overflow: hidden;
@@ -9,14 +9,16 @@
 }
 
 .imgContainer {
+    display: grid;
+    place-items: center;
     height: 200px;
     width: 100%;
-    border-bottom: 2px solid hsl(var(--clr-creamy-green));
 }
 
 .img {
     height: 200px;
     width: 100%;
+    border-bottom: 2px solid hsl(var(--clr-creamy-green));
 }
 
 .mealName {

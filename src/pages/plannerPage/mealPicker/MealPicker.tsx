@@ -3,7 +3,7 @@ import AnimatedPage from "../../../components/animatedPage/AnimatedPage";
 import clsx from "clsx";
 import useFetchMeal from "../../../hooks/fetchHooks/use-fetch-meal";
 import { motion } from "framer-motion";
-import MealArticle from "../../../components/mealArticle/MealArticle";
+import MealPickerElement from "../../../components/mealArticle/MealPickerElement";
 import LoadingSpinner from "../../../components/loadingComponents/LoadingSpinner";
 import { mealPickerVariants } from "./MealPickerVariants";
 import { useContext } from "react";
@@ -56,7 +56,12 @@ const MealPicker = () => {
             <LoadingSpinner />
           ) : (
             meals.map((meal, index) => (
-              <MealArticle key={meal.idMeal} articleIndex={index} meal={meal} />
+              <MealPickerElement
+                key={meal.idMeal}
+                articleIndex={index}
+                meal={meal}
+                onClick={onMealArticleClick}
+              />
             ))
           )}
         </motion.section>

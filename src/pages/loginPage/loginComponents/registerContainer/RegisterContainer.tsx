@@ -137,7 +137,7 @@ const RegisterContainer = () => {
         {!isLoading ? (
           <p className={"fw600"}>Register</p>
         ) : (
-          <LoadingSpinner size={"24px"} color={"white"} weight={"bold"} />
+          <LoadingSpinner size={"24px"} weight={"bold"} />
         )}
       </motion.button>
     </motion.form>

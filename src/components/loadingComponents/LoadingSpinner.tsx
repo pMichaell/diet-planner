@@ -4,18 +4,18 @@ import clsx from "clsx";
 
 const LoadingSpinner = ({
   size,
-  color,
   weight,
+  center,
 }: {
   size?: string;
-  color?: string;
   weight?: IconWeight;
+  center?: boolean;
 }) => {
   return (
     <SpinnerGap
       size={size ?? "4em"}
       weight={weight ?? "regular"}
-      className={clsx("clrGreen", classes.spinner)}
+      className={clsx("clrGreen", classes.spinner, center && classes.center)}
     />
   );
 };

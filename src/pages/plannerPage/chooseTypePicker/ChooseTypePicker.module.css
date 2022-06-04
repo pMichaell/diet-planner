@@ -33,6 +33,7 @@
     border-top: 1px solid hsl(var(--clr-creamy-green));
     height: 1px;
     overflow-x: hidden;
+    overflow-y: scroll;
     background-clip: content-box;
     border-right: 5px solid transparent;
     padding-left: calc(5px + .3em);

@@ -13,22 +13,52 @@ export type Meal = {
   strMealThumb: string;
 };
 
-//measure on some index corresponds
-//to ingredient on the same index in
-//ingredients array
+export type MealsResponse = {
+  meals: Meal[];
+};
+
 export type MealDetails = {
-  meal: Meal;
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
   strArea: string;
   strCategory: string;
   strIngredients: string[];
   strMeasures: string[];
   strInstructions: string;
-  strTags: string;
   strYoutube: string;
 };
 
-export type MealResponse = {
-  meals: Meal[];
+export type MealDetailsResponseElement = {
+  idMeal: string;
+  strArea: string;
+  strCategory: string;
+  strMeal: string;
+  strMealThumb: string;
+  strIngredient1: string;
+  strIngredient2: string;
+  strIngredient3: string;
+  strIngredient4: string;
+  strIngredient5: string;
+  strIngredient6: string;
+  strIngredient7: string;
+  strIngredient8: string;
+  strIngredient9: string;
+  strInstructions: string;
+  strMeasure1: string;
+  strMeasure2: string;
+  strMeasure3: string;
+  strMeasure4: string;
+  strMeasure5: string;
+  strMeasure6: string;
+  strMeasure7: string;
+  strMeasure8: string;
+  strMeasure9: string;
+  strYoutube: string;
+};
+
+export type MealDetailsResponse = {
+  meals: MealDetailsResponseElement[];
 };
 
 export type FetchInfo = {

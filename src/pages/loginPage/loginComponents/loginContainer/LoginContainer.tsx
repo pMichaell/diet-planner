@@ -5,7 +5,6 @@ import { FormEvent, useContext, useState } from "react";
 import LoginPageContext from "../../../../contexts/loginPageContext/LoginPageContext";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
-import { Spinner } from "phosphor-react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../../firebase/Firebase";
 import AnimatedInput from "../animatedInput/AnimatedInput";
@@ -92,7 +91,7 @@ const LoginContainer = () => {
         {!isLoading ? (
           <h4>Log In</h4>
         ) : (
-          <LoadingSpinner size={"24px"} color={"white"} weight={"bold"} />
+          <LoadingSpinner size={"24px"} weight={"bold"} />
         )}
       </motion.button>
     </motion.form>

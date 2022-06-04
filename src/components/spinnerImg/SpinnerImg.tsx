@@ -17,7 +17,7 @@ const SpinnerImg = ({
 
   return (
     <div className={clsx("centerContents", "clrGreen", className)}>
-      {loading && <LoadingSpinner color={"white"} />}
+      {loading && <LoadingSpinner />}
       <img
         src={src}
         alt={alt}

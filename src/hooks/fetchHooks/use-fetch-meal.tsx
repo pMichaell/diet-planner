@@ -1,13 +1,13 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { useEffect, useState } from "react";
-import { Meal, MealResponse } from "../../Models";
+import { Meal, MealsResponse } from "../../Models";
 
 const options: AxiosRequestConfig = {
   method: "GET",
   url: "https://themealdb.p.rapidapi.com/filter.php",
   headers: {
     "X-RapidAPI-Host": "themealdb.p.rapidapi.com",
-    "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY || "",
+    "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY ?? "",
   },
 };
 
@@ -26,7 +26,7 @@ const useFetchMeal = (): [Meal[], boolean | null] => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.request<MealResponse>(options);
+        const response = await axios.request<MealsResponse>(options);
         const meals = response.data.meals;
         setMeals(meals);
         localStorage.setItem("fetchedMeals", JSON.stringify(meals));

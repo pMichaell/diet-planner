@@ -1,7 +1,4 @@
-import classes from "./PlannerPage.module.css";
-import AnimatedPage from "../../components/animatedPage/AnimatedPage";
 import { Route, Routes } from "react-router-dom";
-import clsx from "clsx";
 import React, { Fragment, Suspense } from "react";
 import Planner from "./Planner/Planner";
 import PlanContextProvider from "../../contexts/planContext/PlanContextProvider";
@@ -33,7 +30,9 @@ const PlannerPage = () => {
         <Route
           path={"/meal-picker"}
           element={
-            <Suspense fallback={<LoadingSpinner />}>
+            <Suspense
+              fallback={<LoadingSpinner size={"6em"} weight={"bold"} center />}
+            >
               <MealPicker />
             </Suspense>
           }
@@ -41,7 +40,9 @@ const PlannerPage = () => {
         <Route
           path={"/type-picker"}
           element={
-            <Suspense fallback={<LoadingSpinner />}>
+            <Suspense
+              fallback={<LoadingSpinner size={"6em"} weight={"bold"} center />}
+            >
               <ChooseTypePicker />
             </Suspense>
           }
