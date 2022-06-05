@@ -3,14 +3,14 @@
     height: min(50%, 300px);
     margin: auto;
     border-radius: 12px;
-    border: 2px solid hsl(var(--clr-creamy-green));
-    background: hsl( var(--clr-black) / .5);
+    background: hsl(var(--clr-black) / .5);
     display: block;
 }
 
 .big {
-    height: min(70%, 600px);
+    height: clamp(600px, 70%, 1000px);
 }
+
 
 @supports (backdrop-filter: blur(1.5rem)) {
     .modal {
@@ -18,3 +18,4 @@
         backdrop-filter: blur(1.5rem);
     }
 }
+

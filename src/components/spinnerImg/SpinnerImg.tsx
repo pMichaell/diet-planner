@@ -1,3 +1,4 @@
+import classes from "./SpinnerImg.module.css";
 import { useState } from "react";
 import LoadingSpinner from "../loadingComponents/LoadingSpinner";
 import clsx from "clsx";
@@ -8,7 +9,7 @@ const SpinnerImg = ({
   className,
   imgClassName,
 }: {
-  src: string;
+  src?: string;
   alt?: string;
   className?: string;
   imgClassName?: string;
@@ -16,8 +17,15 @@ const SpinnerImg = ({
   const [loading, setLoading] = useState(true);
 
   return (
-    <div className={clsx("centerContents", "clrGreen", className)}>
-      {loading && <LoadingSpinner />}
+    <div
+      className={clsx(
+        "centerContents",
+        "clrGreen",
+        className,
+        classes.container
+      )}
+    >
+      {loading && <LoadingSpinner className={classes.imgSpinner} />}
       <img
         src={src}
         alt={alt}

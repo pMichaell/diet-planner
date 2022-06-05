@@ -33,6 +33,7 @@ const Modal = () => {
         onClick={(e) => e.stopPropagation()}
         className={clsx(
           "clrGreen",
+          "standardBorder",
           classes.modal,
           modalSize === "big" && classes.big
         )}

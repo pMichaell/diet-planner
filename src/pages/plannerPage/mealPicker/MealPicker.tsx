@@ -6,14 +6,26 @@ import { motion } from "framer-motion";
 import MealPickerElement from "../../../components/mealArticle/MealPickerElement";
 import LoadingSpinner from "../../../components/loadingComponents/LoadingSpinner";
 import { mealPickerVariants } from "./MealPickerVariants";
-import { useContext } from "react";
+import React, { Suspense, useContext } from "react";
 import ModalContext from "../../../contexts/modalContext/ModalContext";
+
+const MealModal = React.lazy(
+  () => import("../../../components/modal/modalVariants/mealModal/MealModal")
+);
 
 const MealPicker = () => {
   const ctx = useContext(ModalContext);
   const [meals, error] = useFetchMeal();
 
-  const onMealArticleClick = function onMealArticleClick(idMeal: string) {};
+  const onMealArticleClick = function onMealArticleClick(idMeal: string) {
+    ctx.setModalSize?.("big");
+    ctx.setModalChildren?.(
+      <Suspense fallback={<LoadingSpinner weight={"bold"} center />}>
+        <MealModal idMeal={idMeal} />
+      </Suspense>
+    );
+    ctx.openModal?.();
+  };
 
   return (
     <AnimatedPage
