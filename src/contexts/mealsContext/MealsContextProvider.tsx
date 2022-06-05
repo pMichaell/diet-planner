@@ -12,6 +12,33 @@ const initialState: MealsContextType = {
   sunday: new Array<Meal>(),
 };
 
+const init = (initialValue: MealsContextType) => {
+  let counter = 0;
+  for (let initialStateKey in initialState) {
+    const localStorageItem = localStorage.getItem(initialStateKey);
+    let mealsArray;
+    if (localStorageItem) {
+      mealsArray = JSON.parse(localStorageItem);
+      initialValue[initialStateKey as keyof MealsContextType] = mealsArray;
+    } else {
+      counter++;
+    }
+  }
+  console.log("initial state " + initialState);
+  if (counter === 7) {
+    return {
+      monday: new Array<Meal>(),
+      tuesday: new Array<Meal>(),
+      wednesday: new Array<Meal>(),
+      thursday: new Array<Meal>(),
+      friday: new Array<Meal>(),
+      saturday: new Array<Meal>(),
+      sunday: new Array<Meal>(),
+    };
+  }
+  return initialValue;
+};
+
 type ACTION_TYPE =
   | {
       type: "setMeal";
@@ -39,7 +66,7 @@ const reducer = function reducer(state: MealsContextType, action: ACTION_TYPE) {
 };
 
 const MealsContextProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState, init);
 
   useEffect(() => {
     console.log(state);
@@ -50,10 +77,16 @@ const MealsContextProvider = ({ children }: { children: ReactNode }) => {
     mealIndex: number,
     meal: Meal
   ) {
+    let currentMeals = [...state[weekday]];
+    currentMeals.splice(mealIndex, 1, meal);
+    localStorage.setItem(weekday, JSON.stringify(currentMeals));
     dispatch({ type: "setMeal", payload: { weekday, mealIndex, meal } });
   };
 
   const removeMeal = function removeMeal(weekday: Weekday, mealIndex: number) {
+    let currentMeals = [...state[weekday]];
+    currentMeals.splice(mealIndex, 1);
+    localStorage.setItem(weekday, JSON.stringify(currentMeals));
     dispatch({ type: "removeMeal", payload: { weekday, mealIndex } });
   };
 

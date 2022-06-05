@@ -21,7 +21,6 @@ const WeekdayContainerElement = ({
   onClick,
 }: MealElementProps) => {
   const { meal, mealRemove } = useMealContext(weekday, mealIndex);
-  console.log("weekday Container element re-render");
   return (
     <motion.article
       className={clsx(

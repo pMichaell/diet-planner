@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
 import ModalContext, { ModalSize } from "./ModalContext";
 
 const ModalContextProvider = ({ children }: { children: ReactNode }) => {
@@ -7,7 +7,10 @@ const ModalContextProvider = ({ children }: { children: ReactNode }) => {
   const [modalChildren, modalChildrenSet] = useState<ReactNode | null>(null);
 
   const setModalOpen = useCallback(() => modalOpenSet(true), []);
-  const setModalClosed = useCallback(() => modalOpenSet(false), []);
+  const setModalClosed = useCallback(() => {
+    modalOpenSet(false);
+    modalSizeSet("regular");
+  }, []);
   const setModalChildren = useCallback(
     (children: ReactNode) => modalChildrenSet(children),
     []

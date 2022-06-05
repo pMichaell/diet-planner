@@ -1,5 +1,6 @@
 .modal {
     width: clamp(50%, 700px, 90%);
+    max-width: 60rem;
     height: min(50%, 300px);
     margin: auto;
     border-radius: 12px;
@@ -8,7 +9,7 @@
 }
 
 .big {
-    height: clamp(600px, 70%, 900px);
+    height: clamp(650px, 80%, 900px);
 }
 
 
@@ -22,6 +23,6 @@
 
 @media (min-height: 1000px) {
     .big {
-        height: clamp(900px, 80%, 1200px)
+        height: clamp(900px, 90%, 1200px)
     }
 }
