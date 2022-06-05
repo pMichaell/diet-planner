@@ -2,9 +2,9 @@ import classes from "./WeekdayContainerElement.module.css";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import { Weekday } from "../../../../../Models";
+import { OnPlannerElementClick } from "../../Planner";
 import useMealContext from "../../../../../hooks/use-meal-context";
 import { Fragment } from "react";
-import { OnPlannerElementClick } from "../../Planner";
 
 type MealElementProps = {
   mealName: string;
@@ -20,8 +20,8 @@ const WeekdayContainerElement = ({
   weekday,
   onClick,
 }: MealElementProps) => {
-  const { meal, mealSet, mealRemove } = useMealContext(weekday, mealIndex);
-
+  const { meal, mealRemove } = useMealContext(weekday, mealIndex);
+  console.log("weekday Container element re-render");
   return (
     <motion.article
       className={clsx(
@@ -50,5 +50,3 @@ const WeekdayContainerElement = ({
 };
 
 export default WeekdayContainerElement;
-
-//              search: `?weekday=${weekday}&mealIndex=${mealIndex}`,

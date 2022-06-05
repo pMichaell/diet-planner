@@ -2,16 +2,19 @@ import classes from "./WeekdayContainer.module.css";
 import { motion } from "framer-motion";
 import { Weekday } from "../../../../Models";
 import clsx from "clsx";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import PlanContext from "../../../../contexts/planContext/PlanContext";
 import WeekdayContainerElement from "./weekdayContainerElement/WeekdayContainerElement";
 import { OnPlannerElementClick } from "../Planner";
+import LoadingSpinner from "../../../../components/loadingComponents/LoadingSpinner";
 
 type WeekdayContainerProps = {
   weekday: Weekday;
   onElementClick: OnPlannerElementClick;
   className?: string;
 };
+
+const MemoizedContainer = React.memo(WeekdayContainerElement);
 
 const WeekdayContainer = ({
   weekday,
@@ -25,9 +28,9 @@ const WeekdayContainer = ({
       className={clsx("fillParent", "flow", "clrGreen", classes.container)}
     >
       <p className={clsx("fs600", "fontAccent")}>{weekday}</p>
-      {ctx.mealNames &&
+      {ctx.mealNames ? (
         ctx.mealNames.map((mealName, index) => (
-          <WeekdayContainerElement
+          <MemoizedContainer
             key={index}
             mealName={mealName}
             mealIndex={index}
@@ -35,7 +38,10 @@ const WeekdayContainer = ({
             onClick={onElementClick}
             className={classes.mealElement}
           />
-        ))}
+        ))
+      ) : (
+        <LoadingSpinner />
+      )}
     </motion.div>
   );
 };

@@ -151,9 +151,7 @@ a {
 }
 
 *:not(input):focus {
-    transform: scale(1.1);
     outline: 3px solid violet;
-    outline-offset: 3px;
 }
 
 

@@ -8,7 +8,7 @@ import clsx from "clsx";
 type MealPickerElementProps = {
   meal: Meal;
   articleIndex?: number;
-  onClick: (idMeal: string) => void;
+  onClick: (meal: Meal) => void;
 };
 
 const MealPickerElement = ({
@@ -18,7 +18,7 @@ const MealPickerElement = ({
 }: MealPickerElementProps) => {
   return (
     <motion.button
-      onClick={() => onClick(meal.idMeal)}
+      onClick={() => onClick(meal)}
       className={clsx(
         "curvedBorder",
         "backdropFilter2",

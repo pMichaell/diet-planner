@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import React, { Fragment, Suspense } from "react";
 import Planner from "./Planner/Planner";
 import PlanContextProvider from "../../contexts/planContext/PlanContextProvider";
-import MealsContextProvider from "../../contexts/mealsContext/MealsContextProvider";
 import Questionnaire from "./questionnaire/Questionnaire";
 import LoadingSpinner from "../../components/loadingComponents/LoadingSpinner";
 
@@ -20,9 +19,7 @@ const PlannerPage = () => {
           index
           element={
             <PlanContextProvider>
-              <MealsContextProvider>
-                <Planner />
-              </MealsContextProvider>
+              <Planner />
             </PlanContextProvider>
           }
         />

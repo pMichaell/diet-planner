@@ -6,9 +6,6 @@ import { AnimatePresence } from "framer-motion";
 import useSlider from "../../../hooks/use-slider";
 import Slider from "../../../components/slider/Slider";
 import WeekdayContainer from "./weekdayContainer/WeekdayContainer";
-import { useContext } from "react";
-import PlanContext from "../../../contexts/planContext/PlanContext";
-import useLocalStorage from "../../../hooks/use-local-storage";
 import { useNavigate } from "react-router-dom";
 
 const weekdays: Weekday[] = [
