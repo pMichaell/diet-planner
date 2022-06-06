@@ -24,16 +24,22 @@ const init = (initialValue: MealsContextType) => {
       counter++;
     }
   }
-  console.log("initial state " + initialState);
+
+  let localStorageArrayLength = JSON.parse(
+    localStorage.getItem("mealsCount") ?? "5"
+  );
+
+  let number = Number(localStorageArrayLength);
+
   if (counter === 7) {
     return {
-      monday: new Array<Meal>(),
-      tuesday: new Array<Meal>(),
-      wednesday: new Array<Meal>(),
-      thursday: new Array<Meal>(),
-      friday: new Array<Meal>(),
-      saturday: new Array<Meal>(),
-      sunday: new Array<Meal>(),
+      monday: new Array<Meal>(number),
+      tuesday: new Array<Meal>(number),
+      wednesday: new Array<Meal>(number),
+      thursday: new Array<Meal>(number),
+      friday: new Array<Meal>(number),
+      saturday: new Array<Meal>(number),
+      sunday: new Array<Meal>(number),
     };
   }
   return initialValue;
@@ -49,8 +55,8 @@ type ACTION_TYPE =
 const reducer = function reducer(state: MealsContextType, action: ACTION_TYPE) {
   switch (action.type) {
     case "setMeal":
-      let newArr = state[action.payload.weekday];
-      newArr[action.payload.mealIndex] = action.payload.meal;
+      let newArr = [...state[action.payload.weekday]];
+      newArr.splice(action.payload.mealIndex, 1, action.payload.meal);
       return {
         ...state,
         [action.payload.weekday]: newArr,
@@ -78,6 +84,7 @@ const MealsContextProvider = ({ children }: { children: ReactNode }) => {
     meal: Meal
   ) {
     let currentMeals = [...state[weekday]];
+    console.log("in meal context provide index " + mealIndex);
     currentMeals.splice(mealIndex, 1, meal);
     localStorage.setItem(weekday, JSON.stringify(currentMeals));
     dispatch({ type: "setMeal", payload: { weekday, mealIndex, meal } });

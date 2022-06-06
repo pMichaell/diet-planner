@@ -196,6 +196,10 @@ Utility classes
     text-transform: uppercase;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
+
 .maxWidthContainer {
     max-width: 60rem;
 }

@@ -5,24 +5,27 @@ import { mealElementVariants } from "../../pages/plannerPage/mealPicker/MealPick
 import SpinnerImg from "../spinnerImg/SpinnerImg";
 import clsx from "clsx";
 
-type MealPickerElementProps = {
+type MealElementProps = {
   meal: Meal;
   articleIndex?: number;
-  onClick: (meal: Meal) => void;
+  onClick?: (meal: Meal) => void;
+  className?: string;
 };
 
-const MealPickerElement = ({
+const MealElement = ({
   meal,
   articleIndex,
   onClick,
-}: MealPickerElementProps) => {
+  className,
+}: MealElementProps) => {
   return (
     <motion.button
-      onClick={() => onClick(meal)}
+      onClick={() => onClick?.(meal)}
       className={clsx(
         "curvedBorder",
         "backdropFilter2",
         "clrGreen",
+        className,
         classes.pickerElement
       )}
       variants={mealElementVariants}
@@ -41,4 +44,4 @@ const MealPickerElement = ({
   );
 };
 
-export default MealPickerElement;
+export default MealElement;
