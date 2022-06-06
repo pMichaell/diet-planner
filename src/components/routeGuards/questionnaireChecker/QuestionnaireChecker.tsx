@@ -21,6 +21,7 @@ const QuestionnaireChecker = ({ children }: { children: ReactNode }) => {
 
     const noHandler = function noHandler() {
       localStorage.clear();
+      sessionStorage.clear();
       navigate("/planner/questionnaire");
       closeModal?.();
     };

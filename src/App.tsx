@@ -50,11 +50,11 @@ function App() {
                 }
               >
                 <RequireAuth>
-                  <QuestionnaireChecker>
-                    <MealsContextProvider>
+                  <MealsContextProvider>
+                    <QuestionnaireChecker>
                       <PlannerPage />
-                    </MealsContextProvider>
-                  </QuestionnaireChecker>
+                    </QuestionnaireChecker>
+                  </MealsContextProvider>
                 </RequireAuth>
               </Suspense>
             }

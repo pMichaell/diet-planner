@@ -2,47 +2,31 @@ import { Meal, Weekday } from "../../Models";
 import MealsContext, { MealsContextType } from "./MealsContext";
 import { ReactNode, useEffect, useReducer } from "react";
 
+const mealsCount = +JSON.parse(localStorage.getItem("mealsCount") ?? "5");
+
 const initialState: MealsContextType = {
-  monday: new Array<Meal>(),
-  tuesday: new Array<Meal>(),
-  wednesday: new Array<Meal>(),
-  thursday: new Array<Meal>(),
-  friday: new Array<Meal>(),
-  saturday: new Array<Meal>(),
-  sunday: new Array<Meal>(),
+  monday: new Array<Meal>(mealsCount),
+  tuesday: new Array<Meal>(mealsCount),
+  wednesday: new Array<Meal>(mealsCount),
+  thursday: new Array<Meal>(mealsCount),
+  friday: new Array<Meal>(mealsCount),
+  saturday: new Array<Meal>(mealsCount),
+  sunday: new Array<Meal>(mealsCount),
 };
 
-const init = (initialValue: MealsContextType) => {
-  let counter = 0;
+const init = () => {
+  let initValue = { ...initialState };
+
   for (let initialStateKey in initialState) {
     const localStorageItem = localStorage.getItem(initialStateKey);
     let mealsArray;
     if (localStorageItem) {
       mealsArray = JSON.parse(localStorageItem);
-      initialValue[initialStateKey as keyof MealsContextType] = mealsArray;
-    } else {
-      counter++;
+      initValue[initialStateKey as keyof MealsContextType] = mealsArray;
     }
   }
 
-  let localStorageArrayLength = JSON.parse(
-    localStorage.getItem("mealsCount") ?? "5"
-  );
-
-  let number = Number(localStorageArrayLength);
-
-  if (counter === 7) {
-    return {
-      monday: new Array<Meal>(number),
-      tuesday: new Array<Meal>(number),
-      wednesday: new Array<Meal>(number),
-      thursday: new Array<Meal>(number),
-      friday: new Array<Meal>(number),
-      saturday: new Array<Meal>(number),
-      sunday: new Array<Meal>(number),
-    };
-  }
-  return initialValue;
+  return initValue;
 };
 
 type ACTION_TYPE =
@@ -84,7 +68,6 @@ const MealsContextProvider = ({ children }: { children: ReactNode }) => {
     meal: Meal
   ) {
     let currentMeals = [...state[weekday]];
-    console.log("in meal context provide index " + mealIndex);
     currentMeals.splice(mealIndex, 1, meal);
     localStorage.setItem(weekday, JSON.stringify(currentMeals));
     dispatch({ type: "setMeal", payload: { weekday, mealIndex, meal } });
