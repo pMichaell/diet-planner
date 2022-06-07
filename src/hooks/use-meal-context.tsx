@@ -7,7 +7,12 @@ const useMealContext = (weekday: Weekday, mealIndex: number) => {
   const ctx = useContext(MealsContext);
 
   useEffect(() => {
-    setMeal(ctx[weekday][mealIndex]);
+    const mealToSet = ctx[weekday][mealIndex];
+    if (Object.values(mealToSet).some((value) => value === "")) {
+      setMeal(null);
+      return;
+    }
+    setMeal(mealToSet);
   }, [ctx, weekday, mealIndex]);
 
   const mealSet = function mealSet(meal: Meal) {

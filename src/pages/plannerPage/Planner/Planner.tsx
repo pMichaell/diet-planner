@@ -3,18 +3,29 @@ import clsx from "clsx";
 import classes from "./Planner.module.css";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useContext } from "react";
-import { Weekday } from "../../../Models";
+import React, { Suspense, useContext } from "react";
+import { Meal, Weekday } from "../../../Models";
 import useSlider from "../../../hooks/use-slider";
 import PlanContext from "../../../contexts/planContext/PlanContext";
-import { CaretLeft, CaretRight, IconContext } from "phosphor-react";
+import {
+  CaretDoubleRight,
+  CaretLeft,
+  CaretRight,
+  IconContext,
+} from "phosphor-react";
 import Slider from "../../../components/slider/Slider";
 import PlannerElement from "./plannerElement/PlannerElement";
+import MealsContext from "../../../contexts/mealsContext/MealsContext";
+import LoadingSpinner from "../../../components/loadingComponents/LoadingSpinner";
+import MealModal from "../../../components/modal/modalVariants/mealModal/MealModal";
+import ModalContext from "../../../contexts/modalContext/ModalContext";
 
-export type OnPlannerElementClick = (
+export type onUnpickedElementClick = (
   pickedWeekday: string,
   pickedMealIndex: number
 ) => void;
+
+export type onPickedElementClick = (meal: Meal) => void;
 
 const weekdays: Weekday[] = [
   "monday",
@@ -32,9 +43,11 @@ const Planner = () => {
     weekdays,
     "currentWeekday"
   );
-  const ctx = useContext(PlanContext);
+  const planContext = useContext(PlanContext);
+  const { allMealsPicked } = useContext(MealsContext);
+  const modalContext = useContext(ModalContext);
 
-  const setPickData: OnPlannerElementClick = function setPickData(
+  const setPickData: onUnpickedElementClick = function setPickData(
     pickedWeekday,
     pickedMealIndex
   ) {
@@ -43,13 +56,29 @@ const Planner = () => {
     navigate("type-picker");
   };
 
+  const onMealElementClick: onPickedElementClick = function onMealElementClick(
+    meal: Meal
+  ) {
+    modalContext.setModalSize?.("big");
+    modalContext.setModalChildren?.(
+      <Suspense fallback={<LoadingSpinner weight={"bold"} center />}>
+        <MealModal
+          idMeal={meal.idMeal}
+          onClick={() => console.log("clicked")}
+        />
+      </Suspense>
+    );
+    modalContext.openModal?.();
+  };
+
   return (
     <AnimatedPage
       className={clsx(
         "fillParent",
         "pagePadding",
         "centerContents",
-        "overflowHidden"
+        "overflowHidden",
+        allMealsPicked && classes.allMealsPicked
       )}
     >
       <motion.section
@@ -110,19 +139,33 @@ const Planner = () => {
               sliderMovement={{ page, direction, paginate }}
               className={clsx("fillParent", "centerContents", "flow")}
             >
-              {ctx.mealNames.map((mealName, index) => (
+              {planContext.mealNames.map((mealName, index) => (
                 <PlannerElement
                   key={`${mealName}${index}`}
                   mealName={mealName}
                   weekday={weekdays[currentIndex]}
                   mealIndex={index}
-                  onClick={setPickData}
+                  onUnpickedClick={setPickData}
+                  onPickedClick={onMealElementClick}
                 />
               ))}
             </Slider>
           </AnimatePresence>
         </motion.div>
       </motion.section>
+      {allMealsPicked && (
+        <motion.button
+          aria-describedby={"plan submit button"}
+          animate={{
+            scale: [1.0, 1.1, 1.0],
+            transition: { repeat: Infinity },
+          }}
+          exit={{ x: "-100vw", opacity: 0 }}
+          className={clsx("clrGreen", "fs600", "fw600", classes.cta)}
+        >
+          <CaretDoubleRight weight={"bold"} size={"2.5em"} />
+        </motion.button>
+      )}
     </AnimatedPage>
   );
 };

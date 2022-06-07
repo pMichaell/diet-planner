@@ -1,17 +1,45 @@
 import { Meal, Weekday } from "../../Models";
 import MealsContext, { MealsContextType } from "./MealsContext";
-import { ReactNode, useEffect, useReducer } from "react";
+import { ReactNode, useEffect, useReducer, useState } from "react";
 
 const mealsCount = +JSON.parse(localStorage.getItem("mealsCount") ?? "5");
 
 const initialState: MealsContextType = {
-  monday: new Array<Meal>(mealsCount),
-  tuesday: new Array<Meal>(mealsCount),
-  wednesday: new Array<Meal>(mealsCount),
-  thursday: new Array<Meal>(mealsCount),
-  friday: new Array<Meal>(mealsCount),
-  saturday: new Array<Meal>(mealsCount),
-  sunday: new Array<Meal>(mealsCount),
+  monday: new Array<Meal>(mealsCount).fill({
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
+  }),
+  tuesday: new Array<Meal>(mealsCount).fill({
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
+  }),
+  wednesday: new Array<Meal>(mealsCount).fill({
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
+  }),
+  thursday: new Array<Meal>(mealsCount).fill({
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
+  }),
+  friday: new Array<Meal>(mealsCount).fill({
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
+  }),
+  saturday: new Array<Meal>(mealsCount).fill({
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
+  }),
+  sunday: new Array<Meal>(mealsCount).fill({
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
+  }),
 };
 
 const init = () => {
@@ -57,9 +85,16 @@ const reducer = function reducer(state: MealsContextType, action: ACTION_TYPE) {
 
 const MealsContextProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState, init);
+  const [allMealsPicked, setAllMealsPicked] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(state);
+    const stateValues = Object.values(state) as Array<Meal[]>;
+    const allPicked = stateValues.every((mealArray) =>
+      mealArray.every((meal) =>
+        Object.values(meal).every((value) => value !== "")
+      )
+    );
+    setAllMealsPicked(allPicked);
   }, [state]);
 
   const setMeal = function setMeal(
@@ -81,7 +116,9 @@ const MealsContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <MealsContext.Provider value={{ ...state, setMeal, removeMeal }}>
+    <MealsContext.Provider
+      value={{ ...state, setMeal, removeMeal, allMealsPicked }}
+    >
       {children}
     </MealsContext.Provider>
   );

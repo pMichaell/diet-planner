@@ -9,6 +9,7 @@ export type MealsContextType = {
   friday: Meal[];
   saturday: Meal[];
   sunday: Meal[];
+  allMealsPicked?: boolean;
   setMeal?: (weekday: Weekday, mealIndex: number, meal: Meal) => void;
   removeMeal?: (weekday: Weekday, mealIndex: number) => void;
 };

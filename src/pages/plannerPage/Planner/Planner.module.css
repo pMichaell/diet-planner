@@ -4,6 +4,10 @@
     max-width: 60rem;
 }
 
+.allMealsPicked {
+    grid-template-rows: 90% 1fr;
+}
+
 .chooseTypeSection {
     display: flex;
     flex-direction: column;
@@ -75,6 +79,13 @@
 .scrollablePickerElement:active {
     transform: scale(0.9);
 }
+
+.cta {
+    color: hsl(var(--clr-creamy-green));
+    align-self: flex-end;
+}
+
+
 
 
 @media (min-width: 1000px) {

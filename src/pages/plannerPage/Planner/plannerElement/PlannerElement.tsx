@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import clsx from "clsx";
 import MealElement from "../../../../components/mealArticle/MealElement";
 import { Weekday } from "../../../../Models";
-import { OnPlannerElementClick } from "../Planner";
+import { onPickedElementClick, onUnpickedElementClick } from "../Planner";
 import useMealContext from "../../../../hooks/use-meal-context";
 import { Plus } from "phosphor-react";
 
@@ -11,7 +11,8 @@ type PlannerElementProps = {
   mealName: string;
   weekday: Weekday;
   mealIndex: number;
-  onClick: OnPlannerElementClick;
+  onUnpickedClick: onUnpickedElementClick;
+  onPickedClick: onPickedElementClick;
   className?: string;
 };
 
@@ -19,7 +20,8 @@ const PlannerElement = ({
   mealName,
   mealIndex,
   weekday,
-  onClick,
+  onUnpickedClick,
+  onPickedClick,
 }: PlannerElementProps) => {
   const { meal, mealRemove } = useMealContext(weekday, mealIndex);
 
@@ -33,12 +35,16 @@ const PlannerElement = ({
           whileHover={{ scale: 1.3 }}
           whileTap={{ scale: 0.9 }}
           className={clsx("clrGreen", classes.cta)}
-          onClick={() => onClick(weekday, mealIndex)}
+          onClick={() => onUnpickedClick(weekday, mealIndex)}
         >
           <Plus size={"3em"} weight={"bold"} />
         </motion.button>
       ) : (
-        <MealElement meal={meal} className={classes.mealElement} />
+        <MealElement
+          meal={meal}
+          className={classes.mealElement}
+          onClick={() => onPickedClick(meal)}
+        />
       )}
     </motion.article>
   );

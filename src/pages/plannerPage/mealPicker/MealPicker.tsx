@@ -33,7 +33,7 @@ const MealPicker = () => {
     modalContext.closeModal?.();
   };
 
-  const onMealElementClick = function onMealArticleClick(meal: Meal) {
+  const onMealElementClick = function onMealElementClick(meal: Meal) {
     modalContext.setModalSize?.("big");
     modalContext.setModalChildren?.(
       <Suspense fallback={<LoadingSpinner weight={"bold"} center />}>
