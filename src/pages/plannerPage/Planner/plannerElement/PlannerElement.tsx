@@ -2,8 +2,7 @@ import classes from "./PlannerElement.module.css";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import MealElement from "../../../../components/mealArticle/MealElement";
-import { Weekday } from "../../../../Models";
-import { onPickedElementClick, onUnpickedElementClick } from "../Planner";
+import { Meal, Weekday } from "../../../../Models";
 import useMealContext from "../../../../hooks/use-meal-context";
 import { Plus } from "phosphor-react";
 
@@ -11,8 +10,8 @@ type PlannerElementProps = {
   mealName: string;
   weekday: Weekday;
   mealIndex: number;
-  onUnpickedClick: onUnpickedElementClick;
-  onPickedClick: onPickedElementClick;
+  onUnpickedClick: (weekday: Weekday, mealIndex: number) => void;
+  onPickedClick: (meal: Meal) => void;
   className?: string;
 };
 

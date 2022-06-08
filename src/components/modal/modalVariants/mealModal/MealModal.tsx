@@ -10,9 +10,11 @@ import LoadingSpinner from "../../../loadingComponents/LoadingSpinner";
 const MealModal = ({
   idMeal,
   onClick,
+  buttonText,
 }: {
   idMeal: string;
   onClick: () => void;
+  buttonText: string;
 }) => {
   const [ingredientsVisible, setIngredientsVisible] = useState(false);
   const [recipeVisible, setRecipeVisible] = useState(false);
@@ -103,7 +105,7 @@ const MealModal = ({
             className={clsx("clrGreen", "fw600", "fs500", classes.cta)}
             onClick={onClick}
           >
-            Add To Plan
+            {buttonText}
           </motion.button>
         </Fragment>
       ) : (

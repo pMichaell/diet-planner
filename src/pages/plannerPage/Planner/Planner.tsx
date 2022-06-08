@@ -19,13 +19,7 @@ import MealsContext from "../../../contexts/mealsContext/MealsContext";
 import LoadingSpinner from "../../../components/loadingComponents/LoadingSpinner";
 import MealModal from "../../../components/modal/modalVariants/mealModal/MealModal";
 import ModalContext from "../../../contexts/modalContext/ModalContext";
-
-export type onUnpickedElementClick = (
-  pickedWeekday: string,
-  pickedMealIndex: number
-) => void;
-
-export type onPickedElementClick = (meal: Meal) => void;
+import BinaryModal from "../../../components/modal/modalVariants/binaryModal/BinaryModal";
 
 const weekdays: Weekday[] = [
   "monday",
@@ -47,24 +41,40 @@ const Planner = () => {
   const { allMealsPicked } = useContext(MealsContext);
   const modalContext = useContext(ModalContext);
 
-  const setPickData: onUnpickedElementClick = function setPickData(
-    pickedWeekday,
-    pickedMealIndex
+  const setPickData = function setPickData(
+    pickedWeekday: Weekday,
+    pickedMealIndex: number
   ) {
     localStorage.setItem("plannerIndex", pickedMealIndex.toString());
     localStorage.setItem("weekday", pickedWeekday);
     navigate("type-picker");
   };
 
-  const onMealElementClick: onPickedElementClick = function onMealElementClick(
-    meal: Meal
-  ) {
+  const onMealElementClick = function onMealElementClick(meal: Meal) {
     modalContext.setModalSize?.("big");
     modalContext.setModalChildren?.(
       <Suspense fallback={<LoadingSpinner weight={"bold"} center />}>
         <MealModal
           idMeal={meal.idMeal}
           onClick={() => console.log("clicked")}
+          buttonText={"Remove meal"}
+        />
+      </Suspense>
+    );
+    modalContext.openModal?.();
+  };
+
+  const onSubmitButtonClick = () => {
+    modalContext.setModalChildren?.(
+      <Suspense fallback={<LoadingSpinner weight={"bold"} center />}>
+        <BinaryModal
+          text={
+            "Would you like to submit your meal plan in it's current state?"
+          }
+          leftOptionHandler={modalContext.closeModal}
+          rightOptionHandler={modalContext.openModal}
+          leftOptionText={"No"}
+          rightOptionText={"Yes"}
         />
       </Suspense>
     );
@@ -128,7 +138,7 @@ const Planner = () => {
                 )}
               />
             </AnimatePresence>
-            <button className={classes.navButton} onClick={() => paginate(-1)}>
+            <button className={classes.navButton} onClick={() => paginate(1)}>
               <CaretRight />
             </button>
           </IconContext.Provider>
@@ -141,7 +151,7 @@ const Planner = () => {
             >
               {planContext.mealNames.map((mealName, index) => (
                 <PlannerElement
-                  key={`${mealName}${index}`}
+                  key={`${weekdays[currentIndex]}${index}`}
                   mealName={mealName}
                   weekday={weekdays[currentIndex]}
                   mealIndex={index}
@@ -155,13 +165,8 @@ const Planner = () => {
       </motion.section>
       {allMealsPicked && (
         <motion.button
-          aria-describedby={"plan submit button"}
-          animate={{
-            scale: [1.0, 1.1, 1.0],
-            transition: { repeat: Infinity },
-          }}
-          exit={{ x: "-100vw", opacity: 0 }}
           className={clsx("clrGreen", "fs600", "fw600", classes.cta)}
+          onClick={onSubmitButtonClick}
         >
           <CaretDoubleRight weight={"bold"} size={"2.5em"} />
         </motion.button>

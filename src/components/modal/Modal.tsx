@@ -2,8 +2,9 @@ import classes from "./Modal.module.css";
 import Backdrop from "../backdrop/Backdrop";
 import { motion } from "framer-motion";
 import ModalContext from "../../contexts/modalContext/ModalContext";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import clsx from "clsx";
+import ReactDOM from "react-dom";
 
 const modalVariants = {
   initial: {
@@ -27,13 +28,14 @@ const modalVariants = {
 const Modal = () => {
   const { closeModal, modalSize, modalChildren } = useContext(ModalContext);
 
-  return (
+  return ReactDOM.createPortal(
     <Backdrop onClick={closeModal}>
       <motion.dialog
         onClick={(e) => e.stopPropagation()}
         className={clsx(
           "clrGreen",
           "standardBorder",
+          "centerContents",
           classes.modal,
           modalSize === "big" && classes.big
         )}
@@ -44,7 +46,8 @@ const Modal = () => {
       >
         {modalChildren}
       </motion.dialog>
-    </Backdrop>
+    </Backdrop>,
+    document.getElementById("overlays")!
   );
 };
 

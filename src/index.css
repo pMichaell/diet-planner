@@ -150,9 +150,11 @@ a {
     text-decoration: none;
 }
 
+/*
 *:not(input):focus {
     outline: 3px solid violet;
 }
+*/
 
 
 input {

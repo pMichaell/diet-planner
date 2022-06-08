@@ -1,5 +1,4 @@
 import classes from "./NotificationModal.module.css";
-import { Fragment } from "react";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 
@@ -32,7 +31,7 @@ const NotificationModal = ({
           classes.cta
         )}
       >
-        {buttonText ? buttonText : "OK"}
+        {buttonText ?? "OK"}
       </motion.button>
     </div>
   );

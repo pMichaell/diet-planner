@@ -37,7 +37,11 @@ const MealPicker = () => {
     modalContext.setModalSize?.("big");
     modalContext.setModalChildren?.(
       <Suspense fallback={<LoadingSpinner weight={"bold"} center />}>
-        <MealModal idMeal={meal.idMeal} onClick={() => onMealAdd(meal)} />
+        <MealModal
+          idMeal={meal.idMeal}
+          onClick={() => onMealAdd(meal)}
+          buttonText={"Add Meal"}
+        />
       </Suspense>
     );
     modalContext.openModal?.();

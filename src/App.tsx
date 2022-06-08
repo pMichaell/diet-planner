@@ -29,6 +29,7 @@ function App() {
   //TODO keep render functions pure
   //TODO Cleanup useEffects
 
+  console.log("App re-render");
   return (
     <Layout>
       <AnimatePresence>
