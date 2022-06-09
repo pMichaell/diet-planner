@@ -1,6 +1,3 @@
-import { PlanContextType } from "./contexts/planContext/PlanContext";
-import { MealsContextType } from "./contexts/mealsContext/MealsContext";
-
 export type Weekday =
   | "monday"
   | "tuesday"
@@ -74,7 +71,7 @@ export type Category = {
   strCategory: string;
 };
 
-export class DietPlan {
+export type DietPlan = {
   planName: string;
   mealsCount: number | string;
   mealNames: string[];
@@ -85,17 +82,4 @@ export class DietPlan {
   friday: Meal[];
   saturday: Meal[];
   sunday: Meal[];
-
-  constructor(planMetaData: PlanContextType, meals: MealsContextType) {
-    this.planName = planMetaData.planName;
-    this.mealsCount = planMetaData.mealsCount;
-    this.mealNames = planMetaData.mealNames;
-    this.monday = meals.monday;
-    this.tuesday = meals.tuesday;
-    this.wednesday = meals.wednesday;
-    this.thursday = meals.thursday;
-    this.friday = meals.friday;
-    this.saturday = meals.saturday;
-    this.sunday = meals.sunday;
-  }
-}
+};

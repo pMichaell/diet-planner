@@ -5,8 +5,8 @@ type BinaryModalProps = {
   text: string;
   leftOptionText: string;
   rightOptionText: string;
-  leftOptionHandler?: () => void;
-  rightOptionHandler?: () => void;
+  leftOptionHandler: () => void;
+  rightOptionHandler: () => void;
 };
 
 const BinaryModal = ({

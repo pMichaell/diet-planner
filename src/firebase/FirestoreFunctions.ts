@@ -13,10 +13,45 @@ export const createUser = async (user: User) => {
   });
 };
 
+/*const dietPlanConverter: FirestoreDataConverter<DietPlan> = {
+  toFirestore: (dietPlan) => dietPlan,
+
+  fromFirestore: (snapshot, options): DietPlan => {
+    const data = snapshot.data(options);
+    return {
+      planName: data?.planName,
+      mealsCount: data?.mealsCount,
+      mealNames: data?.mealNames,
+      monday: data?.monday,
+      tuesday: data?.tuesday,
+      wednesday: data?.wednesday,
+      thursday: data?.thursday,
+      friday: data?.friday,
+      sunday: data?.sunday,
+      saturday: data?.saturday,
+    };
+  },
+};*/
+
 export const submitPlan = async (
   user: User,
   planMetaData: PlanContextType,
   meals: MealsContextType
 ) => {
-  const dietPlan = new DietPlan(planMetaData, meals);
+  console.log("plan submit run");
+
+  const dietPlan: DietPlan = {
+    planName: planMetaData.planName,
+    mealsCount: planMetaData.mealsCount,
+    mealNames: planMetaData.mealNames,
+    monday: meals.monday,
+    tuesday: meals.tuesday,
+    wednesday: meals.wednesday,
+    thursday: meals.thursday,
+    friday: meals.friday,
+    sunday: meals.sunday,
+    saturday: meals.saturday,
+  };
+
+  await setDoc(doc(firestore, "plans", user.uid), dietPlan);
 };

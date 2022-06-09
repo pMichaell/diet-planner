@@ -20,6 +20,9 @@ import LoadingSpinner from "../../../components/loadingComponents/LoadingSpinner
 import MealModal from "../../../components/modal/modalVariants/mealModal/MealModal";
 import ModalContext from "../../../contexts/modalContext/ModalContext";
 import BinaryModal from "../../../components/modal/modalVariants/binaryModal/BinaryModal";
+import { submitPlan } from "../../../firebase/FirestoreFunctions";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../../firebase/Firebase";
 
 const weekdays: Weekday[] = [
   "monday",
@@ -38,8 +41,9 @@ const Planner = () => {
     "currentWeekday"
   );
   const planContext = useContext(PlanContext);
-  const { allMealsPicked } = useContext(MealsContext);
+  const mealsContext = useContext(MealsContext);
   const modalContext = useContext(ModalContext);
+  const [user] = useAuthState(auth);
 
   const setPickData = function setPickData(
     pickedWeekday: Weekday,
@@ -64,6 +68,10 @@ const Planner = () => {
     modalContext.openModal?.();
   };
 
+  const planSubmissionHandler = async () => {
+    await submitPlan(user!, planContext, mealsContext);
+  };
+
   const onSubmitButtonClick = () => {
     modalContext.setModalChildren?.(
       <Suspense fallback={<LoadingSpinner weight={"bold"} center />}>
@@ -71,8 +79,8 @@ const Planner = () => {
           text={
             "Would you like to submit your meal plan in it's current state?"
           }
-          leftOptionHandler={modalContext.closeModal}
-          rightOptionHandler={modalContext.openModal}
+          leftOptionHandler={() => console.log("left clicked")}
+          rightOptionHandler={planSubmissionHandler}
           leftOptionText={"No"}
           rightOptionText={"Yes"}
         />
@@ -88,7 +96,7 @@ const Planner = () => {
         "pagePadding",
         "centerContents",
         "overflowHidden",
-        allMealsPicked && classes.allMealsPicked
+        mealsContext.allMealsPicked && classes.allMealsPicked
       )}
     >
       <motion.section
@@ -163,7 +171,7 @@ const Planner = () => {
           </AnimatePresence>
         </motion.div>
       </motion.section>
-      {allMealsPicked && (
+      {mealsContext.allMealsPicked && (
         <motion.button
           className={clsx("clrGreen", "fs600", "fw600", classes.cta)}
           onClick={onSubmitButtonClick}
