@@ -72,6 +72,8 @@ export type Category = {
 };
 
 export type DietPlan = {
+  planID?: string;
+  userID: string;
   planName: string;
   mealsCount: number | string;
   mealNames: string[];

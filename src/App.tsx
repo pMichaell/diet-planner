@@ -34,7 +34,9 @@ function App() {
     <Layout>
       <AnimatePresence>
         {modalOpen && (
-          <Suspense fallback={<LoadingSpinner weight={"bold"} center />}>
+          <Suspense
+            fallback={<LoadingSpinner weight={"bold"} size={"6em"} center />}
+          >
             <Modal />
           </Suspense>
         )}
@@ -80,7 +82,9 @@ function App() {
               <Suspense
                 fallback={<LoadingSpinner size={"6em"} weight={"bold"} />}
               >
-                <PlansPage />
+                <RequireAuth>
+                  <PlansPage />
+                </RequireAuth>
               </Suspense>
             }
           />

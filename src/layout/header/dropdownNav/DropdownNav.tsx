@@ -18,6 +18,8 @@ const DropdownNav = ({
   const { height } = useWindowDimensions();
   const location = useLocation();
 
+  //TODO add listening to clicks outside of nav
+
   return (
     <IconContext.Provider
       value={{
@@ -30,7 +32,7 @@ const DropdownNav = ({
         className={classes.nav}
         initial={{ height: 0, opacity: 0.5 }}
         animate={{ height: height <= 600 ? "40vh" : "30vh", opacity: 1 }}
-        onBlur={() => setDropdownVisible(false)}
+        onMouseLeave={() => setDropdownVisible(false)}
         exit={{ opacity: 0 }}
       >
         <AnimatePresence>

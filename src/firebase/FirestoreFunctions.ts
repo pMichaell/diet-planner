@@ -1,4 +1,12 @@
-import { doc, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { User } from "firebase/auth";
 import { firestore } from "./Firebase";
 import { MealsContextType } from "../contexts/mealsContext/MealsContext";
@@ -41,6 +49,7 @@ export const submitPlan = async (
   console.log("plan submit run");
 
   const dietPlan: DietPlan = {
+    userID: user.uid,
     planName: planMetaData.planName,
     mealsCount: planMetaData.mealsCount,
     mealNames: planMetaData.mealNames,
@@ -53,5 +62,21 @@ export const submitPlan = async (
     saturday: meals.saturday,
   };
 
-  await setDoc(doc(firestore, "plans", user.uid), dietPlan);
+  const docRef = await addDoc(collection(firestore, "plans"), dietPlan);
+  console.log(`Document written with id ${docRef.id}`);
 };
+
+export const fetchUserPlans = async function fetchUserPlans(user: User) {
+  const q = query(
+    collection(firestore, "plans"),
+    where("userID", "==", user.uid)
+  );
+
+  const querySnapshot = await getDocs(q);
+  const dietPlans = querySnapshot.docs.map((document) => document.data());
+  console.log(dietPlans);
+};
+
+export const fetchPlanDetails = async function fetchPlanDetails(
+  planID: string
+) {};
