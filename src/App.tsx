@@ -6,11 +6,11 @@ import ModalContext from "./contexts/modalContext/ModalContext";
 import LoginPageContextProvider from "./contexts/loginPageContext/LoginPageContextProvider";
 import LoadingSpinner from "./components/loadingComponents/LoadingSpinner";
 import MealsContextProvider from "./contexts/mealsContext/MealsContextProvider";
+import PlansPage from "./pages/plansPage/PlansPage";
 
 const Modal = React.lazy(() => import("./components/modal/Modal"));
 const HomePage = React.lazy(() => import("./pages/homePage/HomePage"));
 const PlannerPage = React.lazy(() => import("./pages/plannerPage/PlannerPage"));
-const AccountPage = React.lazy(() => import("./pages/accountPage/AccountPage"));
 const LoginPage = React.lazy(() => import("./pages/loginPage/LoginPage"));
 const NotFoundPage = React.lazy(
   () => import("./pages/notFoundPage/NotFoundPage")
@@ -61,14 +61,6 @@ function App() {
             }
           />
           <Route
-            path={"/account"}
-            element={
-              <RequireAuth>
-                <AccountPage />
-              </RequireAuth>
-            }
-          />
-          <Route
             path={"/login"}
             element={
               <Suspense
@@ -79,6 +71,16 @@ function App() {
                 <LoginPageContextProvider>
                   <LoginPage />
                 </LoginPageContextProvider>
+              </Suspense>
+            }
+          />
+          <Route
+            path={"plans"}
+            element={
+              <Suspense
+                fallback={<LoadingSpinner size={"6em"} weight={"bold"} />}
+              >
+                <PlansPage />
               </Suspense>
             }
           />

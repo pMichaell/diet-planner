@@ -10,13 +10,9 @@ export const verticalListItemsVariants = {
       delay: i * 0.15,
     },
   }),
-  exit: (i: number) => ({
-    x: i % 2 === 0 ? "100vw" : "-100vw",
+  exit: {
     opacity: 0,
-    transition: {
-      delay: i * 0.15,
-    },
-  }),
+  },
   whileHover: {
     scale: 1.1,
   },

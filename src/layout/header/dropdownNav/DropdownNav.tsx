@@ -7,9 +7,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase/Firebase";
 import { signOut } from "firebase/auth";
 import useWindowDimensions from "../../../hooks/use-window-dimensions";
-import clsx from "clsx";
+import React from "react";
 
-const DropdownNav = () => {
+const DropdownNav = ({
+  setDropdownVisible,
+}: {
+  setDropdownVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [user] = useAuthState(auth);
   const { height } = useWindowDimensions();
   const location = useLocation();
@@ -25,7 +29,8 @@ const DropdownNav = () => {
       <motion.nav
         className={classes.nav}
         initial={{ height: 0, opacity: 0.5 }}
-        animate={{ height: height <= 600 ? "50vh" : "40vh", opacity: 1 }}
+        animate={{ height: height <= 600 ? "40vh" : "30vh", opacity: 1 }}
+        onBlur={() => setDropdownVisible(false)}
         exit={{ opacity: 0 }}
       >
         <AnimatePresence>
@@ -40,7 +45,7 @@ const DropdownNav = () => {
             whileHover={"whileHover"}
           >
             <Books />
-            <Link to={"/my-plans"}>My Plans</Link>
+            <Link to={"/plans"}>My Plans</Link>
           </motion.div>
           <motion.div
             variants={verticalListItemsVariants}
@@ -57,24 +62,21 @@ const DropdownNav = () => {
               New Plan
             </Link>
           </motion.div>
-          <motion.div
-            variants={verticalListItemsVariants}
-            custom={3}
-            key={2}
-            initial={"initial"}
-            animate={"animate"}
-            exit={"exit"}
-            whileTap={"whileTap"}
-            whileHover={"whileHover"}
-          >
-            <User />
-            <Link
-              to={`${user ? "account" : "login"}`}
-              className={clsx(user && classes.myAccount)}
+          {!user && (
+            <motion.div
+              variants={verticalListItemsVariants}
+              custom={3}
+              key={2}
+              initial={"initial"}
+              animate={"animate"}
+              exit={"exit"}
+              whileTap={"whileTap"}
+              whileHover={"whileHover"}
             >
-              {user ? "My Account" : "Login"}
-            </Link>
-          </motion.div>
+              <User />
+              <Link to={"/login"}>Login</Link>
+            </motion.div>
+          )}
           {user && (
             <motion.div
               variants={verticalListItemsVariants}

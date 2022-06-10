@@ -109,7 +109,11 @@ const Header = () => {
           </motion.button>
         )}
       </motion.div>
-      <AnimatePresence>{dropdownVisible && <DropdownNav />}</AnimatePresence>
+      <AnimatePresence>
+        {dropdownVisible && (
+          <DropdownNav setDropdownVisible={setDropdownVisible} />
+        )}
+      </AnimatePresence>
     </header>
   );
 };
