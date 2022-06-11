@@ -6,13 +6,16 @@ import clsx from "clsx";
 const PlanSummaryElement = ({
   summaryInfo,
   index,
+  onClick,
 }: {
   summaryInfo: Pick<DietPlan, "planName">;
   index: number;
+  onClick: () => void;
 }) => {
   return (
     <motion.button
       className={clsx("clrGreen", classes.summaryContainer)}
+      onClick={onClick}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
     >

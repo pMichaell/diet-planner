@@ -11,7 +11,7 @@ type PlannerElementProps = {
   weekday: Weekday;
   mealIndex: number;
   onUnpickedClick: (weekday: Weekday, mealIndex: number) => void;
-  onPickedClick: (meal: Meal) => void;
+  onPickedClick: (meal: Meal, mealIndex: number) => void;
   className?: string;
 };
 
@@ -42,7 +42,7 @@ const PlannerElement = ({
         <MealElement
           meal={meal}
           className={classes.mealElement}
-          onClick={() => onPickedClick(meal)}
+          onClick={() => onPickedClick(meal, mealIndex)}
         />
       )}
     </motion.article>

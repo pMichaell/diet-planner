@@ -9,9 +9,10 @@ import clsx from "clsx";
 import { DietPlan } from "../../Models";
 import LoadingSpinner from "../../components/loadingComponents/LoadingSpinner";
 import PlanSummaryElement from "./planSummary/PlanSummaryElement";
+import { useNavigate } from "react-router-dom";
 
 const plansSectionVariants = {
-  initial: { x: "100vw", opacity: 0 },
+  initial: { x: "-1000px", opacity: 0 },
   animate: {
     x: 0,
     opacity: 1,
@@ -24,13 +25,14 @@ const plansSectionVariants = {
   },
 };
 
-const mockData = new Array<{ planName: string }>(8).fill({
+const mockData = new Array<{ planName: string }>(30).fill({
   planName: '"new plan"',
 });
 
 const PlansPage = () => {
   const [plans, setPlans] = useState<DietPlan[] | null>(null);
   const [user] = useAuthState(auth);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getPlans = async () => {
@@ -42,6 +44,30 @@ const PlansPage = () => {
 
     getPlans();
   }, [user]);
+
+  const onPlanClick = (dietPlan: DietPlan) => {
+    localStorage.setItem("mealsCount", JSON.stringify(dietPlan.mealsCount));
+
+    localStorage.setItem("mealNames", JSON.stringify(dietPlan.mealNames));
+
+    localStorage.setItem("planName", JSON.stringify(dietPlan.planName));
+
+    localStorage.setItem("monday", JSON.stringify(dietPlan.monday));
+
+    localStorage.setItem("tuesday", JSON.stringify(dietPlan.tuesday));
+
+    localStorage.setItem("wednesday", JSON.stringify(dietPlan.wednesday));
+
+    localStorage.setItem("thursday", JSON.stringify(dietPlan.thursday));
+
+    localStorage.setItem("friday", JSON.stringify(dietPlan.friday));
+
+    localStorage.setItem("saturday", JSON.stringify(dietPlan.saturday));
+
+    localStorage.setItem("sunday", JSON.stringify(dietPlan.sunday));
+
+    navigate("../planner");
+  };
 
   return (
     <AnimatedPage
@@ -57,6 +83,7 @@ const PlansPage = () => {
           "centerContents",
           "fillParent",
           "curvedBorder",
+          "overflowHidden",
           classes.container
         )}
       >
@@ -78,8 +105,13 @@ const PlansPage = () => {
           className={clsx("fillParent", "flow", classes.plansSection)}
         >
           {plans ? (
-            mockData.map((plan, index) => (
-              <PlanSummaryElement index={index} summaryInfo={plan} />
+            plans.map((plan, index) => (
+              <PlanSummaryElement
+                key={plan.planID}
+                index={index}
+                summaryInfo={plan}
+                onClick={() => onPlanClick(plan)}
+              />
             ))
           ) : (
             <LoadingSpinner weight={"bold"} />

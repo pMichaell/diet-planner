@@ -54,13 +54,19 @@ const Planner = () => {
     navigate("type-picker");
   };
 
-  const onMealElementClick = function onMealElementClick(meal: Meal) {
+  const onMealElementClick = function onMealElementClick(
+    meal: Meal,
+    index: number
+  ) {
     modalContext.setModalSize?.("big");
     modalContext.setModalChildren?.(
       <Suspense fallback={<LoadingSpinner weight={"bold"} center />}>
         <MealModal
           idMeal={meal.idMeal}
-          onClick={() => console.log("clicked")}
+          onClick={() => {
+            mealsContext.removeMeal?.(weekdays[currentIndex], index);
+            modalContext.closeModal?.();
+          }}
           buttonText={"Remove meal"}
         />
       </Suspense>
@@ -69,7 +75,9 @@ const Planner = () => {
   };
 
   const planSubmissionHandler = async () => {
+    navigate("../../plans");
     await submitPlan(user!, planContext, mealsContext);
+    modalContext.closeModal?.();
   };
 
   const onSubmitButtonClick = () => {
@@ -79,7 +87,7 @@ const Planner = () => {
           text={
             "Would you like to submit your meal plan in it's current state?"
           }
-          leftOptionHandler={() => console.log("left clicked")}
+          leftOptionHandler={() => modalContext.closeModal?.()}
           rightOptionHandler={planSubmissionHandler}
           leftOptionText={"No"}
           rightOptionText={"Yes"}

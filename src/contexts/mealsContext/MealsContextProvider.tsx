@@ -1,51 +1,45 @@
 import { Meal, Weekday } from "../../Models";
 import MealsContext, { MealsContextType } from "./MealsContext";
 import { ReactNode, useEffect, useReducer, useState } from "react";
+import { log } from "util";
 
 const mealsCount = +JSON.parse(localStorage.getItem("mealsCount") ?? "5");
 
 const initialState: MealsContextType = {
   monday: new Array<Meal>(mealsCount).fill({
-    strMeal: "Cevapi Sausages",
-    strMealThumb:
-      "https://www.themealdb.com/images/media/meals/vc08jn1628769553.jpg",
-    idMeal: "53055",
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
   }),
   tuesday: new Array<Meal>(mealsCount).fill({
-    strMeal: "Cevapi Sausages",
-    strMealThumb:
-      "https://www.themealdb.com/images/media/meals/vc08jn1628769553.jpg",
-    idMeal: "53055",
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
   }),
   wednesday: new Array<Meal>(mealsCount).fill({
-    strMeal: "Cevapi Sausages",
-    strMealThumb:
-      "https://www.themealdb.com/images/media/meals/vc08jn1628769553.jpg",
-    idMeal: "53055",
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
   }),
   thursday: new Array<Meal>(mealsCount).fill({
-    strMeal: "Cevapi Sausages",
-    strMealThumb:
-      "https://www.themealdb.com/images/media/meals/vc08jn1628769553.jpg",
-    idMeal: "53055",
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
   }),
   friday: new Array<Meal>(mealsCount).fill({
-    strMeal: "Cevapi Sausages",
-    strMealThumb:
-      "https://www.themealdb.com/images/media/meals/vc08jn1628769553.jpg",
-    idMeal: "53055",
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
   }),
   saturday: new Array<Meal>(mealsCount).fill({
-    strMeal: "Cevapi Sausages",
-    strMealThumb:
-      "https://www.themealdb.com/images/media/meals/vc08jn1628769553.jpg",
-    idMeal: "53055",
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
   }),
   sunday: new Array<Meal>(mealsCount).fill({
-    strMeal: "Cevapi Sausages",
-    strMealThumb:
-      "https://www.themealdb.com/images/media/meals/vc08jn1628769553.jpg",
-    idMeal: "53055",
+    strMeal: "",
+    strMealThumb: "",
+    idMeal: "",
   }),
 };
 
@@ -95,12 +89,12 @@ const MealsContextProvider = ({ children }: { children: ReactNode }) => {
   const [allMealsPicked, setAllMealsPicked] = useState<boolean>(false);
 
   useEffect(() => {
-    /*const stateValues = Object.values(state) as Array<Meal[]>;
+    const stateValues = Object.values(state) as Array<Meal[]>;
     const allPicked = stateValues.every((mealArray) =>
       mealArray.every((meal) =>
-        Object.values(meal).every((value) => value !== "")
+        Object.values(meal).some((value) => value !== "")
       )
-    );*/
+    );
     setAllMealsPicked(true);
   }, [state]);
 

@@ -1,11 +1,9 @@
 .summaryContainer {
     width: min(90%, 350px);
-    height: 100%;
+    height: 3em;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 0;
-    min-width: 0;
 }
 
 .planName {
