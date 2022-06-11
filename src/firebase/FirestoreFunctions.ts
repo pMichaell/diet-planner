@@ -6,6 +6,7 @@ import {
   query,
   setDoc,
   where,
+  deleteDoc,
 } from "firebase/firestore";
 import { User } from "firebase/auth";
 import { firestore } from "./Firebase";
@@ -21,33 +22,11 @@ export const createUser = async (user: User) => {
   });
 };
 
-/*const dietPlanConverter: FirestoreDataConverter<DietPlan> = {
-  toFirestore: (dietPlan) => dietPlan,
-
-  fromFirestore: (snapshot, options): DietPlan => {
-    const data = snapshot.data(options);
-    return {
-      planName: data?.planName,
-      mealsCount: data?.mealsCount,
-      mealNames: data?.mealNames,
-      monday: data?.monday,
-      tuesday: data?.tuesday,
-      wednesday: data?.wednesday,
-      thursday: data?.thursday,
-      friday: data?.friday,
-      sunday: data?.sunday,
-      saturday: data?.saturday,
-    };
-  },
-};*/
-
 export const submitPlan = async (
   user: User,
   planMetaData: PlanContextType,
   meals: MealsContextType
 ) => {
-  console.log("plan submit run");
-
   const dietPlan: DietPlan = {
     userID: user.uid,
     planName: planMetaData.planName,
@@ -62,8 +41,12 @@ export const submitPlan = async (
     saturday: meals.saturday,
   };
 
-  const docRef = await addDoc(collection(firestore, "plans"), dietPlan);
-  console.log(`Document written with id ${docRef.id}`);
+  if (planMetaData.planID !== "") {
+    await setDoc(doc(firestore, "plans", planMetaData.planID), dietPlan);
+    return;
+  }
+
+  await addDoc(collection(firestore, "plans"), dietPlan);
 };
 
 export const fetchUserPlans = async function fetchUserPlans(
@@ -77,9 +60,12 @@ export const fetchUserPlans = async function fetchUserPlans(
   return new Promise<DietPlan[]>(async (resolve, reject) => {
     try {
       const querySnapshot = await getDocs(q);
-      const dietPlans = querySnapshot.docs.map((document) =>
-        document.data()
-      ) as DietPlan[];
+      const dietPlans = querySnapshot.docs.map((document) => {
+        return {
+          planID: document.id,
+          ...document.data(),
+        };
+      }) as DietPlan[];
       resolve(dietPlans);
     } catch (e) {
       reject(e);
@@ -87,6 +73,6 @@ export const fetchUserPlans = async function fetchUserPlans(
   });
 };
 
-export const fetchPlanDetails = async function fetchPlanDetails(
-  planID: string
-) {};
+export const deletePlan = async function deletePlan(planID: string) {
+  await deleteDoc(doc(firestore, "plans", planID));
+};

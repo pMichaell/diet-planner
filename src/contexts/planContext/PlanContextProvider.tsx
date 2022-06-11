@@ -3,6 +3,7 @@ import { ReactNode, useEffect, useState } from "react";
 
 const PlanContextProvider = ({ children }: { children: ReactNode }) => {
   const [planState, setPlanState] = useState<PlanContextType>({
+    planID: "",
     planName: "",
     mealsCount: 0,
     mealNames: [],
@@ -21,6 +22,7 @@ const PlanContextProvider = ({ children }: { children: ReactNode }) => {
     const planName = (localStorage.getItem("planName") as string) ?? "";
     const mealsCount = getMealsCount();
     const mealNames = JSON.parse(localStorage.getItem("mealNames") as string);
+    const planID = JSON.parse(localStorage.getItem("planID") ?? "");
 
     setPlanState((prevState) => {
       return {
@@ -28,6 +30,7 @@ const PlanContextProvider = ({ children }: { children: ReactNode }) => {
         planName,
         mealsCount,
         mealNames,
+        planID,
       };
     });
   }, []);

@@ -180,7 +180,6 @@ const Questionnaire = () => {
     sessionStorage.removeItem("mealsCount");
     sessionStorage.removeItem("planName");
   };
-
   const setMealNames = useCallback((data: string[]) => {
     dispatch({ type: "setMealNames", payload: data });
   }, []);

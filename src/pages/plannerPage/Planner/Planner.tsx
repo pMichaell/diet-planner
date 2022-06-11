@@ -76,8 +76,8 @@ const Planner = () => {
 
   const planSubmissionHandler = async () => {
     navigate("../../plans");
-    await submitPlan(user!, planContext, mealsContext);
     modalContext.closeModal?.();
+    await submitPlan(user!, planContext, mealsContext);
   };
 
   const onSubmitButtonClick = () => {

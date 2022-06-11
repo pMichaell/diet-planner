@@ -1,7 +1,6 @@
 import { Meal, Weekday } from "../../Models";
 import MealsContext, { MealsContextType } from "./MealsContext";
 import { ReactNode, useEffect, useReducer, useState } from "react";
-import { log } from "util";
 
 const mealsCount = +JSON.parse(localStorage.getItem("mealsCount") ?? "5");
 
@@ -92,7 +91,7 @@ const MealsContextProvider = ({ children }: { children: ReactNode }) => {
     const stateValues = Object.values(state) as Array<Meal[]>;
     const allPicked = stateValues.every((mealArray) =>
       mealArray.every((meal) =>
-        Object.values(meal).some((value) => value !== "")
+        Object.values(meal).every((value) => value !== "")
       )
     );
     setAllMealsPicked(true);

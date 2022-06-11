@@ -1,5 +1,5 @@
 .summaryContainer {
-    width: min(90%, 350px);
+    width: min(90%, 450px);
     height: 3em;
     display: flex;
     align-items: center;
@@ -8,4 +8,17 @@
 
 .planName {
     flex: 1;
+}
+
+.summaryContainer > em {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1em;
+}
+
+.summaryContainer > button {
+    color: hsl(var(--clr-creamy-green));
+    display: grid;
+    place-items: center;
 }

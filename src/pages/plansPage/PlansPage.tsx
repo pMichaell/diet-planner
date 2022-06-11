@@ -1,6 +1,6 @@
 import classes from "./PlansPage.module.css";
 import { useEffect, useState } from "react";
-import { fetchUserPlans } from "../../firebase/FirestoreFunctions";
+import { deletePlan, fetchUserPlans } from "../../firebase/FirestoreFunctions";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/Firebase";
 import AnimatedPage from "../../components/animatedPage/AnimatedPage";
@@ -25,10 +25,6 @@ const plansSectionVariants = {
   },
 };
 
-const mockData = new Array<{ planName: string }>(30).fill({
-  planName: '"new plan"',
-});
-
 const PlansPage = () => {
   const [plans, setPlans] = useState<DietPlan[] | null>(null);
   const [user] = useAuthState(auth);
@@ -38,6 +34,7 @@ const PlansPage = () => {
     const getPlans = async () => {
       if (user) {
         const fetchedPlans = await fetchUserPlans(user);
+        console.log(fetchedPlans);
         setPlans(fetchedPlans);
       }
     };
@@ -45,7 +42,9 @@ const PlansPage = () => {
     getPlans();
   }, [user]);
 
-  const onPlanClick = (dietPlan: DietPlan) => {
+  const onViewClick = (dietPlan: DietPlan) => {
+    localStorage.setItem("planID", JSON.stringify(dietPlan.planID));
+
     localStorage.setItem("mealsCount", JSON.stringify(dietPlan.mealsCount));
 
     localStorage.setItem("mealNames", JSON.stringify(dietPlan.mealNames));
@@ -67,6 +66,10 @@ const PlansPage = () => {
     localStorage.setItem("sunday", JSON.stringify(dietPlan.sunday));
 
     navigate("../planner");
+  };
+
+  const onDeleteClick = async (planID: string) => {
+    await deletePlan(planID);
   };
 
   return (
@@ -110,7 +113,8 @@ const PlansPage = () => {
                 key={plan.planID}
                 index={index}
                 summaryInfo={plan}
-                onClick={() => onPlanClick(plan)}
+                onViewClick={() => onViewClick(plan)}
+                onDeleteClick={() => onDeleteClick(plan.planID!)}
               />
             ))
           ) : (
