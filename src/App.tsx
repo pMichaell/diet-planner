@@ -80,7 +80,9 @@ function App() {
             path={"plans"}
             element={
               <Suspense
-                fallback={<LoadingSpinner size={"6em"} weight={"bold"} />}
+                fallback={
+                  <LoadingSpinner size={"6em"} weight={"bold"} center />
+                }
               >
                 <RequireAuth>
                   <PlansPage />

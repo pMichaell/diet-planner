@@ -66,15 +66,25 @@ export const submitPlan = async (
   console.log(`Document written with id ${docRef.id}`);
 };
 
-export const fetchUserPlans = async function fetchUserPlans(user: User) {
+export const fetchUserPlans = async function fetchUserPlans(
+  user: User
+): Promise<DietPlan[]> {
   const q = query(
     collection(firestore, "plans"),
     where("userID", "==", user.uid)
   );
 
-  const querySnapshot = await getDocs(q);
-  const dietPlans = querySnapshot.docs.map((document) => document.data());
-  console.log(dietPlans);
+  return new Promise<DietPlan[]>(async (resolve, reject) => {
+    try {
+      const querySnapshot = await getDocs(q);
+      const dietPlans = querySnapshot.docs.map((document) =>
+        document.data()
+      ) as DietPlan[];
+      resolve(dietPlans);
+    } catch (e) {
+      reject(e);
+    }
+  });
 };
 
 export const fetchPlanDetails = async function fetchPlanDetails(
