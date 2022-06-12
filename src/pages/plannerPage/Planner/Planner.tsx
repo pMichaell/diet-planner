@@ -78,6 +78,7 @@ const Planner = () => {
     navigate("../../plans");
     modalContext.closeModal?.();
     await submitPlan(user!, planContext, mealsContext);
+    localStorage.clear();
   };
 
   const onSubmitButtonClick = () => {

@@ -1,8 +1,8 @@
 import classes from "./PlansPage.module.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { deletePlan, fetchUserPlans } from "../../firebase/FirestoreFunctions";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase/Firebase";
+import { auth, firestore } from "../../firebase/Firebase";
 import AnimatedPage from "../../components/animatedPage/AnimatedPage";
 import { motion } from "framer-motion";
 import clsx from "clsx";
@@ -10,6 +10,9 @@ import { DietPlan } from "../../Models";
 import LoadingSpinner from "../../components/loadingComponents/LoadingSpinner";
 import PlanSummaryElement from "./planSummary/PlanSummaryElement";
 import { useNavigate } from "react-router-dom";
+import ModalContext from "../../contexts/modalContext/ModalContext";
+import NotificationModal from "../../components/modal/modalVariants/notificationModal/NotificationModal";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 
 const plansSectionVariants = {
   initial: { x: "-1000px", opacity: 0 },
@@ -28,6 +31,7 @@ const plansSectionVariants = {
 const PlansPage = () => {
   const [plans, setPlans] = useState<DietPlan[] | null>(null);
   const [user] = useAuthState(auth);
+  const modalContext = useContext(ModalContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,8 +72,25 @@ const PlansPage = () => {
     navigate("../planner");
   };
 
-  const onDeleteClick = async (planID: string) => {
+  const modalClickHandler = async (planID: string) => {
     await deletePlan(planID);
+    if (user) {
+      const fetchedPlans = await fetchUserPlans(user);
+      setPlans(fetchedPlans);
+    }
+    modalContext.closeModal?.();
+  };
+
+  const onDeleteClick = async (planID: string) => {
+    modalContext.setModalChildren?.(
+      <NotificationModal
+        notificationText={"Are you sure, that you want to delete this plan?"}
+        buttonText={"Yes"}
+        onClick={() => modalClickHandler(planID)}
+      />
+    );
+
+    modalContext.openModal?.();
   };
 
   return (

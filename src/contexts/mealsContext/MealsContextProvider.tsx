@@ -1,6 +1,7 @@
 import { Meal, Weekday } from "../../Models";
 import MealsContext, { MealsContextType } from "./MealsContext";
 import { ReactNode, useEffect, useReducer, useState } from "react";
+import { log } from "util";
 
 const mealsCount = +JSON.parse(localStorage.getItem("mealsCount") ?? "5");
 
@@ -75,7 +76,11 @@ const reducer = function reducer(state: MealsContextType, action: ACTION_TYPE) {
       };
     case "removeMeal":
       let toDeleteArr = state[action.payload.weekday];
-      toDeleteArr.splice(action.payload.mealIndex, 1);
+      toDeleteArr[action.payload.mealIndex] = {
+        strMeal: "",
+        idMeal: "",
+        strMealThumb: "",
+      };
       return {
         ...state,
         [action.payload.weekday]: toDeleteArr,
@@ -94,7 +99,7 @@ const MealsContextProvider = ({ children }: { children: ReactNode }) => {
         Object.values(meal).every((value) => value !== "")
       )
     );
-    setAllMealsPicked(true);
+    setAllMealsPicked(allPicked);
   }, [state]);
 
   const setMeal = function setMeal(

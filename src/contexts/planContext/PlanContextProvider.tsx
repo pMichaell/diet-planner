@@ -9,6 +9,8 @@ const PlanContextProvider = ({ children }: { children: ReactNode }) => {
     mealNames: [],
   });
 
+  //TODO add init function instead of useEffect
+
   useEffect(() => {
     const getMealsCount = function getMealsCount(): number {
       const saved = localStorage.getItem("mealsCount");
@@ -22,7 +24,12 @@ const PlanContextProvider = ({ children }: { children: ReactNode }) => {
     const planName = (localStorage.getItem("planName") as string) ?? "";
     const mealsCount = getMealsCount();
     const mealNames = JSON.parse(localStorage.getItem("mealNames") as string);
-    const planID = JSON.parse(localStorage.getItem("planID") ?? "");
+    let planID: string;
+    if (localStorage.getItem("planID")) {
+      planID = JSON.parse(localStorage.getItem("planID")!);
+    } else {
+      planID = "";
+    }
 
     setPlanState((prevState) => {
       return {

@@ -28,8 +28,8 @@ function App() {
   const { modalOpen } = useContext(ModalContext);
   //TODO keep render functions pure
   //TODO Cleanup useEffects
+  //TODO add localStorage manager hook
 
-  console.log("App re-render");
   return (
     <Layout>
       <AnimatePresence>
